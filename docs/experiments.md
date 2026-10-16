@@ -15,6 +15,7 @@
 | :---: | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
 | **00** | Initial Baseline Skeleton | Repository setup, pipeline scaffold & metric validation | - | - | - | - | Pipeline initialized & verified. |
 | **01** | Data Pipeline & Sampler | YOLO-OBB 8-point parser, 360° rotation invariance, copy-paste rare CFCBK | - | - | - | - | Verified OBB geometry transforms, clockwise vertex ordering, and 30x class weight balancing for rare CFCBK. |
+| **02** | Metric Engine (Rotated IoU) | Shapely polygon IoU + DOTA-style all-point interpolated AP with equal 1/3 macro-average | 1.0000 | 1.0000 | 1.0000 | 1.0000 | Verified exact competition metric: polygon IoU >= 0.5, precision envelope integration, and equal weighting across FCBK, CFCBK, Zigzag. |
 
 ---
 
@@ -34,3 +35,10 @@
   - `src/data/sampler.py`: Dynamic inverse frequency class weighting (CFCBK weight $\approx 13.7$ vs FCBK $\approx 0.5$) and copy-paste kiln synthesis.
   - `tests/test_data.py`: Comprehensive test suite verifying all transforms and split distributions.
 - **Outcome**: All tests passed with 100% precision on coordinate conversions. Ready for metric engine benchmarking.
+
+### Exp 02: Rotated IoU & DOTA All-Point Interpolated AP Metric Engine
+- **Hypothesis**: Competition leaderboard uses DOTA-style continuous all-point interpolation on rotated-box IoU $\ge 0.5$ and assigns equal 1/3 weight to each class (CFCBK = 33.3%). Metric implementation must rigorously match this behavior.
+- **Implementation**:
+  - `src/scorer.py`: Robust `polygon_iou` using Shapely with geometry validation fallback; continuous all-point trapezoidal area integration; CLI supporting CSV or YOLO-OBB label directories.
+  - `tests/test_scorer.py`: Unit tests validating identical boxes (IoU 1.0), disjoint boxes (IoU 0.0), $45^\circ$ rotated boxes (IoU 0.5), precision envelope monotonicity, and equal 1/3 macro-averaging proof ($mAP = 0.6667$ when 2 classes perfect and CFCBK missed).
+- **Outcome**: Passed all 6 test suites. Metric engine is rock-solid and verified. Ready for baseline model training.

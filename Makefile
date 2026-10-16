@@ -30,7 +30,7 @@ infer:
 	$(PYTHON) src/infer.py --config configs/train.yaml
 
 score:
-	$(PYTHON) src/scorer.py --preds submission.csv --targets data/val/labels
+	$(PYTHON) src/scorer.py --preds submission.csv --targets data/labels/val
 
 brief:
 	$(PYTHON) brief/analysis.py --detections submission.csv --out-dir brief/outputs
