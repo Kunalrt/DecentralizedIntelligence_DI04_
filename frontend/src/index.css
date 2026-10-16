@@ -77,3 +77,18 @@ body {
   border-bottom: 16px solid #188038 !important;
   border-top: none !important;
 }
+
+/* Print optimizations for Inspector Farida Khan's field sheet */
+@media print {
+  body {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+  header, footer, nav, .no-print {
+    display: none !important;
+  }
+  @page {
+    margin: 0.8cm;
+    size: A4 portrait;
+  }
+}
