@@ -33,8 +33,9 @@
   - `src/data/dataset.py`: Clockwise corner sorting, OBB to $(cx, cy, w, h, \theta)$ conversion, YOLO-OBB label parser.
   - `src/data/augment.py`: Geometric rotation, horizontal/vertical reflection, spectral jitter for domain shift.
   - `src/data/sampler.py`: Dynamic inverse frequency class weighting (CFCBK weight $\approx 13.7$ vs FCBK $\approx 0.5$) and copy-paste kiln synthesis.
+  - `src/data/check_data.py`: Audit verification matching NeurIPS 2025 SentinelKilnDB reference stats (FCBK: 33,963 unique kilns, Zigzag: 26,764 unique kilns, CFCBK: 1,944 unique kilns, 41,068 kiln-free tiles, 114,300 total tiles). Implements spatial region grouping (preventing data leakage across the 30 px tile overlaps) and generates 12-tile sample visualization.
   - `tests/test_data.py`: Comprehensive test suite verifying all transforms and split distributions.
-- **Outcome**: All tests passed with 100% precision on coordinate conversions. Ready for metric engine benchmarking.
+- **Outcome**: All tests passed with 100% precision on coordinate conversions. Audit script and 12-tile OBB visualization saved to `docs/sample_tiles.png`. Ready for metric engine benchmarking.
 
 ### Exp 02: Rotated IoU & DOTA All-Point Interpolated AP Metric Engine
 - **Hypothesis**: Competition leaderboard uses DOTA-style continuous all-point interpolation on rotated-box IoU $\ge 0.5$ and assigns equal 1/3 weight to each class (CFCBK = 33.3%). Metric implementation must rigorously match this behavior.
