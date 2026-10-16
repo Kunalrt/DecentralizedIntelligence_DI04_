@@ -27,6 +27,8 @@ FILES=(
   "experiments.json"
   "summary_stats.json"
   "map.png"
+  "preview_p1.png"
+  "preview_p2.png"
   "inspector_brief.pdf"
 )
 
