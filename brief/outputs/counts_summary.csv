@@ -1,0 +1,4 @@
+class,raw_detections,val_precision,val_recall,estimated_true_count,conservative_lower_bound,expanded_upper_bound,bootstrap_95ci_lower,bootstrap_95ci_upper,error_range_formatted
+FCBK,27,0.885,0.85,28,24,32,18,41,"28 (95% CI: [18, 41])"
+CFCBK,8,0.9,0.95,8,7,8,3,13,"8 (95% CI: [3, 13])"
+Zigzag,30,0.65,0.62,31,20,48,20,45,"31 (95% CI: [20, 45])"

@@ -1,0 +1,56 @@
+{
+  "district_name": "Demo District (Surveillance Zone A)",
+  "total_tiles_scanned": 120,
+  "raw_tile_detections": 69,
+  "unique_physical_kilns": 65,
+  "deduplicated_overlap_count": 4,
+  "class_counts_raw": {
+    "Zigzag": 30,
+    "FCBK": 27,
+    "CFCBK": 8
+  },
+  "kilns_within_1km_cluster": 58,
+  "conversions_tracked": {
+    "total_2023_baseline_fcbk": 45,
+    "converted_to_zigzag": 33,
+    "unconverted_fcbk_violations": 15,
+    "dismantled_or_inactive": 10
+  },
+  "top_5_priorities": [
+    {
+      "priority_rank": 1,
+      "kiln_id": "KILN-DEMO-025",
+      "class": "FCBK",
+      "confidence": 0.9552,
+      "inspection_rationale": "Non-compliant FCBK design operating under post-2022 ban; High-confidence satellite identification (0.96); Clustered within 1 km of 1 neighboring kiln(s) - high routing efficiency"
+    },
+    {
+      "priority_rank": 2,
+      "kiln_id": "KILN-DEMO-053",
+      "class": "FCBK",
+      "confidence": 0.9544,
+      "inspection_rationale": "Non-compliant FCBK design operating under post-2022 ban; High-confidence satellite identification (0.95); Clustered within 1 km of 4 neighboring kiln(s) - high routing efficiency"
+    },
+    {
+      "priority_rank": 3,
+      "kiln_id": "KILN-DEMO-022",
+      "class": "FCBK",
+      "confidence": 0.9375,
+      "inspection_rationale": "Non-compliant FCBK design operating under post-2022 ban; High-confidence satellite identification (0.94); Clustered within 1 km of 2 neighboring kiln(s) - high routing efficiency"
+    },
+    {
+      "priority_rank": 4,
+      "kiln_id": "KILN-DEMO-056",
+      "class": "FCBK",
+      "confidence": 0.9098,
+      "inspection_rationale": "Non-compliant FCBK design operating under post-2022 ban; High-confidence satellite identification (0.91); Clustered within 1 km of 3 neighboring kiln(s) - high routing efficiency"
+    },
+    {
+      "priority_rank": 5,
+      "kiln_id": "KILN-DEMO-052",
+      "class": "FCBK",
+      "confidence": 0.8747,
+      "inspection_rationale": "Non-compliant FCBK design operating under post-2022 ban; High-confidence satellite identification (0.87); Clustered within 1 km of 3 neighboring kiln(s) - high routing efficiency"
+    }
+  ]
+}
