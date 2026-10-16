@@ -1,5 +1,5 @@
-# Data & Datasets
-data/
+# Data & Datasets (anchor to root only)
+/data/
 *.zip
 *.tar
 *.tar.gz
