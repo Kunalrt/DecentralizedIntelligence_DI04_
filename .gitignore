@@ -1,0 +1,54 @@
+# Data & Datasets
+data/
+*.zip
+*.tar
+*.tar.gz
+*.parquet
+
+# Model Weights & Runs
+weights/*
+!weights/.gitkeep
+runs/
+*.pt
+*.pth
+*.onnx
+*.engine
+
+# Python cache & environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.env
+.venv/
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+*-checkpoint.ipynb
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+scratch/
+.system_generated/

@@ -1,0 +1,20 @@
+# Chimney Census Dataset Configuration (SentinelKilnDB)
+# Satellite RGB tiles (128x128 px, 10 m/pixel)
+# Labels: YOLO-OBB format (class_idx x1 y1 x2 y2 x3 y3 x4 y4 normalized)
+
+path: ./data
+train: images/train
+val: images/val
+test: images/test
+
+# Classes (Macro-averaged mAP metric treats each class with 1/3 weight)
+names:
+  0: FCBK     # Fixed Chimney Bull's Trench Kiln (oval, older, dominant)
+  1: CFCBK    # Circular Fixed Chimney Bull's Trench Kiln (circular, rare ~3%)
+  2: Zigzag   # Zigzag Kiln (rectangle, cleaner technology conversion)
+
+# Metadata
+metadata:
+  input_size: 128
+  resolution_m_per_px: 10
+  source: "SentinelKilnDB by Mondal et al., Sustainability Lab, IIT Gandhinagar (NeurIPS 2025)"
