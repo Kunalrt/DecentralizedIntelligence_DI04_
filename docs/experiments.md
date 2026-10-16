@@ -18,6 +18,7 @@
 | **02** | Metric Engine (Rotated IoU) | Shapely polygon IoU + DOTA-style all-point interpolated AP with equal 1/3 macro-average | 1.0000 | 1.0000 | 1.0000 | 1.0000 | Verified exact competition metric: polygon IoU >= 0.5, precision envelope integration, and equal weighting across FCBK, CFCBK, Zigzag. |
 | **03** | YOLO11s-OBB Baseline | Pretrained YOLO11s-OBB, imgsz=128, 30 epochs, AMP=true, low conf=0.001 | 0.4556 | 0.9667 | 0.0000 | 0.4000 | Baseline converged rapidly. FCBK AP is very strong (0.9667), Zigzag moderate (0.4000), but rare CFCBK (~3%) is 0.0000, dragging down macro mAP. Directly justifies Step 6 resolution scaling and CFCBK oversampling. |
 | **04** | Inference Engine & Latency Benchmark | conf=0.001, max_det=100, NMS=0.5, schema validator, 8k latency extrapolation | - | - | - | - | Extrapolated 8,000-tile inference latency is ~25-35s (0.4-0.6 min), easily exceeding the <=15 min T4 budget (14.4+ min margin). Validated 11/11 schema rules. |
+| **05** | Exp 6a: Upscale Input (imgsz=256) | Doubling resolution to 256px to resolve tiny 12x6 px kiln footprints | 0.5250 | 1.0000 | 0.0000 | 0.5750 | Massive +0.0694 jump in mAP@0.5! Zigzag AP surged +17.5% (0.4000 -> 0.5750), FCBK reached perfect 1.0000. Inference latency remains ultra-fast (1.3ms/tile). Keep change! |
 
 ---
 
@@ -73,3 +74,14 @@
   - Safety Margin: **14.41+ minutes** of headroom remaining!
 - **Schema Validation**: Passed 11/11 schema rules: verified zero NaNs, exact column order, valid class labels (`FCBK`, `CFCBK`, `Zigzag`), normalized 0-1 bounds, and clockwise corner ordering.
 - **Outcome**: Confirmed that heavy test-time augmentations (TTA) and multi-scale inputs in Step 6 are easily affordable within our time budget.
+
+### Exp 05: Experiment 6a - Input Resolution Upscaling (imgsz=256)
+- **Hypothesis**: Satellite brick kilns measure only ~12x6 pixels at 128x128 resolution, causing backbone feature maps (stride 32) to lose spatial extent. Upscaling to 256px doubles the physical pixel density ($24 \times 12$ px), allowing P3/P4 detection heads to preserve orientation geometry and contour boundaries.
+- **Settings**:
+  - Model: `yolo11s-obb.pt`, `imgsz=256`, `epochs=30`, `batch=32`, `amp=true`
+- **Validation Evaluation (Custom Scorer @ conf=0.001)**:
+  - **Macro-Averaged mAP@0.5**: `0.5250` (**+0.0694** over baseline 0.4556)
+  - **AP_FCBK**: `1.0000` (+0.0333, perfect precision-recall envelope)
+  - **AP_Zigzag**: `0.5750` (**+0.1750**, huge improvement in rectangular kiln discrimination)
+  - **AP_CFCBK**: `0.0000` (Remains the primary target for Exp 6c copy-paste oversampling)
+- **Outcome**: Decisive improvement across all active classes. Decision: **KEEP** imgsz=256 as our new standard input resolution.

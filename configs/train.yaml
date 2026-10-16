@@ -5,8 +5,8 @@ model:
 
 data:
   config_path: "configs/data.yaml"
-  imgsz: 128
-  batch_size: 64
+  imgsz: 256
+  batch_size: 32
   workers: 2
 
 train:

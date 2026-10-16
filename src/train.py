@@ -14,7 +14,7 @@ import os
 import shutil
 import sys
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import yaml
 import torch
 
@@ -91,7 +91,7 @@ def evaluate_val_split_with_custom_scorer(model, data_dir: Path, conf_thresh: fl
     return metrics
 
 
-def train_model(config_path: str):
+def train_model(config_path: str, run_name: Optional[str] = None):
     with open(config_path, "r", encoding="utf-8") as f:
         cfg = yaml.safe_load(f)
 
@@ -122,16 +122,16 @@ def train_model(config_path: str):
     train_args["workers"] = cfg["data"].get("workers", 2)
     train_args["device"] = device
     train_args["project"] = "runs/detect"
-    train_args["name"] = "baseline_obb"
+    train_args["name"] = run_name or cfg.get("train", {}).get("name", "baseline_obb")
     train_args["exist_ok"] = True
 
-    print(f"[INFO] Commencing training on {resolved_data_yaml} (epochs={train_args.get('epochs', 30)}, imgsz={train_args['imgsz']}, AMP={train_args.get('amp', True)})...")
+    print(f"[INFO] Commencing training on {resolved_data_yaml} (name={train_args['name']}, epochs={train_args.get('epochs', 30)}, imgsz={train_args['imgsz']}, AMP={train_args.get('amp', True)})...")
     results = model.train(data=str(resolved_data_yaml), **train_args)
 
     # 5. Persist best weights
     weights_dir = PROJECT_ROOT / "weights"
     weights_dir.mkdir(parents=True, exist_ok=True)
-    best_weight_candidate = Path(results.save_dir) / "weights" / "best.pt" if hasattr(results, "save_dir") else Path("runs/obb/runs/detect/baseline_obb/weights/best.pt")
+    best_weight_candidate = Path(results.save_dir) / "weights" / "best.pt" if hasattr(results, "save_dir") else Path(f"runs/obb/runs/detect/{train_args['name']}/weights/best.pt")
     if best_weight_candidate.exists():
         shutil.copy(best_weight_candidate, weights_dir / "best.pt")
         print(f"[SUCCESS] Saved best model checkpoint to {(weights_dir / 'best.pt').resolve()}")
@@ -149,11 +149,12 @@ def train_model(config_path: str):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Train Chimney Census YOLO-OBB Baseline")
+    parser = argparse.ArgumentParser(description="Train Chimney Census YOLO-OBB")
     parser.add_argument("--config", type=str, default="configs/train.yaml", help="Path to training config YAML")
+    parser.add_argument("--name", type=str, default=None, help="Experiment name")
     args = parser.parse_args()
 
-    train_model(args.config)
+    train_model(args.config, run_name=args.name)
 
 
 if __name__ == "__main__":
