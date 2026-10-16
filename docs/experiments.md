@@ -149,3 +149,17 @@
 - **Outcome**: Produced publication-quality 2-page PDF (`inspector_brief.pdf`) with 150 DPI preview renderings (`preview_p1.png`, `preview_p2.png`). All quality assertions verified.
 
 
+### Bug: NaN in exported JSON, cause and fix
+- **Symptoms**: Frontend threw `Data Synchronization Error: Unexpected token 'N', ..."kiln_id": NaN, "... is not valid JSON`.
+- **Root Cause**:
+  1. In `brief/analysis.py`, `conversion_df.iterrows()` yielded pandas Series where missing values for historical kilns dismantled/inactive in current imagery were `np.nan`.
+  2. Python's standard `json.dump` defaults to `allow_nan=True`, serializing float `NaN` directly as the bare token `NaN`, which is invalid JSON under RFC 8259.
+  3. Features in `kilns.geojson` were missing the explicit `"kiln_id"` property (only `"id"` was present).
+- **Fix**:
+  1. **Source Export Cleaning**: Added recursive `clean_nans_to_none(obj)` in `brief/analysis.py` converting all float `NaN`/`Inf` and `pd.NA` to `None` (`null` in standard JSON).
+  2. **Fail Loudly**: Specified `allow_nan=False` on all `json.dump` calls so any uncleaned float NaN triggers an immediate `ValueError` at export time.
+  3. **Stable Kiln IDs**: Enforced stable, unique string IDs across both GeoJSON layers and CSVs, asserting cross-file integrity. Unmatched detections strictly receive `prev_class = null, converted = false`.
+  4. **Validation Pipeline**: Added `scripts/validate_outputs.py` with strict constant parsing (`parse_constant` raising on `NaN`), bounds checks, and count cross-checks, executed automatically at the end of `make brief` and `frontend/scripts/sync_data.sh`.
+  5. **Frontend Hardening**: Hardened `dataLoader.ts` to fetch as text first, provide informative error messages identifying the failing file, and use a fallback regex sanitizer that repairs bare `NaN`/`Infinity` values with a warning banner (`"Data file contained invalid values and was repaired. Re-export it."`). Added Vitest unit test asserting repair and page rendering.
+
+

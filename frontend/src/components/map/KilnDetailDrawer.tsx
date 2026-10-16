@@ -38,7 +38,10 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
       ? KILN_COLORS.Zigzag
       : KILN_COLORS.CFCBK;
 
-  const coordString = `${kiln.lat.toFixed(5)}, ${kiln.lon.toFixed(5)}`;
+  const coordString =
+    kiln.lat != null && kiln.lon != null
+      ? `${kiln.lat.toFixed(5)}, ${kiln.lon.toFixed(5)}`
+      : 'n/a';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(coordString);
@@ -48,6 +51,8 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
 
   const isFcbk = kiln.class === 'FCBK';
   const isZigzag = kiln.class === 'Zigzag';
+  const kilnId = kiln.id || kiln.kiln_id || 'n/a';
+  const kilnClass = kiln.class || 'n/a';
 
   return (
     <div className="absolute top-4 right-4 z-[1000] w-80 sm:w-96 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-slate-200/90 overflow-hidden flex flex-col max-h-[calc(100%-2rem)] animate-in fade-in slide-in-from-right duration-200">
@@ -63,11 +68,11 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
               style={{ backgroundColor: color }}
             />
             <span className="font-mono text-xs font-bold text-slate-500 uppercase">
-              {kiln.id}
+              {kilnId}
             </span>
           </div>
           <h3 className="text-base font-extrabold text-slate-900 m-0">
-            {kiln.class} Kiln
+            {kilnClass} Kiln
           </h3>
           <p className="text-xs text-slate-500 m-0">
             {KILN_DESCRIPTIONS[kiln.class]?.legalStatus || 'Active Industrial Kiln'}
@@ -154,13 +159,13 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
           <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70">
             <div className="text-[11px] text-slate-500 font-medium">Confidence Score</div>
             <div className="text-base font-extrabold text-slate-900 mt-0.5">
-              {(kiln.score * 100).toFixed(1)}%
+              {kiln.score != null ? `${(kiln.score * 100).toFixed(1)}%` : 'n/a'}
             </div>
             <div className="w-full bg-slate-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{
-                  width: `${Math.min(100, Math.max(10, kiln.score * 100))}%`,
+                  width: `${Math.min(100, Math.max(10, (kiln.score ?? 0) * 100))}%`,
                   backgroundColor: color,
                 }}
               />
@@ -171,7 +176,7 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
           <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70">
             <div className="text-[11px] text-slate-500 font-medium">Spatial Cluster</div>
             <div className="text-sm font-extrabold text-slate-900 mt-0.5 truncate">
-              {kiln.cluster_id || 'Isolated'}
+              {kiln.cluster_id || 'n/a'}
             </div>
             <div className="text-[10px] text-slate-500 mt-1">
               {kiln.near_1km ? 'Within 1.0 km neighbor' : 'Isolated site'}
@@ -186,7 +191,7 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
               <Compass className="w-3.5 h-3.5 text-slate-500" />
               <span>Field Inspection Rationale</span>
             </div>
-            <p className="text-slate-600 text-[11px] leading-relaxed m-0">{kiln.why}</p>
+            <p className="text-slate-600 text-[11px] leading-relaxed m-0">{kiln.why || 'n/a'}</p>
           </div>
         )}
 
@@ -197,14 +202,14 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
               2023–24 Baseline Association
             </div>
             <div className="text-[11px] text-slate-600">
-              Matched Site: <strong>{historicalMatch.id}</strong> (
-              {historicalMatch.distance_to_historical_m
+              Matched Site: <strong>{historicalMatch.id || historicalMatch.kiln_id || 'n/a'}</strong> (
+              {historicalMatch.distance_to_historical_m != null
                 ? `${historicalMatch.distance_to_historical_m.toFixed(1)} m gap`
                 : 'Exact match'}
               )
             </div>
             <div className="text-[10px] text-slate-500 italic">
-              Status: {historicalMatch.status}
+              Status: {historicalMatch.status || 'n/a'}
             </div>
           </div>
         )}
@@ -213,7 +218,7 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
       {/* Drawer Action Buttons Footer */}
       <div className="p-3 border-t border-slate-200 bg-slate-50 flex items-center justify-between gap-2">
         <button
-          onClick={() => onCenterOnMap(kiln.lat, kiln.lon)}
+          onClick={() => onCenterOnMap(kiln.lat ?? 0, kiln.lon ?? 0)}
           className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white text-slate-800 border border-slate-300 rounded-lg text-xs font-semibold hover:bg-slate-100 transition shadow-xs"
         >
           <Crosshair className="w-3.5 h-3.5 text-brand-primary" />
@@ -221,7 +226,7 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
         </button>
 
         <a
-          href={`https://www.openstreetmap.org/?mlat=${kiln.lat}&mlon=${kiln.lon}#map=16/${kiln.lat}/${kiln.lon}`}
+          href={`https://www.openstreetmap.org/?mlat=${kiln.lat ?? 0}&mlon=${kiln.lon ?? 0}#map=16/${kiln.lat ?? 0}/${kiln.lon ?? 0}`}
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-brand-primary text-white rounded-lg text-xs font-semibold hover:bg-blue-600 transition shadow-xs"

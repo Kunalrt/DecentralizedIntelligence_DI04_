@@ -113,7 +113,11 @@ To re-run the Inspector's Brief analytical engine:
 ```bash
 python brief/analysis.py --detections submission.csv --out-dir brief/outputs
 python brief/build_brief.py
+python scripts/validate_outputs.py
 ```
+
+> [!IMPORTANT]
+> **Data Integrity Rule**: Always export with `allow_nan=False` (never emit bare `NaN` or `Infinity` tokens, which are invalid in JSON) and run `scripts/validate_outputs.py` before syncing data to the frontend or publishing deliverables.
 
 ---
 

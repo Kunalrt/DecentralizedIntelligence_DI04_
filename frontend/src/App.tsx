@@ -12,7 +12,7 @@ import { MethodPage } from './pages/MethodPage';
 import { DownloadsPage } from './pages/DownloadsPage';
 
 const AppContent: React.FC = () => {
-  const { loading, error, reload } = useData();
+  const { data, loading, error, reload } = useData();
   const [activeTab, setActiveTab] = useState<TabKey>('overview');
 
   // Sync activeTab with URL hash for shareable links
@@ -39,6 +39,19 @@ const AppContent: React.FC = () => {
       <Header activeTab={activeTab} onSelectTab={handleSelectTab} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        {data?.dataWarning && (
+          <div
+            id="data-repair-warning"
+            role="alert"
+            className="mb-4 p-3 bg-amber-50 border border-amber-300 text-amber-900 rounded-lg flex items-center justify-between text-xs font-semibold shadow-xs animate-in fade-in"
+          >
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse flex-shrink-0" />
+              <span>{data.dataWarning}</span>
+            </div>
+          </div>
+        )}
+
         {loading && <LoadingState />}
         {error && !loading && <ErrorState message={error} onRetry={reload} />}
         {!loading && !error && (

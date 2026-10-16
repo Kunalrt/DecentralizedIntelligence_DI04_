@@ -6,6 +6,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-025",
+        "kiln_id": "KILN-DEMO-025",
         "class": "FCBK",
         "score": 0.9552,
         "lat": 28.56011,
@@ -50,6 +51,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-053",
+        "kiln_id": "KILN-DEMO-053",
         "class": "FCBK",
         "score": 0.9544,
         "lat": 28.61186,
@@ -94,6 +96,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-040",
+        "kiln_id": "KILN-DEMO-040",
         "class": "Zigzag",
         "score": 0.9484,
         "lat": 28.61756,
@@ -138,6 +141,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-006",
+        "kiln_id": "KILN-DEMO-006",
         "class": "Zigzag",
         "score": 0.944,
         "lat": 28.57221,
@@ -182,6 +186,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-004",
+        "kiln_id": "KILN-DEMO-004",
         "class": "Zigzag",
         "score": 0.942,
         "lat": 28.59259,
@@ -226,6 +231,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-029",
+        "kiln_id": "KILN-DEMO-029",
         "class": "FCBK",
         "score": 0.9389,
         "lat": 28.64168,
@@ -270,6 +276,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-022",
+        "kiln_id": "KILN-DEMO-022",
         "class": "FCBK",
         "score": 0.9375,
         "lat": 28.62286,
@@ -314,6 +321,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-034",
+        "kiln_id": "KILN-DEMO-034",
         "class": "CFCBK",
         "score": 0.9366,
         "lat": 28.63905,
@@ -358,6 +366,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-064",
+        "kiln_id": "KILN-DEMO-064",
         "class": "CFCBK",
         "score": 0.9328,
         "lat": 28.5979,
@@ -402,6 +411,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-032",
+        "kiln_id": "KILN-DEMO-032",
         "class": "FCBK",
         "score": 0.9311,
         "lat": 28.62078,
@@ -446,6 +456,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-038",
+        "kiln_id": "KILN-DEMO-038",
         "class": "Zigzag",
         "score": 0.9275,
         "lat": 28.61808,
@@ -490,6 +501,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-015",
+        "kiln_id": "KILN-DEMO-015",
         "class": "Zigzag",
         "score": 0.9122,
         "lat": 28.59205,
@@ -534,6 +546,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-056",
+        "kiln_id": "KILN-DEMO-056",
         "class": "FCBK",
         "score": 0.9098,
         "lat": 28.60109,
@@ -578,6 +591,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-030",
+        "kiln_id": "KILN-DEMO-030",
         "class": "FCBK",
         "score": 0.9014,
         "lat": 28.61137,
@@ -622,6 +636,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-048",
+        "kiln_id": "KILN-DEMO-048",
         "class": "FCBK",
         "score": 0.9014,
         "lat": 28.61167,
@@ -666,6 +681,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-052",
+        "kiln_id": "KILN-DEMO-052",
         "class": "FCBK",
         "score": 0.8747,
         "lat": 28.60813,
@@ -710,6 +726,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-050",
+        "kiln_id": "KILN-DEMO-050",
         "class": "CFCBK",
         "score": 0.8738,
         "lat": 28.60656,
@@ -754,6 +771,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-028",
+        "kiln_id": "KILN-DEMO-028",
         "class": "FCBK",
         "score": 0.8673,
         "lat": 28.63773,
@@ -798,6 +816,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-018",
+        "kiln_id": "KILN-DEMO-018",
         "class": "FCBK",
         "score": 0.8627,
         "lat": 28.61875,
@@ -842,6 +861,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-009",
+        "kiln_id": "KILN-DEMO-009",
         "class": "Zigzag",
         "score": 0.861,
         "lat": 28.60752,
@@ -886,6 +906,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-023",
+        "kiln_id": "KILN-DEMO-023",
         "class": "FCBK",
         "score": 0.854,
         "lat": 28.61803,
@@ -930,6 +951,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-047",
+        "kiln_id": "KILN-DEMO-047",
         "class": "FCBK",
         "score": 0.8468,
         "lat": 28.61114,
@@ -974,6 +996,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-000",
+        "kiln_id": "KILN-DEMO-000",
         "class": "Zigzag",
         "score": 0.8431,
         "lat": 28.61261,
@@ -1018,6 +1041,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-014",
+        "kiln_id": "KILN-DEMO-014",
         "class": "Zigzag",
         "score": 0.8404,
         "lat": 28.59343,
@@ -1062,6 +1086,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-042",
+        "kiln_id": "KILN-DEMO-042",
         "class": "FCBK",
         "score": 0.8402,
         "lat": 28.61674,
@@ -1106,6 +1131,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-058",
+        "kiln_id": "KILN-DEMO-058",
         "class": "Zigzag",
         "score": 0.8363,
         "lat": 28.60214,
@@ -1150,6 +1176,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-002",
+        "kiln_id": "KILN-DEMO-002",
         "class": "Zigzag",
         "score": 0.83,
         "lat": 28.63173,
@@ -1194,6 +1221,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-007",
+        "kiln_id": "KILN-DEMO-007",
         "class": "Zigzag",
         "score": 0.8219,
         "lat": 28.62958,
@@ -1238,6 +1266,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-016",
+        "kiln_id": "KILN-DEMO-016",
         "class": "Zigzag",
         "score": 0.8141,
         "lat": 28.63988,
@@ -1282,6 +1311,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-027",
+        "kiln_id": "KILN-DEMO-027",
         "class": "FCBK",
         "score": 0.8139,
         "lat": 28.59299,
@@ -1326,6 +1356,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-057",
+        "kiln_id": "KILN-DEMO-057",
         "class": "FCBK",
         "score": 0.8051,
         "lat": 28.60287,
@@ -1370,6 +1401,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-046",
+        "kiln_id": "KILN-DEMO-046",
         "class": "Zigzag",
         "score": 0.803,
         "lat": 28.60981,
@@ -1414,6 +1446,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-001",
+        "kiln_id": "KILN-DEMO-001",
         "class": "Zigzag",
         "score": 0.8023,
         "lat": 28.58112,
@@ -1458,6 +1491,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-005",
+        "kiln_id": "KILN-DEMO-005",
         "class": "Zigzag",
         "score": 0.7988,
         "lat": 28.64378,
@@ -1502,6 +1536,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-008",
+        "kiln_id": "KILN-DEMO-008",
         "class": "Zigzag",
         "score": 0.797,
         "lat": 28.61884,
@@ -1546,6 +1581,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-017",
+        "kiln_id": "KILN-DEMO-017",
         "class": "Zigzag",
         "score": 0.7968,
         "lat": 28.56061,
@@ -1590,6 +1626,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-021",
+        "kiln_id": "KILN-DEMO-021",
         "class": "FCBK",
         "score": 0.7954,
         "lat": 28.64266,
@@ -1634,6 +1671,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-039",
+        "kiln_id": "KILN-DEMO-039",
         "class": "FCBK",
         "score": 0.7877,
         "lat": 28.62041,
@@ -1678,6 +1716,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-019",
+        "kiln_id": "KILN-DEMO-019",
         "class": "FCBK",
         "score": 0.7851,
         "lat": 28.58538,
@@ -1722,6 +1761,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-049",
+        "kiln_id": "KILN-DEMO-049",
         "class": "Zigzag",
         "score": 0.7746,
         "lat": 28.60731,
@@ -1766,6 +1806,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-055",
+        "kiln_id": "KILN-DEMO-055",
         "class": "Zigzag",
         "score": 0.7706,
         "lat": 28.6031,
@@ -1810,6 +1851,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-041",
+        "kiln_id": "KILN-DEMO-041",
         "class": "Zigzag",
         "score": 0.7698,
         "lat": 28.61826,
@@ -1854,6 +1896,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-026",
+        "kiln_id": "KILN-DEMO-026",
         "class": "FCBK",
         "score": 0.7657,
         "lat": 28.56293,
@@ -1898,6 +1941,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-051",
+        "kiln_id": "KILN-DEMO-051",
         "class": "Zigzag",
         "score": 0.7647,
         "lat": 28.61028,
@@ -1942,6 +1986,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-031",
+        "kiln_id": "KILN-DEMO-031",
         "class": "FCBK",
         "score": 0.7614,
         "lat": 28.57262,
@@ -1986,6 +2031,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-045",
+        "kiln_id": "KILN-DEMO-045",
         "class": "FCBK",
         "score": 0.7605,
         "lat": 28.60902,
@@ -2030,6 +2076,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-010",
+        "kiln_id": "KILN-DEMO-010",
         "class": "Zigzag",
         "score": 0.753,
         "lat": 28.59167,
@@ -2074,6 +2121,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-036",
+        "kiln_id": "KILN-DEMO-036",
         "class": "Zigzag",
         "score": 0.7495,
         "lat": 28.61571,
@@ -2118,6 +2166,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-033",
+        "kiln_id": "KILN-DEMO-033",
         "class": "CFCBK",
         "score": 0.7184,
         "lat": 28.63323,
@@ -2162,6 +2211,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-020",
+        "kiln_id": "KILN-DEMO-020",
         "class": "FCBK",
         "score": 0.718,
         "lat": 28.63486,
@@ -2206,6 +2256,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-037",
+        "kiln_id": "KILN-DEMO-037",
         "class": "Zigzag",
         "score": 0.7162,
         "lat": 28.61645,
@@ -2250,6 +2301,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-024",
+        "kiln_id": "KILN-DEMO-024",
         "class": "FCBK",
         "score": 0.7147,
         "lat": 28.59741,
@@ -2294,6 +2346,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-059",
+        "kiln_id": "KILN-DEMO-059",
         "class": "FCBK",
         "score": 0.7052,
         "lat": 28.597,
@@ -2338,6 +2391,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-011",
+        "kiln_id": "KILN-DEMO-011",
         "class": "Zigzag",
         "score": 0.698,
         "lat": 28.61979,
@@ -2382,6 +2436,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-063",
+        "kiln_id": "KILN-DEMO-063",
         "class": "CFCBK",
         "score": 0.6929,
         "lat": 28.60337,
@@ -2426,6 +2481,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-061",
+        "kiln_id": "KILN-DEMO-061",
         "class": "CFCBK",
         "score": 0.6924,
         "lat": 28.60048,
@@ -2470,6 +2526,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-012",
+        "kiln_id": "KILN-DEMO-012",
         "class": "Zigzag",
         "score": 0.6867,
         "lat": 28.60548,
@@ -2514,6 +2571,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-003",
+        "kiln_id": "KILN-DEMO-003",
         "class": "Zigzag",
         "score": 0.6752,
         "lat": 28.6406,
@@ -2558,6 +2616,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-035",
+        "kiln_id": "KILN-DEMO-035",
         "class": "CFCBK",
         "score": 0.6502,
         "lat": 28.62032,
@@ -2602,6 +2661,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-043",
+        "kiln_id": "KILN-DEMO-043",
         "class": "CFCBK",
         "score": 0.6443,
         "lat": 28.61883,
@@ -2646,6 +2706,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-013",
+        "kiln_id": "KILN-DEMO-013",
         "class": "Zigzag",
         "score": 0.6271,
         "lat": 28.62781,
@@ -2690,6 +2751,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-062",
+        "kiln_id": "KILN-DEMO-062",
         "class": "Zigzag",
         "score": 0.616,
         "lat": 28.5974,
@@ -2734,6 +2796,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-044",
+        "kiln_id": "KILN-DEMO-044",
         "class": "FCBK",
         "score": 0.5637,
         "lat": 28.61129,
@@ -2778,6 +2841,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-060",
+        "kiln_id": "KILN-DEMO-060",
         "class": "Zigzag",
         "score": 0.5472,
         "lat": 28.60337,
@@ -2822,6 +2886,7 @@
       "type": "Feature",
       "properties": {
         "id": "KILN-DEMO-054",
+        "kiln_id": "KILN-DEMO-054",
         "class": "FCBK",
         "score": 0.3839,
         "lat": 28.6115,

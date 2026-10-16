@@ -133,24 +133,26 @@ export const PrecisionRecallTable: React.FC<PrecisionRecallTableProps> = ({
 
                   {/* Detected */}
                   <td className="py-3.5 px-4 text-right font-extrabold text-slate-900 text-sm">
-                    {row.detected.toLocaleString()}
+                    {row.detected != null ? row.detected.toLocaleString() : 'n/a'}
                   </td>
 
                   {/* Range */}
                   <td className="py-3.5 px-4 text-right font-semibold text-slate-700">
                     <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-800">
-                      {row.est_low.toLocaleString()} – {row.est_high.toLocaleString()}
+                      {row.est_low != null && row.est_high != null
+                        ? `${row.est_low.toLocaleString()} – ${row.est_high.toLocaleString()}`
+                        : 'n/a'}
                     </span>
                   </td>
 
                   {/* Precision */}
                   <td className="py-3.5 px-4 text-right font-medium text-slate-700">
-                    {format2dp(row.precision)}
+                    {row.precision != null ? format2dp(row.precision) : 'n/a'}
                   </td>
 
                   {/* Recall */}
                   <td className="py-3.5 px-4 text-right font-medium text-slate-700">
-                    {format2dp(row.recall)}
+                    {row.recall != null ? format2dp(row.recall) : 'n/a'}
                   </td>
 
                   {/* AP@0.50 */}

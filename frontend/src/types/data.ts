@@ -7,6 +7,7 @@ export type KilnClass = 'FCBK' | 'Zigzag' | 'CFCBK';
 
 export interface KilnProperties {
   id: string;
+  kiln_id?: string;
   class: KilnClass;
   score: number;
   lat: number;
@@ -37,6 +38,7 @@ export interface KilnGeoJSON {
 
 export interface HistoricalLabelProperties {
   id: string;
+  kiln_id?: string;
   class: 'FCBK';
   lat: number;
   lon: number;
@@ -178,4 +180,5 @@ export interface AppData {
   metrics: MetricsData;
   experiments: ExperimentItem[];
   summaryStats: SummaryStats;
+  dataWarning?: string | null;
 }

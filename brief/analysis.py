@@ -46,6 +46,42 @@ def haversine_distance_m(lat1: float, lon1: float, lat2: float, lon2: float) -> 
     return EARTH_RADIUS_M * c
 
 
+def clean_nans_to_none(obj: Any) -> Any:
+    """Recursively replaces float NaN/Inf/-Inf and pd.NA/np.nan with None.
+
+    Guarantees serialized JSON never contains invalid bare NaN or Infinity tokens.
+    """
+    if obj is None:
+        return None
+    if isinstance(obj, (bool, np.bool_)):
+        return bool(obj)
+    if isinstance(obj, (float, np.floating)):
+        val = float(obj)
+        if math.isnan(val) or math.isinf(val):
+            return None
+        return val
+    if isinstance(obj, (int, np.integer)):
+        return int(obj)
+    if isinstance(obj, str):
+        if obj.strip().lower() == "nan":
+            return None
+        return obj
+    if isinstance(obj, np.ndarray):
+        return [clean_nans_to_none(x) for x in obj.tolist()]
+    if isinstance(obj, dict):
+        return {str(k): clean_nans_to_none(v) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [clean_nans_to_none(item) for item in obj]
+    if isinstance(obj, tuple):
+        return tuple(clean_nans_to_none(item) for item in obj)
+    try:
+        if np.isscalar(obj) and pd.isna(obj):
+            return None
+    except Exception:
+        pass
+    return obj
+
+
 def generate_demo_district_dataset(demo_dir: Path, num_tiles: int = 120, seed: int = 42) -> Tuple[Path, Path]:
     """Generate representative Demo District tiles and 2023-24 baseline inventory."""
     np.random.seed(seed)
@@ -89,7 +125,7 @@ def generate_demo_district_dataset(demo_dir: Path, num_tiles: int = 120, seed: i
             tile_idx += 1
 
     with open(tiles_meta_file, "w", encoding="utf-8") as f:
-        json.dump(tiles_meta, f, indent=2)
+        json.dump(clean_nans_to_none(tiles_meta), f, indent=2, allow_nan=False)
 
     # 2. Generate 2023-24 historical kiln registry linked to realistic district locations
     historical_kilns = []
@@ -392,21 +428,30 @@ def export_geojson(kilns: List[Dict[str, Any]], out_path: Path):
         coords = [[round(pt[1], 6), round(pt[0], 6)] for pt in k["polygon_geo"]]
         coords.append(coords[0])  # Close ring
 
+        # Clean prev_class: None if unmatched, string if matched
+        prev_cls = k.get("prev_class")
+        if prev_cls is not None and (pd.isna(prev_cls) or str(prev_cls).lower() == "nan" or str(prev_cls) == "None"):
+            prev_cls = None
+        else:
+            prev_cls = str(prev_cls) if prev_cls is not None else None
+
+        k_id = str(k["kiln_id"])
         feature = {
             "type": "Feature",
             "properties": {
-                "id": k["kiln_id"],
-                "class": k["class"],
+                "id": k_id,
+                "kiln_id": k_id,
+                "class": str(k["class"]),
                 "score": round(float(k["score"]), 4),
                 "lat": round(float(k["lat"]), 5),
                 "lon": round(float(k["lon"]), 5),
                 "near_1km": bool(k.get("near_other_kiln", False)),
                 "clustered_1km": bool(k.get("near_other_kiln", False)),
-                "cluster_id": k.get("cluster_id", "None"),
-                "converted": bool(k.get("converted", False)),
-                "prev_class": k.get("prev_class", None),
+                "cluster_id": str(k.get("cluster_id", "Isolated")),
+                "converted": bool(k.get("is_converted", False)),
+                "prev_class": prev_cls,
                 "priority_score": int(k.get("priority_score", 0)),
-                "why": k.get("why", k.get("why_visit", "")),
+                "why": str(k.get("why", k.get("why_visit", ""))),
             },
             "geometry": {
                 "type": "Polygon",
@@ -420,8 +465,9 @@ def export_geojson(kilns: List[Dict[str, Any]], out_path: Path):
         "name": "DemoDistrict_BrickKilns",
         "features": features,
     }
+    geojson_dict = clean_nans_to_none(geojson_dict)
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(geojson_dict, f, indent=2)
+        json.dump(geojson_dict, f, indent=2, allow_nan=False)
     print(f"[SUCCESS] Exported GeoJSON layer with {len(features)} features to {out_path.resolve()}")
 
 
@@ -430,21 +476,64 @@ def export_labels_2023_geojson(conversion_df: pd.DataFrame, out_path: Path):
     features = []
     for _, r in conversion_df.iterrows():
         is_conv = str(r["status"]).startswith("CONVERTED")
+
+        # Clean matched_kiln_id: string if matched, None if unmatched (never NaN)
+        m_k_id = r.get("matched_kiln_id")
+        if pd.isna(m_k_id) or m_k_id is None or str(m_k_id).lower() == "nan" or str(m_k_id) == "None" or str(m_k_id).strip() == "":
+            cleaned_matched_kiln_id = None
+        else:
+            cleaned_matched_kiln_id = str(m_k_id)
+
+        m_curr_class = r.get("matched_current_class")
+        if pd.isna(m_curr_class) or m_curr_class is None or str(m_curr_class).lower() == "nan":
+            cleaned_curr_class = "None"
+        else:
+            cleaned_curr_class = str(m_curr_class)
+
+        matched_lat = None
+        if pd.notnull(r.get("matched_lat")):
+            try:
+                v = float(r["matched_lat"])
+                if not math.isnan(v) and not math.isinf(v):
+                    matched_lat = round(v, 5)
+            except (ValueError, TypeError):
+                pass
+
+        matched_lon = None
+        if pd.notnull(r.get("matched_lon")):
+            try:
+                v = float(r["matched_lon"])
+                if not math.isnan(v) and not math.isinf(v):
+                    matched_lon = round(v, 5)
+            except (ValueError, TypeError):
+                pass
+
+        dist_hist = None
+        if pd.notnull(r.get("distance_to_historical_m")):
+            try:
+                v = float(r["distance_to_historical_m"])
+                if not math.isnan(v) and not math.isinf(v) and v >= 0:
+                    dist_hist = round(v, 1)
+            except (ValueError, TypeError):
+                pass
+
+        hist_id = str(r["historical_id"])
         feat = {
             "type": "Feature",
             "properties": {
-                "id": r["historical_id"],
+                "id": hist_id,
+                "kiln_id": hist_id,
                 "class": "FCBK",
                 "lat": round(float(r["lat"]), 5),
                 "lon": round(float(r["lon"]), 5),
-                "status": r["status"],
-                "regulatory_compliance": r["regulatory_compliance"],
-                "converted": is_conv,
-                "matched_current_class": r["matched_current_class"],
-                "matched_kiln_id": r.get("matched_kiln_id", None),
-                "matched_lat": round(float(r["matched_lat"]), 5) if pd.notnull(r.get("matched_lat")) else None,
-                "matched_lon": round(float(r["matched_lon"]), 5) if pd.notnull(r.get("matched_lon")) else None,
-                "distance_to_historical_m": float(r["distance_to_historical_m"]) if pd.notnull(r.get("distance_to_historical_m")) else None,
+                "status": str(r["status"]),
+                "regulatory_compliance": str(r["regulatory_compliance"]),
+                "converted": bool(is_conv),
+                "matched_current_class": cleaned_curr_class,
+                "matched_kiln_id": cleaned_matched_kiln_id,
+                "matched_lat": matched_lat,
+                "matched_lon": matched_lon,
+                "distance_to_historical_m": dist_hist,
             },
             "geometry": {
                 "type": "Point",
@@ -458,8 +547,9 @@ def export_labels_2023_geojson(conversion_df: pd.DataFrame, out_path: Path):
         "name": "Historical_2023_24_Kilns",
         "features": features,
     }
+    geojson_dict = clean_nans_to_none(geojson_dict)
     with open(out_path, "w", encoding="utf-8") as f:
-        json.dump(geojson_dict, f, indent=2)
+        json.dump(geojson_dict, f, indent=2, allow_nan=False)
     print(f"[SUCCESS] Exported 2023-24 historical GeoJSON layer with {len(features)} features to {out_path.resolve()}")
 
 
@@ -479,7 +569,7 @@ def export_metrics_and_experiments(out_dir: Path):
         "citation": "SentinelKilnDB by Mondal et al., Sustainability Lab, IIT Gandhinagar (NeurIPS 2025 Datasets & Benchmarks)"
     }
     with open(out_dir / "metrics.json", "w", encoding="utf-8") as f:
-        json.dump(metrics_data, f, indent=2)
+        json.dump(clean_nans_to_none(metrics_data), f, indent=2, allow_nan=False)
 
     # Experiments summary from docs/experiments.md
     experiments = [
@@ -495,7 +585,8 @@ def export_metrics_and_experiments(out_dir: Path):
         {"id": "09", "model": "Brief v2: ReportLab Platypus", "technique": "Fixed column widths and Paragraph cells; fixed table misalignment", "val_mAP": None, "ap_fcbk": None, "ap_cfcbk": None, "ap_zigzag": None, "status": "Success", "outcome": "Rebuilt 2-page brief with verified alignment, exact mm column widths, and zero text overflow."}
     ]
     with open(out_dir / "experiments.json", "w", encoding="utf-8") as f:
-        json.dump(experiments, f, indent=2)
+        json.dump(clean_nans_to_none(experiments), f, indent=2, allow_nan=False)
+    print(f"[SUCCESS] Exported metrics.json and experiments.json to {out_dir.resolve()}")
     print(f"[SUCCESS] Exported metrics.json and experiments.json to {out_dir.resolve()}")
 
 
@@ -945,8 +1036,25 @@ def run_demo_district_analysis(
             "dismantled_or_inactive": conv_inactive,
         },
     }
+
+    # Assertions for Kiln IDs
+    all_kiln_ids = [k.get("kiln_id") for k in unique_kilns]
+    assert all(k_id and isinstance(k_id, str) and k_id.strip() != "" and k_id.lower() != "nan" for k_id in all_kiln_ids), "Missing or NaN kiln_id found in unique_kilns!"
+    assert len(all_kiln_ids) == len(set(all_kiln_ids)), f"Duplicate kiln_ids found in unique_kilns: {len(all_kiln_ids)} total vs {len(set(all_kiln_ids))} unique!"
+    
+    # Assert cross-file ID integrity
+    top20_ids = set(top_20_export["kiln_id"])
+    within_ids = set(df_within["kiln_id"])
+    matched_conv_ids = set(conversion_df["matched_kiln_id"].dropna())
+    matched_conv_ids = set(str(k) for k in matched_conv_ids if str(k).lower() != "nan" and str(k) != "None")
+    unique_set = set(all_kiln_ids)
+
+    assert top20_ids.issubset(unique_set), f"top20.csv contains unknown IDs: {top20_ids - unique_set}"
+    assert within_ids.issubset(unique_set), f"within_1km.csv contains unknown IDs: {within_ids - unique_set}"
+    assert matched_conv_ids.issubset(unique_set), f"conversions.csv matched IDs not in kilns: {matched_conv_ids - unique_set}"
+
     with open(out / "summary_stats.json", "w", encoding="utf-8") as f:
-        json.dump(summary, f, indent=2)
+        json.dump(clean_nans_to_none(summary), f, indent=2, allow_nan=False)
 
     print(f"[COMPLETE] Demo District analysis finished. Deliverables ready in {out.resolve()}.\n")
     return summary

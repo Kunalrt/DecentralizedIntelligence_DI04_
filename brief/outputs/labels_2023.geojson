@@ -6,6 +6,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-000",
+        "kiln_id": "HIST-2023-000",
         "class": "FCBK",
         "lat": 28.61263,
         "lon": 77.20039,
@@ -30,6 +31,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-001",
+        "kiln_id": "HIST-2023-001",
         "class": "FCBK",
         "lat": 28.58116,
         "lon": 77.16507,
@@ -54,6 +56,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-002",
+        "kiln_id": "HIST-2023-002",
         "class": "FCBK",
         "lat": 28.63186,
         "lon": 77.12067,
@@ -78,6 +81,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-003",
+        "kiln_id": "HIST-2023-003",
         "class": "FCBK",
         "lat": 28.64049,
         "lon": 77.19191,
@@ -102,6 +106,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-004",
+        "kiln_id": "HIST-2023-004",
         "class": "FCBK",
         "lat": 28.59268,
         "lon": 77.17605,
@@ -126,6 +131,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-005",
+        "kiln_id": "HIST-2023-005",
         "class": "FCBK",
         "lat": 28.64379,
         "lon": 77.20231,
@@ -150,6 +156,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-006",
+        "kiln_id": "HIST-2023-006",
         "class": "FCBK",
         "lat": 28.57231,
         "lon": 77.12632,
@@ -174,6 +181,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-007",
+        "kiln_id": "HIST-2023-007",
         "class": "FCBK",
         "lat": 28.62959,
         "lon": 77.12341,
@@ -198,6 +206,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-008",
+        "kiln_id": "HIST-2023-008",
         "class": "FCBK",
         "lat": 28.61881,
         "lon": 77.15766,
@@ -222,6 +231,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-009",
+        "kiln_id": "HIST-2023-009",
         "class": "FCBK",
         "lat": 28.60757,
         "lon": 77.13423,
@@ -246,6 +256,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-010",
+        "kiln_id": "HIST-2023-010",
         "class": "FCBK",
         "lat": 28.59173,
         "lon": 77.11901,
@@ -270,6 +281,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-011",
+        "kiln_id": "HIST-2023-011",
         "class": "FCBK",
         "lat": 28.61988,
         "lon": 77.14177,
@@ -294,6 +306,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-012",
+        "kiln_id": "HIST-2023-012",
         "class": "FCBK",
         "lat": 28.60545,
         "lon": 77.18378,
@@ -318,6 +331,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-013",
+        "kiln_id": "HIST-2023-013",
         "class": "FCBK",
         "lat": 28.62802,
         "lon": 77.1566,
@@ -342,6 +356,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-014",
+        "kiln_id": "HIST-2023-014",
         "class": "FCBK",
         "lat": 28.59344,
         "lon": 77.10968,
@@ -366,6 +381,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-015",
+        "kiln_id": "HIST-2023-015",
         "class": "FCBK",
         "lat": 28.59211,
         "lon": 77.12212,
@@ -390,6 +406,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-016",
+        "kiln_id": "HIST-2023-016",
         "class": "FCBK",
         "lat": 28.63987,
         "lon": 77.2002,
@@ -414,6 +431,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-017",
+        "kiln_id": "HIST-2023-017",
         "class": "FCBK",
         "lat": 28.56059,
         "lon": 77.18611,
@@ -438,6 +456,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-018",
+        "kiln_id": "HIST-2023-018",
         "class": "FCBK",
         "lat": 28.61878,
         "lon": 77.11481,
@@ -462,6 +481,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-019",
+        "kiln_id": "HIST-2023-019",
         "class": "FCBK",
         "lat": 28.58536,
         "lon": 77.14917,
@@ -486,6 +506,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-020",
+        "kiln_id": "HIST-2023-020",
         "class": "FCBK",
         "lat": 28.63486,
         "lon": 77.15469,
@@ -510,6 +531,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-021",
+        "kiln_id": "HIST-2023-021",
         "class": "FCBK",
         "lat": 28.64257,
         "lon": 77.19624,
@@ -534,6 +556,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-022",
+        "kiln_id": "HIST-2023-022",
         "class": "FCBK",
         "lat": 28.62282,
         "lon": 77.17148,
@@ -558,6 +581,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-023",
+        "kiln_id": "HIST-2023-023",
         "class": "FCBK",
         "lat": 28.61816,
         "lon": 77.15719,
@@ -582,6 +606,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-024",
+        "kiln_id": "HIST-2023-024",
         "class": "FCBK",
         "lat": 28.59747,
         "lon": 77.12356,
@@ -606,6 +631,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-025",
+        "kiln_id": "HIST-2023-025",
         "class": "FCBK",
         "lat": 28.56024,
         "lon": 77.18278,
@@ -630,6 +656,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-026",
+        "kiln_id": "HIST-2023-026",
         "class": "FCBK",
         "lat": 28.56289,
         "lon": 77.19478,
@@ -654,6 +681,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-027",
+        "kiln_id": "HIST-2023-027",
         "class": "FCBK",
         "lat": 28.59296,
         "lon": 77.1975,
@@ -678,6 +706,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-028",
+        "kiln_id": "HIST-2023-028",
         "class": "FCBK",
         "lat": 28.63781,
         "lon": 77.12468,
@@ -702,6 +731,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-029",
+        "kiln_id": "HIST-2023-029",
         "class": "FCBK",
         "lat": 28.64162,
         "lon": 77.13765,
@@ -726,6 +756,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-030",
+        "kiln_id": "HIST-2023-030",
         "class": "FCBK",
         "lat": 28.61138,
         "lon": 77.13224,
@@ -750,6 +781,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-031",
+        "kiln_id": "HIST-2023-031",
         "class": "FCBK",
         "lat": 28.57264,
         "lon": 77.1408,
@@ -774,6 +806,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-032",
+        "kiln_id": "HIST-2023-032",
         "class": "FCBK",
         "lat": 28.62087,
         "lon": 77.15946,
@@ -798,6 +831,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-033",
+        "kiln_id": "HIST-2023-033",
         "class": "FCBK",
         "lat": 28.63319,
         "lon": 77.18549,
@@ -822,6 +856,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-034",
+        "kiln_id": "HIST-2023-034",
         "class": "FCBK",
         "lat": 28.63903,
         "lon": 77.20402,
@@ -846,6 +881,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-035",
+        "kiln_id": "HIST-2023-035",
         "class": "FCBK",
         "lat": 28.57761,
         "lon": 77.12495,
@@ -853,7 +889,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 615.8
@@ -870,6 +906,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-036",
+        "kiln_id": "HIST-2023-036",
         "class": "FCBK",
         "lat": 28.64511,
         "lon": 77.18682,
@@ -877,7 +914,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 704.6
@@ -894,6 +931,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-037",
+        "kiln_id": "HIST-2023-037",
         "class": "FCBK",
         "lat": 28.58337,
         "lon": 77.17815,
@@ -901,7 +939,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 1044.9
@@ -918,6 +956,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-038",
+        "kiln_id": "HIST-2023-038",
         "class": "FCBK",
         "lat": 28.5777,
         "lon": 77.11244,
@@ -925,7 +964,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 1487.1
@@ -942,6 +981,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-039",
+        "kiln_id": "HIST-2023-039",
         "class": "FCBK",
         "lat": 28.61404,
         "lon": 77.11664,
@@ -949,7 +989,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 555.1
@@ -966,6 +1006,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-040",
+        "kiln_id": "HIST-2023-040",
         "class": "FCBK",
         "lat": 28.56961,
         "lon": 77.16754,
@@ -973,7 +1014,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 1301.2
@@ -990,6 +1031,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-041",
+        "kiln_id": "HIST-2023-041",
         "class": "FCBK",
         "lat": 28.61647,
         "lon": 77.11139,
@@ -997,7 +1039,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 414.5
@@ -1014,6 +1056,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-042",
+        "kiln_id": "HIST-2023-042",
         "class": "FCBK",
         "lat": 28.61822,
         "lon": 77.13764,
@@ -1021,7 +1064,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 378.4
@@ -1038,6 +1081,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-043",
+        "kiln_id": "HIST-2023-043",
         "class": "FCBK",
         "lat": 28.58137,
         "lon": 77.16897,
@@ -1045,7 +1089,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 378.3
@@ -1062,6 +1106,7 @@
       "type": "Feature",
       "properties": {
         "id": "HIST-2023-044",
+        "kiln_id": "HIST-2023-044",
         "class": "FCBK",
         "lat": 28.56749,
         "lon": 77.15239,
@@ -1069,7 +1114,7 @@
         "regulatory_compliance": "SHUT DOWN",
         "converted": false,
         "matched_current_class": "None",
-        "matched_kiln_id": NaN,
+        "matched_kiln_id": null,
         "matched_lat": null,
         "matched_lon": null,
         "distance_to_historical_m": 1247.9

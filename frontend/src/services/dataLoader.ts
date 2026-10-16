@@ -1,5 +1,5 @@
 /**
- * Robust Typed Data Loader with Schema Validation
+ * Robust Typed Data Loader with Schema Validation & Fallback Repair
  * Fetches all CSV and GeoJSON inputs dynamically from /data/.
  */
 
@@ -25,12 +25,56 @@ function getAssetUrl(path: string): string {
   return `${cleanBase}${cleanPath}`;
 }
 
-async function fetchJSON<T>(url: string): Promise<T> {
+let hasRepairedData = false;
+
+export function wasDataRepaired(): boolean {
+  return hasRepairedData;
+}
+
+export function resetDataRepaired(): void {
+  hasRepairedData = false;
+}
+
+/**
+ * Fallback sanitizer to replace bare NaN, Infinity, -Infinity tokens outside strings with null.
+ */
+export function sanitizeBareNaNs(text: string): string {
+  return text
+    .replace(/(:\s*)(-?Infinity|NaN)\b/g, '$1null')
+    .replace(/(\[\s*)(-?Infinity|NaN)\b/g, '$1null')
+    .replace(/(,\s*)(-?Infinity|NaN)\b/g, '$1null');
+}
+
+/**
+ * Fetch a JSON file safely by reading as text first.
+ * If JSON parsing fails, attempts fallback repair of bare NaNs.
+ * If parsing still fails, raises an informative error identifying the exact file.
+ */
+export async function fetchJSON<T>(url: string): Promise<T> {
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error(`Failed to load ${url}: ${res.status} ${res.statusText}`);
   }
-  return res.json();
+  const text = await res.text();
+
+  try {
+    return JSON.parse(text) as T;
+  } catch (initialErr) {
+    // Attempt fallback repair only if bare NaN or Infinity tokens are present
+    const sanitized = sanitizeBareNaNs(text);
+    if (sanitized !== text) {
+      try {
+        const parsed = JSON.parse(sanitized) as T;
+        console.warn(`[DATA REPAIR] Repaired invalid bare NaN/Infinity values in ${url}`);
+        hasRepairedData = true;
+        return parsed;
+      } catch {
+        // Fall through to throw detailed error below
+      }
+    }
+    const rawMsg = initialErr instanceof Error ? initialErr.message : String(initialErr);
+    throw new Error(`Data Synchronization Error in file "${url}": invalid JSON syntax (${rawMsg})`);
+  }
 }
 
 async function fetchCSV<T>(url: string): Promise<T[]> {
@@ -52,6 +96,8 @@ async function fetchCSV<T>(url: string): Promise<T[]> {
 
 export async function loadAllData(): Promise<AppData> {
   try {
+    resetDataRepaired();
+
     const [
       kilns,
       labels2023,
@@ -92,12 +138,26 @@ export async function loadAllData(): Promise<AppData> {
       throw new Error('kilns.geojson is empty or corrupted');
     }
 
+    // Ensure every kiln has consistent id and kiln_id properties, and null-safe attributes
+    kilns.features.forEach((f) => {
+      const p = f.properties;
+      const kId = p.kiln_id || p.id || 'n/a';
+      p.id = kId;
+      p.kiln_id = kId;
+      if (p.prev_class === undefined) p.prev_class = null;
+      if (p.converted === undefined) p.converted = false;
+    });
+
     const totalFromCounts = counts.find((c) => c.class === 'Total')?.detected;
     if (totalFromCounts && totalFromCounts !== kilns.features.length) {
       console.warn(
         `[DATA WARNING] Total in counts.csv (${totalFromCounts}) does not match kilns.geojson count (${kilns.features.length})`
       );
     }
+
+    const warningBanner = hasRepairedData
+      ? 'Data file contained invalid values and was repaired. Re-export it.'
+      : null;
 
     return {
       kilns,
@@ -110,6 +170,7 @@ export async function loadAllData(): Promise<AppData> {
       metrics,
       experiments,
       summaryStats,
+      dataWarning: warningBanner,
     };
   } catch (err) {
     console.error('[DATA LOADER ERROR]', err);

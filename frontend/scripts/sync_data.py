@@ -4,6 +4,8 @@ Copies analytical outputs from brief/outputs/ to frontend/public/data/.
 """
 
 import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -12,6 +14,14 @@ PROJECT_ROOT = FRONTEND_DIR.parent
 
 SRC_DIR = PROJECT_ROOT / "brief" / "outputs"
 DEST_DIR = FRONTEND_DIR / "public" / "data"
+
+# Validate analytical outputs before syncing
+print("=== Validating Analytical Outputs Before Sync ===")
+val_script = PROJECT_ROOT / "scripts" / "validate_outputs.py"
+val_res = subprocess.run([sys.executable, str(val_script), "--dir", str(SRC_DIR)])
+if val_res.returncode != 0:
+    print("[ERROR] Output validation failed! Halting sync to prevent corrupting frontend data.", file=sys.stderr)
+    sys.exit(1)
 
 DEST_DIR.mkdir(parents=True, exist_ok=True)
 

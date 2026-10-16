@@ -203,13 +203,15 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
 
         {/* 4. Center Markers for Every Kiln */}
         {filteredKilns.map((feature) => {
-          const isSelected = selectedKiln?.id === feature.properties.id;
-          const { lat, lon, id, score } = feature.properties;
-          const kilnClass = feature.properties.class;
+          const kId = feature.properties.id || feature.properties.kiln_id || 'n/a';
+          const isSelected = Boolean(selectedKiln?.id === feature.properties.id || (selectedKiln && selectedKiln.id === kId));
+          const { lat, lon, score } = feature.properties;
+          const kilnClass = feature.properties.class || 'n/a';
+          const scoreText = typeof score === 'number' ? `${(score * 100).toFixed(0)}%` : 'n/a';
 
           return (
             <Marker
-              key={`marker-${id}`}
+              key={`marker-${kId}`}
               position={[lat, lon]}
               icon={createKilnDivIcon(kilnClass, isSelected)}
               eventHandlers={{
@@ -218,7 +220,7 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
             >
               <Tooltip direction="top" offset={[0, -12]}>
                 <div className="text-xs font-sans font-medium">
-                  <strong>{id}</strong> &bull; {kilnClass} ({(score * 100).toFixed(0)}%)
+                  <strong>{kId}</strong> &bull; {kilnClass} ({scoreText})
                 </div>
               </Tooltip>
             </Marker>

@@ -8,6 +8,12 @@ PROJECT_ROOT="$(dirname "$FRONTEND_DIR")"
 SRC_DIR="$PROJECT_ROOT/brief/outputs"
 DEST_DIR="$FRONTEND_DIR/public/data"
 
+echo "=== Validating Analytical Outputs Before Sync ==="
+python "$PROJECT_ROOT/scripts/validate_outputs.py" --dir "$SRC_DIR" || {
+  echo "[ERROR] Output validation failed! Halting sync to prevent corrupting frontend data."
+  exit 1
+}
+
 echo "=== Syncing Chimney Census Data to Frontend ==="
 echo "Source: $SRC_DIR"
 echo "Destination: $DEST_DIR"

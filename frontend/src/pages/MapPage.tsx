@@ -57,9 +57,9 @@ export const MapPage: React.FC = () => {
       // Search query
       if (filters.searchQuery.trim()) {
         const q = filters.searchQuery.toLowerCase().trim();
-        const matchesId = p.id.toLowerCase().includes(q);
-        const matchesCluster = p.cluster_id.toLowerCase().includes(q);
-        const matchesClass = p.class.toLowerCase().includes(q);
+        const matchesId = (p.id || p.kiln_id || '').toLowerCase().includes(q);
+        const matchesCluster = (p.cluster_id || '').toLowerCase().includes(q);
+        const matchesClass = (p.class || '').toLowerCase().includes(q);
         if (!matchesId && !matchesCluster && !matchesClass) return false;
       }
 
@@ -77,9 +77,10 @@ export const MapPage: React.FC = () => {
   // Find historical match for selected kiln if available
   const historicalMatch = useMemo((): HistoricalLabelProperties | null => {
     if (!selectedKiln) return null;
-    const match = historicalFeatures.find(
-      (h) => h.properties.matched_kiln_id === selectedKiln.id
-    );
+    const match = historicalFeatures.find((h) => {
+      const mId = h.properties.matched_kiln_id;
+      return Boolean(mId && (mId === selectedKiln.id || mId === selectedKiln.kiln_id));
+    });
     return match ? match.properties : null;
   }, [selectedKiln, historicalFeatures]);
 

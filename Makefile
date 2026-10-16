@@ -40,6 +40,7 @@ score:
 brief:
 	$(PYTHON) brief/analysis.py --detections submission.csv --out-dir brief/outputs
 	$(PYTHON) brief/build_brief.py
+	$(PYTHON) scripts/validate_outputs.py
 
 frontend-install:
 	cd frontend && npm install --legacy-peer-deps
