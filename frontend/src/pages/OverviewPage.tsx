@@ -1,8 +1,19 @@
 import React from 'react';
 import { useData } from '../context/DataContext';
-import { KILN_COLORS, KILN_DESCRIPTIONS } from '../config/constants';
-import { ShieldAlert, Layers, ArrowRight } from 'lucide-react';
+import { KILN_COLORS } from '../config/constants';
 import type { TabKey } from '../components/Header';
+import { KpiCard } from '../components/overview/KpiCard';
+import { UncertaintyPanel } from '../components/overview/UncertaintyPanel';
+import { CountsComparisonChart } from '../components/overview/CountsComparisonChart';
+import { PrecisionRecallTable } from '../components/overview/PrecisionRecallTable';
+import { InspectorActionCard } from '../components/overview/InspectorActionCard';
+import {
+  Layers,
+  Flame,
+  CheckCircle2,
+  CircleDot,
+  Navigation,
+} from 'lucide-react';
 
 interface OverviewPageProps {
   onNavigateTab?: (tab: TabKey) => void;
@@ -13,112 +24,104 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigateTab }) => 
 
   if (!data) return null;
 
-  const totalDetected = data.counts.find((c) => c.class === 'Total')?.detected ?? 65;
-  const fcbk = data.counts.find((c) => c.class === 'FCBK');
-  const zigzag = data.counts.find((c) => c.class === 'Zigzag');
-  const cfcbk = data.counts.find((c) => c.class === 'CFCBK');
+  const totalRow = data.counts.find((c) => c.class === 'Total');
+  const fcbkRow = data.counts.find((c) => c.class === 'FCBK');
+  const zigzagRow = data.counts.find((c) => c.class === 'Zigzag');
+  const cfcbkRow = data.counts.find((c) => c.class === 'CFCBK');
+
+  const totalDetected = totalRow?.detected ?? data.summaryStats.unique_physical_kilns;
+  const fcbkDetected = fcbkRow?.detected ?? 27;
+  const zigzagDetected = zigzagRow?.detected ?? 30;
+  const cfcbkDetected = cfcbkRow?.detected ?? 8;
+
   const convZigzag = data.summaryStats.conversions_tracked.converted_to_zigzag;
+  const unconvertedFcbk = data.summaryStats.conversions_tracked.unconverted_fcbk_violations;
   const clustersCount = data.summaryStats.total_clusters_count;
   const clusteredKilns = data.summaryStats.kilns_within_1km_cluster;
 
   return (
     <div className="space-y-6">
-      {/* Welcome & Directive Banner */}
-      <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6 shadow-sm border border-slate-700">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-orange-500/20 text-orange-300 border border-orange-500/30 text-xs font-semibold mb-2">
-              <ShieldAlert className="w-3.5 h-3.5" /> High-Priority Compliance Dispatch
-            </div>
-            <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-white m-0">
-              Demo District Surveillance Brief
-            </h2>
-            <p className="mt-1 text-sm text-slate-300 max-w-2xl leading-relaxed">
-              Automated Sentinel-2 surveillance across 120 satellite tiles (~154 sq km).
-              Designed for <strong>Inspector Farida Khan</strong> to plan targeted vehicle inspections, verify converted Zigzag sites, and enforce the 2022 FCBK ban.
-            </p>
-          </div>
-          {onNavigateTab && (
-            <button
-              onClick={() => onNavigateTab('map')}
-              className="inline-flex items-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-sm font-semibold rounded-lg hover:bg-blue-600 transition shadow self-start md:self-auto"
-            >
-              Open Interactive Map <ArrowRight className="w-4 h-4" />
-            </button>
-          )}
-        </div>
-      </div>
+      {/* 1. Inspector Farida Khan Operational Dispatch Banner */}
+      <InspectorActionCard
+        clusteredKilns={clusteredKilns}
+        totalClusters={clustersCount}
+        convertedZigzag={convZigzag}
+        unconvertedViolations={unconvertedFcbk}
+        onNavigateTab={onNavigateTab}
+      />
 
-      {/* KPI Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {/* 2. Primary KPI Cards Grid (5 Cards: Total, FCBK, Zigzag, CFCBK, Clusters) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
         {/* Total Kilns */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between text-slate-500 text-xs font-medium">
-            <span>Total Active Kilns</span>
-            <Layers className="w-4 h-4 text-slate-400" />
-          </div>
-          <div className="mt-2 text-3xl font-extrabold text-slate-900">{totalDetected}</div>
-          <div className="mt-1 text-xs text-slate-500">
-            Deduplicated across 30 px tile overlaps
-          </div>
-        </div>
+        <KpiCard
+          title="Total Kilns"
+          value={totalDetected}
+          rangeText={`${totalRow?.est_low ?? 42} – ${totalRow?.est_high ?? 100}`}
+          subtitle="Deduplicated across 120 Sentinel-2 tiles (4 overlaps resolved)"
+          icon={<Layers className="w-5 h-5" />}
+          accentBorderColor="#64748B"
+        />
 
         {/* FCBK Violations */}
-        <div className="bg-white p-5 rounded-xl border border-orange-200 bg-orange-50/20 shadow-sm">
-          <div className="flex items-center justify-between text-orange-700 text-xs font-medium">
-            <span>Persistent FCBKs (Banned)</span>
-            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: KILN_COLORS.FCBK }} />
-          </div>
-          <div className="mt-2 text-3xl font-extrabold text-orange-700">{fcbk?.detected ?? 27}</div>
-          <div className="mt-1 text-xs text-orange-600">
-            Est. True Count: <strong>{fcbk?.est_low ?? 18} – {fcbk?.est_high ?? 41}</strong> (95% CI)
-          </div>
-        </div>
+        <KpiCard
+          title="FCBK (Banned)"
+          value={fcbkDetected}
+          rangeText={`${fcbkRow?.est_low ?? 18} – ${fcbkRow?.est_high ?? 41}`}
+          badge={{ text: '2022 Ban Violations', variant: 'warning' }}
+          colorSwatch={KILN_COLORS.FCBK}
+          accentBorderColor={KILN_COLORS.FCBK}
+          subtitle="Illegal natural draft; priority vehicle inspection targets"
+          icon={<Flame className="w-5 h-5 text-orange-500" />}
+          onClick={onNavigateTab ? () => onNavigateTab('map') : undefined}
+        />
 
-        {/* Compliant Zigzag */}
-        <div className="bg-white p-5 rounded-xl border border-blue-200 bg-blue-50/20 shadow-sm">
-          <div className="flex items-center justify-between text-blue-700 text-xs font-medium">
-            <span>Zigzag Conversions</span>
-            <span className="w-2.5 h-2.5 rounded" style={{ backgroundColor: KILN_COLORS.Zigzag }} />
-          </div>
-          <div className="mt-2 text-3xl font-extrabold text-blue-700">{zigzag?.detected ?? 30}</div>
-          <div className="mt-1 text-xs text-blue-600">
-            <strong>{convZigzag}</strong> converted from 2023–24 baseline
-          </div>
-        </div>
+        {/* Zigzag Compliant */}
+        <KpiCard
+          title="Zigzag Compliant"
+          value={zigzagDetected}
+          rangeText={`${zigzagRow?.est_low ?? 21} – ${zigzagRow?.est_high ?? 45}`}
+          badge={{ text: `${convZigzag} Converted`, variant: 'info' }}
+          colorSwatch={KILN_COLORS.Zigzag}
+          accentBorderColor={KILN_COLORS.Zigzag}
+          subtitle="Mandate-compliant forced-draft design conversions"
+          icon={<CheckCircle2 className="w-5 h-5 text-blue-500" />}
+          onClick={onNavigateTab ? () => onNavigateTab('map') : undefined}
+        />
 
-        {/* Proximity Clusters */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <div className="flex items-center justify-between text-slate-500 text-xs font-medium">
-            <span>Clustered Within 1 km</span>
-            <span className="text-emerald-600 font-bold text-xs">{clustersCount} Groups</span>
-          </div>
-          <div className="mt-2 text-3xl font-extrabold text-slate-900">{clusteredKilns}</div>
-          <div className="mt-1 text-xs text-slate-500">
-            Multi-site vehicle patrol efficiency
-          </div>
-        </div>
+        {/* CFCBK Circular */}
+        <KpiCard
+          title="CFCBK Circular"
+          value={cfcbkDetected}
+          rangeText={`${cfcbkRow?.est_low ?? 3} – ${cfcbkRow?.est_high ?? 14}`}
+          badge={{ text: 'Legacy Design', variant: 'success' }}
+          colorSwatch={KILN_COLORS.CFCBK}
+          accentBorderColor={KILN_COLORS.CFCBK}
+          subtitle="Circular Bull's Trench (~12% of district detections)"
+          icon={<CircleDot className="w-5 h-5 text-emerald-600" />}
+          onClick={onNavigateTab ? () => onNavigateTab('map') : undefined}
+        />
+
+        {/* Clustered for Jeep Patrol */}
+        <KpiCard
+          title="1 km Clusters"
+          value={clusteredKilns}
+          unit="kilns"
+          badge={{ text: `${clustersCount} Patrol Clusters`, variant: 'purple' }}
+          accentBorderColor="#8B5CF6"
+          subtitle="Sites within 1.0 km neighbor gap for optimal jeep routing"
+          icon={<Navigation className="w-5 h-5 text-purple-600" />}
+          onClick={onNavigateTab ? () => onNavigateTab('field') : undefined}
+        />
       </div>
 
-      {/* Scaffold info for Phase 1 */}
-      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
-        <h3 className="text-base font-bold text-slate-800 m-0 mb-2">Phase 1 Complete: Data Layer & Scaffold Active</h3>
-        <p className="text-sm text-slate-600 leading-relaxed mb-4">
-          All data feeds (<code>kilns.geojson</code>, <code>labels_2023.geojson</code>, <code>counts.csv</code>, <code>conversions.csv</code>, <code>within_1km.csv</code>, <code>top20.csv</code>, <code>metrics.json</code>, <code>experiments.json</code>) are dynamically loaded, validated, and typed. Ready for Phase 2 deep overview components and charts.
-        </p>
+      {/* 3. Recharts Chart: Detected vs Estimated True Count Range */}
+      <CountsComparisonChart counts={data.counts} />
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs">
-          <div className="p-3 bg-slate-50 rounded border border-slate-200">
-            <span className="font-bold text-slate-700">FCBK:</span> {fcbk?.detected} detected &bull; {KILN_DESCRIPTIONS.FCBK.legalStatus}
-          </div>
-          <div className="p-3 bg-slate-50 rounded border border-slate-200">
-            <span className="font-bold text-slate-700">Zigzag:</span> {zigzag?.detected} detected &bull; {KILN_DESCRIPTIONS.Zigzag.legalStatus}
-          </div>
-          <div className="p-3 bg-slate-50 rounded border border-slate-200">
-            <span className="font-bold text-slate-700">CFCBK:</span> {cfcbk?.detected} detected &bull; {KILN_DESCRIPTIONS.CFCBK.legalStatus}
-          </div>
-        </div>
-      </div>
+      {/* 4. Precision & Recall Validation Table */}
+      <PrecisionRecallTable counts={data.counts} metrics={data.metrics} />
+
+      {/* 5. Honest Uncertainty Panel ("How sure are we?") */}
+      <UncertaintyPanel metrics={data.metrics} />
     </div>
   );
 };
