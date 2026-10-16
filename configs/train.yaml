@@ -21,7 +21,7 @@ train:
   warmup_momentum: 0.8
   warmup_bias_lr: 0.1
   box: 7.5
-  cls: 1.5           # Boosted classification loss weight for rare CFCBK class (~3%)
+  cls: 3.0           # Heavily boosted classification loss weight for rare CFCBK class (~3%)
   dfl: 1.5
   degrees: 180.0     # Satellite nadir imagery is rotation-invariant [0, 360)
   fliplr: 0.5
@@ -31,7 +31,7 @@ train:
   hsv_v: 0.4
   mosaic: 0.5
   mixup: 0.1
-  copy_paste: 0.2    # Targeted copy-paste augmentation for rare CFCBK instances
+  copy_paste: 0.5    # Maximized copy-paste augmentation for rare CFCBK instances
 
 infer:
   conf_threshold: 0.001  # Low confidence threshold (~0.001) to maximize recall for all-point mAP

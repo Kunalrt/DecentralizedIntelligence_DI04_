@@ -53,11 +53,28 @@ def obb_to_xywhr(pts: np.ndarray) -> Tuple[float, float, float, float, float]:
     return cx, cy, w, h, angle
 
 
-def parse_obb_label(label_path: Path) -> List[Tuple[int, np.ndarray]]:
+from shapely.geometry import box as shapely_box, Polygon
+
+
+def is_kiln_valid_on_tile_edge(corners_norm: np.ndarray, min_inside_ratio: float = 0.50) -> bool:
+    """Verify that kilns cut by tile edges have >=50% area inside the tile boundary [0, 1] x [0, 1]."""
+    tile_boundary = shapely_box(0.0, 0.0, 1.0, 1.0)
+    poly = Polygon(corners_norm.reshape(4, 2))
+    if not poly.is_valid:
+        poly = poly.buffer(0)
+    if not poly.is_valid or poly.area <= 1e-9:
+        return False
+    inside_area = poly.intersection(tile_boundary).area
+    ratio = inside_area / poly.area
+    return ratio >= min_inside_ratio
+
+
+def parse_obb_label(label_path: Path, filter_edges: bool = True) -> List[Tuple[int, np.ndarray]]:
     """Parse YOLO-OBB label file.
     
     Format per line:
     class_idx x1 y1 x2 y2 x3 y3 x4 y4 (normalized coordinates [0, 1])
+    Filters out truncated kilns with < 50% area inside the tile boundary.
     """
     annotations = []
     if not label_path.exists():
@@ -69,8 +86,9 @@ def parse_obb_label(label_path: Path) -> List[Tuple[int, np.ndarray]]:
             if len(parts) >= 9:
                 cls_idx = int(parts[0])
                 coords = np.array([float(x) for x in parts[1:9]], dtype=np.float32)
-                # Ensure ordered clockwise
                 ordered = order_corners_clockwise(coords.reshape(4, 2)).reshape(-1)
+                if filter_edges and not is_kiln_valid_on_tile_edge(ordered, min_inside_ratio=0.50):
+                    continue
                 annotations.append((cls_idx, ordered))
     return annotations
 
