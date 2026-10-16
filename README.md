@@ -119,22 +119,55 @@ python brief/build_brief.py
 
 ## 🌐 Interactive Frontend Dashboard
 
-An interactive React + Vite + TypeScript dashboard designed for **Inspector Farida Khan (State Pollution Control Board)** to plan field patrols, explore kiln clusters, and review mandate conversions.
+An interactive React 19 + Vite + TypeScript dashboard designed for **Inspector Farida Khan (State Pollution Control Board)** to plan field patrols, explore kiln clusters, and review mandate conversions.
 
 - **Live Deployment**: [https://kunalrt.github.io/new_repo/](https://kunalrt.github.io/new_repo/) (configured via GitHub Pages & GitHub Actions).
 - **Basemap Compliance**: Uses **OpenStreetMap standard tiles exclusively**; strictly zero satellite, Google, or Esri imagery.
 - **Color & Shape System**: FCBK (#E8710A, Circle), Zigzag (#1A73E8, Square), CFCBK (#188038, Triangle).
 
+### 🖥️ Dashboard Architecture & Tab Modules
+
+1. **Overview Dashboard (`#overview`)**:
+   - High-level KPI cards (Total: 65 [42–100], FCBK Violations: 27 [18–41], Converted Zigzags: 30 [21–45], Circular CFCBKs: 8 [3–14], 1 km Clusters: 51 kilns).
+   - Recharts visual chart comparing model detections against 95% CI honest range whiskers.
+   - Per-class validation precision & recall table formatted to 2 decimal places.
+   - "How Sure Are We?" uncertainty panel explaining 10 m resolution, 2025–26 domain shift, and regional statistical bounds.
+
+2. **Interactive Spatial Map (`#map`)**:
+   - Leaflet map with standard OpenStreetMap tiles exclusively.
+   - Every kiln rendered as an oriented bounding box (OBB) polygon and center marker colored by class.
+   - Convex hull boundaries highlighting the 18 vehicle proximity clusters ($\le 1.0\text{ km}$ gaps).
+   - 2023–24 baseline layer toggle rendering historical FCBK sites as dashed gray circles.
+   - Multi-criteria filter bar (by class, clusters only, conversions only, min confidence score slider).
+   - Click-to-inspect side drawer with 1-click copyable GPS coordinates and inspector directives.
+
+3. **Field Inspection Plan (`#field`)**:
+   - Top 20 priority table ranked by ban violation, model confidence, and cluster density.
+   - Vehicle routing card detailing single-jeep logistics and **~120 km of travel distance saved** (reducing transit from ~185 km to ~65 km).
+   - 18 proximity clusters breakdown with collapsible accordion cards listing assigned kilns and coordinates.
+   - 1-click export to CSV and GPX (for Garmin handhelds, OsmAnd, or phone GPS).
+   - Print-friendly 1-page clipboard checklist view (`window.print()`).
+
+4. **Method & Evidence (`#method`)**:
+   - 6-stage end-to-end processing pipeline diagram (Sentinel-2 tiles $\to$ YOLO11s-OBB $\to$ Rotated NMS $\to$ Cross-tile deduplication $\to$ Spatial clustering $\to$ Compliance scorer).
+   - 10-experiment progression table (Exp 00 to 09) tracking mAP deltas and per-class AP.
+   - Honest negative results analysis: Exp 08 pseudo-labeling confirmation bias failure ($-0.0719$ delta rejected), Exp 03 baseline class collapse, and heavy mosaic latency.
+   - Formal SentinelKilnDB citation with copyable BibTeX and CC BY-NC 4.0 notice.
+   - Systemic machine learning & remote sensing limitations (what the model cannot do).
+
+5. **Downloads & Inspector's Brief (`#downloads`)**:
+   - Visual 2-page Inspector's Brief document viewer with Page 1 & Page 2 preview switcher.
+   - 10 verified download packages with file sizes, formats, timestamps, and direct download buttons (`inspector_brief.pdf`, `kilns.geojson`, `labels_2023.geojson`, `counts.csv`, `conversions.csv`, `within_1km.csv`, `top20.csv`, `clusters_summary.csv`, `map.png`, `waypoints.gpx`).
+   - Interactive live satellite tile inference demo with CPU-friendly FastAPI backend.
+
 ### How to Run Locally
 
 ```bash
-# 1. Install frontend dependencies
-cd frontend
-npm install --legacy-peer-deps
+# 1. Install dependencies (from repository root or frontend/)
+npm install
 
 # 2. Sync analytical outputs from brief/outputs/ to public/data/
-npm run sync
-# Or from root: make frontend-sync
+npm run sync  # Or: python frontend/scripts/sync_data.py
 
 # 3. Start local development server
 npm run dev
@@ -142,14 +175,9 @@ npm run dev
 
 # 4. Build production static bundle
 npm run build
-```
 
-*(Alternative via Makefile from repository root)*:
-```bash
-make frontend-install
-make frontend-sync
-make frontend-dev
-make frontend-build
+# 5. (Optional) Run FastAPI inference backend
+python -m uvicorn backend.main:app --port 8000
 ```
 
 ---
