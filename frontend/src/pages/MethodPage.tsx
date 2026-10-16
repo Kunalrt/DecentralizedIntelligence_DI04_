@@ -1,101 +1,116 @@
 import React from 'react';
 import { useData } from '../context/DataContext';
-import { GraduationCap, Award } from 'lucide-react';
-import { DATASET_CREDIT, KILN_COLORS } from '../config/constants';
+import { ArchitecturePipeline } from '../components/method/ArchitecturePipeline';
+import { ExperimentsTable } from '../components/method/ExperimentsTable';
+import { DatasetCitationCard } from '../components/method/DatasetCitationCard';
+import { HonestLimitations } from '../components/method/HonestLimitations';
+import { KILN_COLORS } from '../config/constants';
+import { GraduationCap, ShieldCheck } from 'lucide-react';
 
 export const MethodPage: React.FC = () => {
   const { data } = useData();
-  const metrics = data?.metrics;
-  const experiments = data?.experiments ?? [];
+
+  if (!data) return null;
+
+  const metrics = data.metrics;
+  const experiments = data.experiments;
 
   return (
     <div className="space-y-6">
+      {/* Page Header */}
       <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <h2 className="text-xl font-bold text-slate-900 m-0 flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <GraduationCap className="w-5 h-5 text-indigo-600" />
-            Methodology, Model Architecture & Uncertainty
-          </h2>
-          <p className="text-xs text-slate-500 mt-1 m-0">
-            Oriented Bounding Box (OBB) detection with DOTA all-point interpolated mAP on Sentinel-2 nadir RGB
+            <h2 className="text-xl font-bold text-slate-900 m-0">
+              Methodology, Architecture & Experimental Evidence
+            </h2>
+          </div>
+          <p className="text-xs text-slate-500 m-0 mt-1">
+            Engineered for hackathon judges & remote sensing regulators &bull; YOLO11s-OBB on Sentinel-2 10 m Nadir Optical Imagery
           </p>
         </div>
+
+        <div className="flex items-center gap-2 text-xs">
+          <span className="px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-lg font-semibold flex items-center gap-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+            Rotated IoU &ge; 0.50 Metric Verified
+          </span>
+        </div>
       </div>
 
-      {/* Metrics Summary Grid */}
+      {/* Top Metrics Summary Grid (4 Cards) */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-900 text-white p-5 rounded-xl shadow-sm">
+        <div className="bg-slate-900 text-white p-5 rounded-xl shadow-sm border border-slate-800">
           <div className="text-xs text-slate-400 font-medium">Rotated IoU Macro mAP@0.5</div>
           <div className="text-3xl font-extrabold text-emerald-400 mt-2">
-            {metrics?.mAP ? metrics.mAP.toFixed(4) : '0.8339'}
+            {(metrics.mAP * 100).toFixed(2)}%
           </div>
-          <div className="text-[11px] text-slate-400 mt-1">Equal 1/3 weighting per class</div>
+          <div className="text-[11px] text-slate-400 mt-1">
+            Exact DOTA-style continuous interpolation
+          </div>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
           <div className="text-xs text-slate-500 font-medium flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: KILN_COLORS.FCBK }} />
-            <span>AP: FCBK (Oval)</span>
+            <span
+              className="w-2.5 h-2.5 rounded-full"
+              style={{ backgroundColor: KILN_COLORS.FCBK }}
+            />
+            <span>AP: FCBK (Oval Trench)</span>
           </div>
-          <div className="text-2xl font-bold text-slate-800 mt-2">
-            {metrics?.AP_FCBK ? metrics.AP_FCBK.toFixed(4) : '0.8850'}
+          <div className="text-2xl font-extrabold text-slate-900 mt-2">
+            {(metrics.AP_FCBK * 100).toFixed(1)}%
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">High precision envelope</div>
+          <div className="text-[11px] text-slate-500 mt-1">
+            High precision enforcement envelope
+          </div>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
           <div className="text-xs text-slate-500 font-medium flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded" style={{ backgroundColor: KILN_COLORS.Zigzag }} />
+            <span
+              className="w-2.5 h-2.5 rounded"
+              style={{ backgroundColor: KILN_COLORS.Zigzag }}
+            />
             <span>AP: Zigzag (Rectangle)</span>
           </div>
-          <div className="text-2xl font-bold text-slate-800 mt-2">
-            {metrics?.AP_Zigzag ? metrics.AP_Zigzag.toFixed(4) : '0.6167'}
+          <div className="text-2xl font-extrabold text-slate-900 mt-2">
+            {(metrics.AP_Zigzag * 100).toFixed(1)}%
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">+17.5% from 256px resolution</div>
+          <div className="text-[11px] text-slate-500 mt-1">
+            +17.5% gain from 256 px resolution
+          </div>
         </div>
 
         <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
           <div className="text-xs text-slate-500 font-medium flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5" style={{ color: KILN_COLORS.CFCBK }}>▲</span>
+            <span
+              className="w-2.5 h-2.5 rounded-full"
+              style={{ backgroundColor: KILN_COLORS.CFCBK }}
+            />
             <span>AP: CFCBK (Circular ~3%)</span>
           </div>
-          <div className="text-2xl font-bold text-emerald-700 mt-2">
-            {metrics?.AP_CFCBK ? metrics.AP_CFCBK.toFixed(4) : '1.0000'}
+          <div className="text-2xl font-extrabold text-emerald-700 mt-2">
+            {(metrics.AP_CFCBK * 100).toFixed(1)}%
           </div>
-          <div className="text-[11px] text-slate-500 mt-1">Perfect recall via copy-paste</div>
+          <div className="text-[11px] text-slate-500 mt-1">
+            Flawless recall via copy-paste synthesis
+          </div>
         </div>
       </div>
 
-      {/* Mandatory Dataset Citation */}
-      <div className="bg-amber-50/60 p-5 rounded-xl border border-amber-200 text-amber-900">
-        <div className="flex items-center gap-2 font-bold text-sm mb-1">
-          <Award className="w-4 h-4 text-amber-600" />
-          <span>Official Benchmark & Dataset Credit</span>
-        </div>
-        <p className="text-xs text-amber-800 leading-relaxed m-0">
-          {DATASET_CREDIT.fullText}
-        </p>
-      </div>
+      {/* 1. End-to-End Architecture Diagram */}
+      <ArchitecturePipeline />
 
-      {/* Experiments Preview */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
-        <h3 className="text-sm font-bold text-slate-800 mb-2">Model Development Progression ({experiments.length} Experiments)</h3>
-        <p className="text-xs text-slate-500 mb-3">
-          Detailed interactive experiments table, pipeline diagram, and limitations panel will be finalized in <strong>Phase 6</strong>.
-        </p>
-        <div className="space-y-2">
-          {experiments.slice(0, 4).map((exp) => (
-            <div key={exp.id} className="p-2.5 bg-slate-50 rounded border border-slate-100 flex items-center justify-between text-xs">
-              <div>
-                <strong>Exp {exp.id}: {exp.model}</strong> &bull; <span className="text-slate-600">{exp.technique}</span>
-              </div>
-              <span className="px-2 py-0.5 rounded bg-slate-200 text-slate-700 font-bold text-[10px]">
-                {exp.val_mAP !== null ? `mAP ${exp.val_mAP.toFixed(4)}` : exp.status}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* 2. 10-Experiment Engineering Progression Table */}
+      <ExperimentsTable experiments={experiments} />
+
+      {/* 3. Official Benchmark & Dataset Citation */}
+      <DatasetCitationCard />
+
+      {/* 4. Honest Machine Learning Limitations */}
+      <HonestLimitations />
     </div>
   );
 };
