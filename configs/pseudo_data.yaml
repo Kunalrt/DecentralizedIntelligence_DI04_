@@ -1,0 +1,8 @@
+names:
+  0: FCBK
+  1: CFCBK
+  2: Zigzag
+path: C:\Users\kunal\OneDrive\Desktop\new folder\data\pseudo_dataset
+test: images/val
+train: images/train
+val: images/val
