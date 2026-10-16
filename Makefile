@@ -35,7 +35,7 @@ score:
 
 brief:
 	$(PYTHON) brief/analysis.py --detections submission.csv --out-dir brief/outputs
-	$(PYTHON) brief/generate_pdf_brief.py
+	$(PYTHON) brief/build_brief.py
 
 
 clean:

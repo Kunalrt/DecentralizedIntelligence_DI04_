@@ -1,4 +1,5 @@
-class,raw_detections,val_precision,val_recall,estimated_true_count,conservative_lower_bound,expanded_upper_bound,bootstrap_95ci_lower,bootstrap_95ci_upper,error_range_formatted
-FCBK,27,0.885,0.85,28,24,32,18,41,"28 (95% CI: [18, 41])"
-CFCBK,8,0.9,0.95,8,7,8,3,13,"8 (95% CI: [3, 13])"
-Zigzag,30,0.65,0.62,31,20,48,20,45,"31 (95% CI: [20, 45])"
+class,detected,est_true_count_low,est_true_count_high,precision,recall,note
+FCBK,27,18,41,0.89,0.85,Banned 2022 design
+Zigzag,30,21,45,0.65,0.62,Mandate compliant
+CFCBK,8,3,14,0.90,0.95,Circular kiln (~3%)
+Total,65,42,100,-,-,All types combined

@@ -5,13 +5,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-025",
+        "id": "KILN-DEMO-025",
         "class": "FCBK",
         "score": 0.9552,
-        "lat": 28.560112,
+        "lat": 28.56011,
         "lon": 77.18279,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "cluster_id": "Cluster 12",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -44,13 +44,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-053",
+        "id": "KILN-DEMO-053",
         "class": "FCBK",
         "score": 0.9544,
-        "lat": 28.611857,
-        "lon": 77.199113,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.61186,
+        "lon": 77.19911,
+        "cluster_id": "Cluster 1",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -83,13 +83,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-040",
+        "id": "KILN-DEMO-040",
         "class": "Zigzag",
         "score": 0.9484,
         "lat": 28.61756,
-        "lon": 77.177019,
-        "clustered_1km": true,
-        "neighbors_1km": 3
+        "lon": 77.17702,
+        "cluster_id": "Cluster 10",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -122,13 +122,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-006",
+        "id": "KILN-DEMO-006",
         "class": "Zigzag",
         "score": 0.944,
-        "lat": 28.572209,
-        "lon": 77.126333,
-        "clustered_1km": false,
-        "neighbors_1km": 0
+        "lat": 28.57221,
+        "lon": 77.12633,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -161,13 +161,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-004",
+        "id": "KILN-DEMO-004",
         "class": "Zigzag",
         "score": 0.942,
-        "lat": 28.592587,
-        "lon": 77.176077,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.59259,
+        "lon": 77.17608,
+        "cluster_id": "Cluster 14",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -200,13 +200,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-029",
+        "id": "KILN-DEMO-029",
         "class": "FCBK",
         "score": 0.9389,
-        "lat": 28.641683,
-        "lon": 77.137804,
-        "clustered_1km": false,
-        "neighbors_1km": 0
+        "lat": 28.64168,
+        "lon": 77.1378,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -239,13 +239,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-022",
+        "id": "KILN-DEMO-022",
         "class": "FCBK",
         "score": 0.9375,
-        "lat": 28.622864,
-        "lon": 77.171653,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "lat": 28.62286,
+        "lon": 77.17165,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -278,13 +278,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-034",
+        "id": "KILN-DEMO-034",
         "class": "CFCBK",
         "score": 0.9366,
-        "lat": 28.639052,
-        "lon": 77.203917,
-        "clustered_1km": true,
-        "neighbors_1km": 3
+        "lat": 28.63905,
+        "lon": 77.20392,
+        "cluster_id": "Cluster 2",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -317,13 +317,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-064",
+        "id": "KILN-DEMO-064",
         "class": "CFCBK",
         "score": 0.9328,
-        "lat": 28.597899,
-        "lon": 77.199526,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.5979,
+        "lon": 77.19953,
+        "cluster_id": "Cluster 15",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -356,13 +356,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-032",
+        "id": "KILN-DEMO-032",
         "class": "FCBK",
         "score": 0.9311,
         "lat": 28.62078,
-        "lon": 77.159496,
-        "clustered_1km": true,
-        "neighbors_1km": 5
+        "lon": 77.1595,
+        "cluster_id": "Cluster 4",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -395,13 +395,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-038",
+        "id": "KILN-DEMO-038",
         "class": "Zigzag",
         "score": 0.9275,
-        "lat": 28.618078,
-        "lon": 77.153061,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.61808,
+        "lon": 77.15306,
+        "cluster_id": "Cluster 8",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -434,13 +434,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-015",
+        "id": "KILN-DEMO-015",
         "class": "Zigzag",
         "score": 0.9122,
-        "lat": 28.592048,
-        "lon": 77.122082,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "lat": 28.59205,
+        "lon": 77.12208,
+        "cluster_id": "Cluster 13",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -473,13 +473,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-056",
+        "id": "KILN-DEMO-056",
         "class": "FCBK",
         "score": 0.9098,
-        "lat": 28.601087,
-        "lon": 77.118575,
-        "clustered_1km": true,
-        "neighbors_1km": 3
+        "lat": 28.60109,
+        "lon": 77.11857,
+        "cluster_id": "Cluster 5",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -512,13 +512,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-030",
+        "id": "KILN-DEMO-030",
         "class": "FCBK",
         "score": 0.9014,
-        "lat": 28.611375,
-        "lon": 77.132264,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.61137,
+        "lon": 77.13226,
+        "cluster_id": "Cluster 11",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -551,13 +551,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-048",
+        "id": "KILN-DEMO-048",
         "class": "FCBK",
         "score": 0.9014,
-        "lat": 28.611671,
-        "lon": 77.144963,
-        "clustered_1km": true,
-        "neighbors_1km": 3
+        "lat": 28.61167,
+        "lon": 77.14496,
+        "cluster_id": "Cluster 3",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -590,13 +590,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-052",
+        "id": "KILN-DEMO-052",
         "class": "FCBK",
         "score": 0.8747,
-        "lat": 28.608127,
-        "lon": 77.187382,
-        "clustered_1km": true,
-        "neighbors_1km": 3
+        "lat": 28.60813,
+        "lon": 77.18738,
+        "cluster_id": "Cluster 6",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -629,13 +629,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-050",
+        "id": "KILN-DEMO-050",
         "class": "CFCBK",
         "score": 0.8738,
-        "lat": 28.606564,
-        "lon": 77.170128,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "lat": 28.60656,
+        "lon": 77.17013,
+        "cluster_id": "Cluster 9",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -668,13 +668,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-028",
+        "id": "KILN-DEMO-028",
         "class": "FCBK",
         "score": 0.8673,
         "lat": 28.63773,
-        "lon": 77.124739,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "lon": 77.12474,
+        "cluster_id": "Cluster 7",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -707,13 +707,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-018",
+        "id": "KILN-DEMO-018",
         "class": "FCBK",
         "score": 0.8627,
-        "lat": 28.618755,
+        "lat": 28.61875,
         "lon": 77.11475,
-        "clustered_1km": false,
-        "neighbors_1km": 0
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -746,13 +746,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-009",
+        "id": "KILN-DEMO-009",
         "class": "Zigzag",
         "score": 0.861,
-        "lat": 28.607518,
+        "lat": 28.60752,
         "lon": 77.13428,
-        "clustered_1km": true,
-        "neighbors_1km": 5
+        "cluster_id": "Cluster 3",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -785,13 +785,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-023",
+        "id": "KILN-DEMO-023",
         "class": "FCBK",
         "score": 0.854,
-        "lat": 28.618033,
-        "lon": 77.157192,
-        "clustered_1km": true,
-        "neighbors_1km": 5
+        "lat": 28.61803,
+        "lon": 77.15719,
+        "cluster_id": "Cluster 4",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -824,13 +824,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-047",
+        "id": "KILN-DEMO-047",
         "class": "FCBK",
         "score": 0.8468,
-        "lat": 28.611136,
-        "lon": 77.139833,
-        "clustered_1km": true,
-        "neighbors_1km": 6
+        "lat": 28.61114,
+        "lon": 77.13983,
+        "cluster_id": "Cluster 3",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -863,13 +863,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-000",
+        "id": "KILN-DEMO-000",
         "class": "Zigzag",
         "score": 0.8431,
-        "lat": 28.612607,
-        "lon": 77.200369,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.61261,
+        "lon": 77.20037,
+        "cluster_id": "Cluster 1",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -902,13 +902,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-014",
+        "id": "KILN-DEMO-014",
         "class": "Zigzag",
         "score": 0.8404,
-        "lat": 28.593427,
-        "lon": 77.109705,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.59343,
+        "lon": 77.1097,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -941,13 +941,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-042",
+        "id": "KILN-DEMO-042",
         "class": "FCBK",
         "score": 0.8402,
-        "lat": 28.616735,
-        "lon": 77.198524,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.61674,
+        "lon": 77.19852,
+        "cluster_id": "Cluster 1",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -980,13 +980,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-058",
+        "id": "KILN-DEMO-058",
         "class": "Zigzag",
         "score": 0.8363,
-        "lat": 28.602141,
-        "lon": 77.139544,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "lat": 28.60214,
+        "lon": 77.13954,
+        "cluster_id": "Cluster 16",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1019,13 +1019,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-002",
+        "id": "KILN-DEMO-002",
         "class": "Zigzag",
         "score": 0.83,
-        "lat": 28.631725,
+        "lat": 28.63173,
         "lon": 77.12062,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "cluster_id": "Cluster 7",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1058,13 +1058,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-007",
+        "id": "KILN-DEMO-007",
         "class": "Zigzag",
         "score": 0.8219,
-        "lat": 28.629582,
+        "lat": 28.62958,
         "lon": 77.12339,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "cluster_id": "Cluster 7",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1097,13 +1097,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-016",
+        "id": "KILN-DEMO-016",
         "class": "Zigzag",
         "score": 0.8141,
-        "lat": 28.639879,
-        "lon": 77.200282,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.63988,
+        "lon": 77.20028,
+        "cluster_id": "Cluster 2",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1136,13 +1136,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-027",
+        "id": "KILN-DEMO-027",
         "class": "FCBK",
         "score": 0.8139,
-        "lat": 28.592985,
-        "lon": 77.197438,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.59299,
+        "lon": 77.19744,
+        "cluster_id": "Cluster 15",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1175,13 +1175,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-057",
+        "id": "KILN-DEMO-057",
         "class": "FCBK",
         "score": 0.8051,
-        "lat": 28.602872,
-        "lon": 77.123618,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.60287,
+        "lon": 77.12362,
+        "cluster_id": "Cluster 5",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1214,13 +1214,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-046",
+        "id": "KILN-DEMO-046",
         "class": "Zigzag",
         "score": 0.803,
-        "lat": 28.609808,
-        "lon": 77.127208,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.60981,
+        "lon": 77.12721,
+        "cluster_id": "Cluster 11",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1253,13 +1253,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-001",
+        "id": "KILN-DEMO-001",
         "class": "Zigzag",
         "score": 0.8023,
         "lat": 28.58112,
-        "lon": 77.165114,
-        "clustered_1km": false,
-        "neighbors_1km": 0
+        "lon": 77.16511,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -1292,13 +1292,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-005",
+        "id": "KILN-DEMO-005",
         "class": "Zigzag",
         "score": 0.7988,
-        "lat": 28.643785,
-        "lon": 77.202229,
-        "clustered_1km": true,
-        "neighbors_1km": 3
+        "lat": 28.64378,
+        "lon": 77.20223,
+        "cluster_id": "Cluster 2",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1331,13 +1331,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-008",
+        "id": "KILN-DEMO-008",
         "class": "Zigzag",
         "score": 0.797,
-        "lat": 28.618841,
-        "lon": 77.157517,
-        "clustered_1km": true,
-        "neighbors_1km": 5
+        "lat": 28.61884,
+        "lon": 77.15752,
+        "cluster_id": "Cluster 4",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1370,13 +1370,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-017",
+        "id": "KILN-DEMO-017",
         "class": "Zigzag",
         "score": 0.7968,
-        "lat": 28.560613,
-        "lon": 77.186133,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "lat": 28.56061,
+        "lon": 77.18613,
+        "cluster_id": "Cluster 12",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1409,13 +1409,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-021",
+        "id": "KILN-DEMO-021",
         "class": "FCBK",
         "score": 0.7954,
-        "lat": 28.642662,
-        "lon": 77.196296,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.64266,
+        "lon": 77.1963,
+        "cluster_id": "Cluster 2",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1448,13 +1448,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-039",
+        "id": "KILN-DEMO-039",
         "class": "FCBK",
         "score": 0.7877,
-        "lat": 28.620414,
-        "lon": 77.165642,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.62041,
+        "lon": 77.16564,
+        "cluster_id": "Cluster 4",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1487,13 +1487,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-019",
+        "id": "KILN-DEMO-019",
         "class": "FCBK",
         "score": 0.7851,
-        "lat": 28.585383,
-        "lon": 77.149165,
-        "clustered_1km": false,
-        "neighbors_1km": 0
+        "lat": 28.58538,
+        "lon": 77.14917,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -1526,13 +1526,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-049",
+        "id": "KILN-DEMO-049",
         "class": "Zigzag",
         "score": 0.7746,
-        "lat": 28.607308,
-        "lon": 77.154174,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.60731,
+        "lon": 77.15417,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -1565,13 +1565,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-055",
+        "id": "KILN-DEMO-055",
         "class": "Zigzag",
         "score": 0.7706,
-        "lat": 28.603098,
+        "lat": 28.6031,
         "lon": 77.10326,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "cluster_id": "Cluster 17",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1604,13 +1604,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-041",
+        "id": "KILN-DEMO-041",
         "class": "Zigzag",
         "score": 0.7698,
-        "lat": 28.618262,
-        "lon": 77.185003,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.61826,
+        "lon": 77.185,
+        "cluster_id": "Cluster 10",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1643,13 +1643,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-026",
+        "id": "KILN-DEMO-026",
         "class": "FCBK",
         "score": 0.7657,
-        "lat": 28.562932,
-        "lon": 77.194806,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.56293,
+        "lon": 77.19481,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -1682,13 +1682,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-051",
+        "id": "KILN-DEMO-051",
         "class": "Zigzag",
         "score": 0.7647,
-        "lat": 28.610278,
-        "lon": 77.179339,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.61028,
+        "lon": 77.17934,
+        "cluster_id": "Cluster 6",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1721,13 +1721,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-031",
+        "id": "KILN-DEMO-031",
         "class": "FCBK",
         "score": 0.7614,
         "lat": 28.57262,
-        "lon": 77.141022,
-        "clustered_1km": false,
-        "neighbors_1km": 0
+        "lon": 77.14102,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -1760,13 +1760,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-045",
+        "id": "KILN-DEMO-045",
         "class": "FCBK",
         "score": 0.7605,
-        "lat": 28.609015,
-        "lon": 77.117572,
-        "clustered_1km": true,
-        "neighbors_1km": 3
+        "lat": 28.60902,
+        "lon": 77.11757,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -1799,13 +1799,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-010",
+        "id": "KILN-DEMO-010",
         "class": "Zigzag",
         "score": 0.753,
-        "lat": 28.591667,
-        "lon": 77.118984,
-        "clustered_1km": true,
-        "neighbors_1km": 3
+        "lat": 28.59167,
+        "lon": 77.11898,
+        "cluster_id": "Cluster 13",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1838,13 +1838,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-036",
+        "id": "KILN-DEMO-036",
         "class": "Zigzag",
         "score": 0.7495,
-        "lat": 28.615706,
-        "lon": 77.135024,
-        "clustered_1km": true,
-        "neighbors_1km": 5
+        "lat": 28.61571,
+        "lon": 77.13502,
+        "cluster_id": "Cluster 3",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1877,13 +1877,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-033",
+        "id": "KILN-DEMO-033",
         "class": "CFCBK",
         "score": 0.7184,
         "lat": 28.63323,
-        "lon": 77.185484,
-        "clustered_1km": false,
-        "neighbors_1km": 0
+        "lon": 77.18548,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -1916,13 +1916,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-020",
+        "id": "KILN-DEMO-020",
         "class": "FCBK",
         "score": 0.718,
         "lat": 28.63486,
-        "lon": 77.154887,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lon": 77.15489,
+        "cluster_id": "Cluster 18",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1955,13 +1955,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-037",
+        "id": "KILN-DEMO-037",
         "class": "Zigzag",
         "score": 0.7162,
-        "lat": 28.616447,
-        "lon": 77.147857,
-        "clustered_1km": true,
-        "neighbors_1km": 6
+        "lat": 28.61645,
+        "lon": 77.14786,
+        "cluster_id": "Cluster 8",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -1994,13 +1994,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-024",
+        "id": "KILN-DEMO-024",
         "class": "FCBK",
         "score": 0.7147,
-        "lat": 28.597406,
-        "lon": 77.123534,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.59741,
+        "lon": 77.12353,
+        "cluster_id": "Cluster 5",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2033,13 +2033,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-059",
+        "id": "KILN-DEMO-059",
         "class": "FCBK",
         "score": 0.7052,
-        "lat": 28.596996,
-        "lon": 77.147101,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.597,
+        "lon": 77.1471,
+        "cluster_id": "Cluster 16",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2072,13 +2072,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-011",
+        "id": "KILN-DEMO-011",
         "class": "Zigzag",
         "score": 0.698,
         "lat": 28.61979,
-        "lon": 77.141672,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lon": 77.14167,
+        "cluster_id": "Cluster 8",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2111,13 +2111,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-063",
+        "id": "KILN-DEMO-063",
         "class": "CFCBK",
         "score": 0.6929,
-        "lat": 28.603371,
-        "lon": 77.189682,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "lat": 28.60337,
+        "lon": 77.18968,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -2150,13 +2150,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-061",
+        "id": "KILN-DEMO-061",
         "class": "CFCBK",
         "score": 0.6924,
-        "lat": 28.600484,
+        "lat": 28.60048,
         "lon": 77.16429,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "cluster_id": "Cluster 9",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2189,13 +2189,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-012",
+        "id": "KILN-DEMO-012",
         "class": "Zigzag",
         "score": 0.6867,
-        "lat": 28.605477,
+        "lat": 28.60548,
         "lon": 77.18373,
-        "clustered_1km": true,
-        "neighbors_1km": 3
+        "cluster_id": "Cluster 6",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2228,13 +2228,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-003",
+        "id": "KILN-DEMO-003",
         "class": "Zigzag",
         "score": 0.6752,
-        "lat": 28.640602,
+        "lat": 28.6406,
         "lon": 77.19189,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "cluster_id": "Cluster 2",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2267,13 +2267,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-035",
+        "id": "KILN-DEMO-035",
         "class": "CFCBK",
         "score": 0.6502,
-        "lat": 28.620324,
-        "lon": 77.130467,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.62032,
+        "lon": 77.13047,
+        "cluster_id": "Isolated",
+        "clustered_1km": false
       },
       "geometry": {
         "type": "Polygon",
@@ -2306,13 +2306,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-043",
+        "id": "KILN-DEMO-043",
         "class": "CFCBK",
         "score": 0.6443,
-        "lat": 28.618834,
-        "lon": 77.204885,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lat": 28.61883,
+        "lon": 77.20488,
+        "cluster_id": "Cluster 1",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2345,13 +2345,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-013",
+        "id": "KILN-DEMO-013",
         "class": "Zigzag",
         "score": 0.6271,
         "lat": 28.62781,
-        "lon": 77.156668,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "lon": 77.15667,
+        "cluster_id": "Cluster 18",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2384,13 +2384,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-062",
+        "id": "KILN-DEMO-062",
         "class": "Zigzag",
         "score": 0.616,
-        "lat": 28.597398,
-        "lon": 77.174121,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.5974,
+        "lon": 77.17412,
+        "cluster_id": "Cluster 14",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2423,13 +2423,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-044",
+        "id": "KILN-DEMO-044",
         "class": "FCBK",
         "score": 0.5637,
-        "lat": 28.611292,
-        "lon": 77.106343,
-        "clustered_1km": true,
-        "neighbors_1km": 1
+        "lat": 28.61129,
+        "lon": 77.10634,
+        "cluster_id": "Cluster 17",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2462,13 +2462,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-060",
+        "id": "KILN-DEMO-060",
         "class": "Zigzag",
         "score": 0.5472,
         "lat": 28.60337,
-        "lon": 77.159863,
-        "clustered_1km": true,
-        "neighbors_1km": 2
+        "lon": 77.15986,
+        "cluster_id": "Cluster 9",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",
@@ -2501,13 +2501,13 @@
     {
       "type": "Feature",
       "properties": {
-        "kiln_id": "KILN-DEMO-054",
+        "id": "KILN-DEMO-054",
         "class": "FCBK",
         "score": 0.3839,
         "lat": 28.6115,
-        "lon": 77.203858,
-        "clustered_1km": true,
-        "neighbors_1km": 4
+        "lon": 77.20386,
+        "cluster_id": "Cluster 1",
+        "clustered_1km": true
       },
       "geometry": {
         "type": "Polygon",

@@ -22,6 +22,7 @@
 | **06** | Exp 6c: Rare CFCBK Synthesis & Loss Boost | Targeted copy-paste CFCBK synthesis + cls loss weight 3.0 + copy_paste 0.5 | 0.8355 | 0.8850 | 1.0000 | 0.6214 | SENSATIONAL +0.3105 leap in mAP@0.5 (0.5250 -> 0.8355)! CFCBK AP jumped from 0.0000 to a PERFECT 1.0000. Zigzag AP climbed to 0.6214. Single highest-impact intervention! |
 | **07** | Exp 6e/6f: Hard Negatives & Multi-View TTA | Realistic negative tiles + Multi-view TTA (H-flip & 90° rot) + Rotated NMS | 0.8339 | 0.8850 | 1.0000 | 0.6167 | Robust against false positives on rivers/fields/settlements. TTA merges multi-view detections without exceeding the 15-minute T4 latency budget (52.8s total projected 8k runtime). |
 | **08** | Step 7: Domain Shift & Self-Training | High-conf pseudo-labeling (conf > 0.70) on test tiles + held-out region validation | 0.7620 | 0.8444 | 1.0000 | 0.4417 | Tested regional domain shift. Pseudo-labeling introduced label noise on subtle Zigzag boundaries (AP 0.6167 -> 0.4417, mAP 0.8339 -> 0.7620). Decisively rejected pseudo-weights and preserved verified champion (0.8339). |
+| **09** | Brief v2: ReportLab | ReportLab with fixed column widths and Paragraph cells; fixed table misalignment. | - | - | - | - | Exactly 2-page brief with verified alignment, exact mm column widths, and zero text overflow. |
 
 
 
@@ -131,5 +132,20 @@
   1. High-confidence pseudo-labeling on unlabeled imagery inevitably suffers from confirmation bias on subtle classes. Zigzag kilns share rectangular boundary geometry with certain agricultural plots and warehouse compounds; fine-tuning on pseudo-labels degraded Zigzag AP from 0.6167 to 0.4417.
   2. Our Champion model (Exp 06/07) is already operating at peak performance (0.8339 mAP), where unverified pseudo-labels introduce more noise than signal.
 - **Outcome**: Decisively **REJECT** pseudo-labeled weights. Preserved the verified 0.8339 champion weights in `weights/best.pt`. Exactly satisfies the Step 7 requirement to log the results whether self-training helped or not.
+ 
+ 
+### Exp 09: Brief v2: ReportLab with fixed column widths and Paragraph cells; fixed table misalignment.
+- **Objective**: Rebuild the Inspector's Brief PDF from scratch for Inspector Farida Khan (State Pollution Control Board), eliminating previous table misalignments and text clipping while strictly adhering to a 2-page ceiling.
+- **Implementation**:
+  - Rebuilt via ReportLab Platypus (`SimpleDocTemplate`, `Table`, `TableStyle`, `Paragraph`, `Image`, `KeepTogether`).
+  - Standardized usable page width to exactly 182 mm (A4 portrait with 14 mm margins).
+  - Explicit column widths summing to 182 mm across all 4 tables:
+    - Table A (`[40, 28, 44, 23, 23, 24] mm`)
+    - Table B (`[46, 48, 42, 46] mm`)
+    - Table C (`[20, 18, 50, 54, 40] mm`)
+    - Table D (`[8, 20, 20, 20, 20, 14, 80] mm`)
+  - Enclosed every single cell in a `Paragraph` and utilized non-breaking hyphens for IDs (`KILN&#8209;DEMO&#8209;XXX`) with 5.8 pt bold font, guaranteeing single-line alignment and zero cell overflow.
+  - Enforced strict numerical consistency across `counts.csv`, `conversions.csv`, `within_1km.csv`, `top20.csv`, `kilns.geojson`, and the PDF text.
+- **Outcome**: Produced publication-quality 2-page PDF (`inspector_brief.pdf`) with 150 DPI preview renderings (`preview_p1.png`, `preview_p2.png`). All quality assertions verified.
 
 

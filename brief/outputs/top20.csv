@@ -1,0 +1,21 @@
+rank,kiln_id,class,lat,lon,confidence,why_visit,priority_score,clustered_within_1km
+1,KILN-DEMO-025,FCBK,28.56011,77.18279,0.9552,Still FCBK post-2022 ban; high conf (0.96); near 1 kiln,85,YES
+2,KILN-DEMO-053,FCBK,28.61186,77.19911,0.9544,Still FCBK post-2022 ban; high conf (0.95); near 4 kilns,85,YES
+3,KILN-DEMO-048,FCBK,28.61167,77.14496,0.9014,Still FCBK post-2022 ban; high conf (0.90); near 3 kilns,85,YES
+4,KILN-DEMO-056,FCBK,28.60109,77.11857,0.9098,Still FCBK post-2022 ban; high conf (0.91); near 3 kilns,85,YES
+5,KILN-DEMO-052,FCBK,28.60813,77.18738,0.8747,Still FCBK post-2022 ban; high conf (0.87); near 3 kilns,85,YES
+6,KILN-DEMO-030,FCBK,28.61137,77.13226,0.9014,Still FCBK post-2022 ban; high conf (0.90); near 4 kilns,85,YES
+7,KILN-DEMO-032,FCBK,28.62078,77.1595,0.9311,Still FCBK post-2022 ban; high conf (0.93); near 5 kilns,85,YES
+8,KILN-DEMO-023,FCBK,28.61803,77.15719,0.854,Still FCBK post-2022 ban; high conf (0.85); near 5 kilns,85,YES
+9,KILN-DEMO-028,FCBK,28.63773,77.12474,0.8673,Still FCBK post-2022 ban; high conf (0.87); near 2 kilns,85,YES
+10,KILN-DEMO-047,FCBK,28.61114,77.13983,0.8468,Still FCBK post-2022 ban (conf 0.85); near 6 kilns,75,YES
+11,KILN-DEMO-042,FCBK,28.61674,77.19852,0.8402,Still FCBK post-2022 ban (conf 0.84); near 4 kilns,75,YES
+12,KILN-DEMO-057,FCBK,28.60287,77.12362,0.8051,Still FCBK post-2022 ban (conf 0.81); near 4 kilns,75,YES
+13,KILN-DEMO-027,FCBK,28.59299,77.19744,0.8139,Still FCBK post-2022 ban (conf 0.81); near 1 kiln,75,YES
+14,KILN-DEMO-044,FCBK,28.61129,77.10634,0.5637,Still FCBK post-2022 ban (conf 0.56); near 1 kiln,75,YES
+15,KILN-DEMO-024,FCBK,28.59741,77.12353,0.7147,Still FCBK post-2022 ban (conf 0.71); near 4 kilns,75,YES
+16,KILN-DEMO-039,FCBK,28.62041,77.16564,0.7877,Still FCBK post-2022 ban (conf 0.79); near 4 kilns,75,YES
+17,KILN-DEMO-021,FCBK,28.64266,77.1963,0.7954,Still FCBK post-2022 ban (conf 0.80); near 4 kilns,75,YES
+18,KILN-DEMO-059,FCBK,28.597,77.1471,0.7052,Still FCBK post-2022 ban (conf 0.71); near 1 kiln,75,YES
+19,KILN-DEMO-020,FCBK,28.63486,77.15489,0.718,Still FCBK post-2022 ban (conf 0.72); near 1 kiln,75,YES
+20,KILN-DEMO-054,FCBK,28.6115,77.20386,0.3839,Unverified FCBK; low conf (0.38) check; near 4 kilns,75,YES
