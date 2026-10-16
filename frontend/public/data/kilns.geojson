@@ -1,0 +1,2866 @@
+{
+  "type": "FeatureCollection",
+  "name": "DemoDistrict_BrickKilns",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-025",
+        "class": "FCBK",
+        "score": 0.9552,
+        "lat": 28.56011,
+        "lon": 77.18279,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 12",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 85,
+        "why": "Still FCBK post-2022 ban; high conf (0.96); near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.18219,
+              28.559812
+            ],
+            [
+              77.18339,
+              28.559812
+            ],
+            [
+              77.18339,
+              28.560412
+            ],
+            [
+              77.18219,
+              28.560412
+            ],
+            [
+              77.18219,
+              28.559812
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-053",
+        "class": "FCBK",
+        "score": 0.9544,
+        "lat": 28.61186,
+        "lon": 77.19911,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 1",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 85,
+        "why": "Still FCBK post-2022 ban; high conf (0.95); near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.198513,
+              28.611557
+            ],
+            [
+              77.199713,
+              28.611557
+            ],
+            [
+              77.199713,
+              28.612157
+            ],
+            [
+              77.198513,
+              28.612157
+            ],
+            [
+              77.198513,
+              28.611557
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-040",
+        "class": "Zigzag",
+        "score": 0.9484,
+        "lat": 28.61756,
+        "lon": 77.17702,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 10",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 3 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.176419,
+              28.61726
+            ],
+            [
+              77.177619,
+              28.61726
+            ],
+            [
+              77.177619,
+              28.61786
+            ],
+            [
+              77.176419,
+              28.61786
+            ],
+            [
+              77.176419,
+              28.61726
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-006",
+        "class": "Zigzag",
+        "score": 0.944,
+        "lat": 28.57221,
+        "lon": 77.12633,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 10,
+        "why": "Zigzag conversion; verify draft baffles"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.125733,
+              28.571909
+            ],
+            [
+              77.126933,
+              28.571909
+            ],
+            [
+              77.126933,
+              28.572509
+            ],
+            [
+              77.125733,
+              28.572509
+            ],
+            [
+              77.125733,
+              28.571909
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-004",
+        "class": "Zigzag",
+        "score": 0.942,
+        "lat": 28.59259,
+        "lon": 77.17608,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 14",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.175477,
+              28.592287
+            ],
+            [
+              77.176677,
+              28.592287
+            ],
+            [
+              77.176677,
+              28.592887
+            ],
+            [
+              77.175477,
+              28.592887
+            ],
+            [
+              77.175477,
+              28.592287
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-029",
+        "class": "FCBK",
+        "score": 0.9389,
+        "lat": 28.64168,
+        "lon": 77.1378,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 65,
+        "why": "Still FCBK post-2022 ban; high conf (0.94)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.137204,
+              28.641383
+            ],
+            [
+              77.138404,
+              28.641383
+            ],
+            [
+              77.138404,
+              28.641983
+            ],
+            [
+              77.137204,
+              28.641983
+            ],
+            [
+              77.137204,
+              28.641383
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-022",
+        "class": "FCBK",
+        "score": 0.9375,
+        "lat": 28.62286,
+        "lon": 77.17165,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 65,
+        "why": "Still FCBK post-2022 ban; high conf (0.94)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.171053,
+              28.622564
+            ],
+            [
+              77.172253,
+              28.622564
+            ],
+            [
+              77.172253,
+              28.623164
+            ],
+            [
+              77.171053,
+              28.623164
+            ],
+            [
+              77.171053,
+              28.622564
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-034",
+        "class": "CFCBK",
+        "score": 0.9366,
+        "lat": 28.63905,
+        "lon": 77.20392,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 2",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 55,
+        "why": "CFCBK circular kiln (~3%); heritage review; near 3 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.203317,
+              28.638752
+            ],
+            [
+              77.204517,
+              28.638752
+            ],
+            [
+              77.204517,
+              28.639352
+            ],
+            [
+              77.203317,
+              28.639352
+            ],
+            [
+              77.203317,
+              28.638752
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-064",
+        "class": "CFCBK",
+        "score": 0.9328,
+        "lat": 28.5979,
+        "lon": 77.19953,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 15",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 55,
+        "why": "CFCBK circular kiln (~3%); heritage review; near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.198926,
+              28.597599
+            ],
+            [
+              77.200126,
+              28.597599
+            ],
+            [
+              77.200126,
+              28.598199
+            ],
+            [
+              77.198926,
+              28.598199
+            ],
+            [
+              77.198926,
+              28.597599
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-032",
+        "class": "FCBK",
+        "score": 0.9311,
+        "lat": 28.62078,
+        "lon": 77.1595,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 4",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 85,
+        "why": "Still FCBK post-2022 ban; high conf (0.93); near 5 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.158896,
+              28.62048
+            ],
+            [
+              77.160096,
+              28.62048
+            ],
+            [
+              77.160096,
+              28.62108
+            ],
+            [
+              77.158896,
+              28.62108
+            ],
+            [
+              77.158896,
+              28.62048
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-038",
+        "class": "Zigzag",
+        "score": 0.9275,
+        "lat": 28.61808,
+        "lon": 77.15306,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 8",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.152461,
+              28.617778
+            ],
+            [
+              77.153661,
+              28.617778
+            ],
+            [
+              77.153661,
+              28.618378
+            ],
+            [
+              77.152461,
+              28.618378
+            ],
+            [
+              77.152461,
+              28.617778
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-015",
+        "class": "Zigzag",
+        "score": 0.9122,
+        "lat": 28.59205,
+        "lon": 77.12208,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 13",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.121482,
+              28.591748
+            ],
+            [
+              77.122682,
+              28.591748
+            ],
+            [
+              77.122682,
+              28.592348
+            ],
+            [
+              77.121482,
+              28.592348
+            ],
+            [
+              77.121482,
+              28.591748
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-056",
+        "class": "FCBK",
+        "score": 0.9098,
+        "lat": 28.60109,
+        "lon": 77.11857,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 5",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 85,
+        "why": "Still FCBK post-2022 ban; high conf (0.91); near 3 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.117975,
+              28.600787
+            ],
+            [
+              77.119175,
+              28.600787
+            ],
+            [
+              77.119175,
+              28.601387
+            ],
+            [
+              77.117975,
+              28.601387
+            ],
+            [
+              77.117975,
+              28.600787
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-030",
+        "class": "FCBK",
+        "score": 0.9014,
+        "lat": 28.61137,
+        "lon": 77.13226,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 11",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 85,
+        "why": "Still FCBK post-2022 ban; high conf (0.90); near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.131664,
+              28.611075
+            ],
+            [
+              77.132864,
+              28.611075
+            ],
+            [
+              77.132864,
+              28.611675
+            ],
+            [
+              77.131664,
+              28.611675
+            ],
+            [
+              77.131664,
+              28.611075
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-048",
+        "class": "FCBK",
+        "score": 0.9014,
+        "lat": 28.61167,
+        "lon": 77.14496,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 3",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 85,
+        "why": "Still FCBK post-2022 ban; high conf (0.90); near 3 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.144363,
+              28.611371
+            ],
+            [
+              77.145563,
+              28.611371
+            ],
+            [
+              77.145563,
+              28.611971
+            ],
+            [
+              77.144363,
+              28.611971
+            ],
+            [
+              77.144363,
+              28.611371
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-052",
+        "class": "FCBK",
+        "score": 0.8747,
+        "lat": 28.60813,
+        "lon": 77.18738,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 6",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 85,
+        "why": "Still FCBK post-2022 ban; high conf (0.87); near 3 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.186782,
+              28.607827
+            ],
+            [
+              77.187982,
+              28.607827
+            ],
+            [
+              77.187982,
+              28.608427
+            ],
+            [
+              77.186782,
+              28.608427
+            ],
+            [
+              77.186782,
+              28.607827
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-050",
+        "class": "CFCBK",
+        "score": 0.8738,
+        "lat": 28.60656,
+        "lon": 77.17013,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 9",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 55,
+        "why": "CFCBK circular kiln (~3%); heritage review; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.169528,
+              28.606264
+            ],
+            [
+              77.170728,
+              28.606264
+            ],
+            [
+              77.170728,
+              28.606864
+            ],
+            [
+              77.169528,
+              28.606864
+            ],
+            [
+              77.169528,
+              28.606264
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-028",
+        "class": "FCBK",
+        "score": 0.8673,
+        "lat": 28.63773,
+        "lon": 77.12474,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 7",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 85,
+        "why": "Still FCBK post-2022 ban; high conf (0.87); near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.124139,
+              28.63743
+            ],
+            [
+              77.125339,
+              28.63743
+            ],
+            [
+              77.125339,
+              28.63803
+            ],
+            [
+              77.124139,
+              28.63803
+            ],
+            [
+              77.124139,
+              28.63743
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-018",
+        "class": "FCBK",
+        "score": 0.8627,
+        "lat": 28.61875,
+        "lon": 77.11475,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 65,
+        "why": "Still FCBK post-2022 ban; high conf (0.86)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.11415,
+              28.618455
+            ],
+            [
+              77.11535,
+              28.618455
+            ],
+            [
+              77.11535,
+              28.619055
+            ],
+            [
+              77.11415,
+              28.619055
+            ],
+            [
+              77.11415,
+              28.618455
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-009",
+        "class": "Zigzag",
+        "score": 0.861,
+        "lat": 28.60752,
+        "lon": 77.13428,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 3",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 5 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.13368,
+              28.607218
+            ],
+            [
+              77.13488,
+              28.607218
+            ],
+            [
+              77.13488,
+              28.607818
+            ],
+            [
+              77.13368,
+              28.607818
+            ],
+            [
+              77.13368,
+              28.607218
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-023",
+        "class": "FCBK",
+        "score": 0.854,
+        "lat": 28.61803,
+        "lon": 77.15719,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 4",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 85,
+        "why": "Still FCBK post-2022 ban; high conf (0.85); near 5 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.156592,
+              28.617733
+            ],
+            [
+              77.157792,
+              28.617733
+            ],
+            [
+              77.157792,
+              28.618333
+            ],
+            [
+              77.156592,
+              28.618333
+            ],
+            [
+              77.156592,
+              28.617733
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-047",
+        "class": "FCBK",
+        "score": 0.8468,
+        "lat": 28.61114,
+        "lon": 77.13983,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 3",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.85); near 6 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.139233,
+              28.610836
+            ],
+            [
+              77.140433,
+              28.610836
+            ],
+            [
+              77.140433,
+              28.611436
+            ],
+            [
+              77.139233,
+              28.611436
+            ],
+            [
+              77.139233,
+              28.610836
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-000",
+        "class": "Zigzag",
+        "score": 0.8431,
+        "lat": 28.61261,
+        "lon": 77.20037,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 1",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.199769,
+              28.612307
+            ],
+            [
+              77.200969,
+              28.612307
+            ],
+            [
+              77.200969,
+              28.612907
+            ],
+            [
+              77.199769,
+              28.612907
+            ],
+            [
+              77.199769,
+              28.612307
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-014",
+        "class": "Zigzag",
+        "score": 0.8404,
+        "lat": 28.59343,
+        "lon": 77.1097,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 10,
+        "why": "Zigzag conversion; verify draft baffles"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.109105,
+              28.593127
+            ],
+            [
+              77.110305,
+              28.593127
+            ],
+            [
+              77.110305,
+              28.593727
+            ],
+            [
+              77.109105,
+              28.593727
+            ],
+            [
+              77.109105,
+              28.593127
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-042",
+        "class": "FCBK",
+        "score": 0.8402,
+        "lat": 28.61674,
+        "lon": 77.19852,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 1",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.84); near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.197924,
+              28.616435
+            ],
+            [
+              77.199124,
+              28.616435
+            ],
+            [
+              77.199124,
+              28.617035
+            ],
+            [
+              77.197924,
+              28.617035
+            ],
+            [
+              77.197924,
+              28.616435
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-058",
+        "class": "Zigzag",
+        "score": 0.8363,
+        "lat": 28.60214,
+        "lon": 77.13954,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 16",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.138944,
+              28.601841
+            ],
+            [
+              77.140144,
+              28.601841
+            ],
+            [
+              77.140144,
+              28.602441
+            ],
+            [
+              77.138944,
+              28.602441
+            ],
+            [
+              77.138944,
+              28.601841
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-002",
+        "class": "Zigzag",
+        "score": 0.83,
+        "lat": 28.63173,
+        "lon": 77.12062,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 7",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.12002,
+              28.631425
+            ],
+            [
+              77.12122,
+              28.631425
+            ],
+            [
+              77.12122,
+              28.632025
+            ],
+            [
+              77.12002,
+              28.632025
+            ],
+            [
+              77.12002,
+              28.631425
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-007",
+        "class": "Zigzag",
+        "score": 0.8219,
+        "lat": 28.62958,
+        "lon": 77.12339,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 7",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.12279,
+              28.629282
+            ],
+            [
+              77.12399,
+              28.629282
+            ],
+            [
+              77.12399,
+              28.629882
+            ],
+            [
+              77.12279,
+              28.629882
+            ],
+            [
+              77.12279,
+              28.629282
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-016",
+        "class": "Zigzag",
+        "score": 0.8141,
+        "lat": 28.63988,
+        "lon": 77.20028,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 2",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.199682,
+              28.639579
+            ],
+            [
+              77.200882,
+              28.639579
+            ],
+            [
+              77.200882,
+              28.640179
+            ],
+            [
+              77.199682,
+              28.640179
+            ],
+            [
+              77.199682,
+              28.639579
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-027",
+        "class": "FCBK",
+        "score": 0.8139,
+        "lat": 28.59299,
+        "lon": 77.19744,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 15",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.81); near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.196838,
+              28.592685
+            ],
+            [
+              77.198038,
+              28.592685
+            ],
+            [
+              77.198038,
+              28.593285
+            ],
+            [
+              77.196838,
+              28.593285
+            ],
+            [
+              77.196838,
+              28.592685
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-057",
+        "class": "FCBK",
+        "score": 0.8051,
+        "lat": 28.60287,
+        "lon": 77.12362,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 5",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.81); near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.123018,
+              28.602572
+            ],
+            [
+              77.124218,
+              28.602572
+            ],
+            [
+              77.124218,
+              28.603172
+            ],
+            [
+              77.123018,
+              28.603172
+            ],
+            [
+              77.123018,
+              28.602572
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-046",
+        "class": "Zigzag",
+        "score": 0.803,
+        "lat": 28.60981,
+        "lon": 77.12721,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 11",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.126608,
+              28.609508
+            ],
+            [
+              77.127808,
+              28.609508
+            ],
+            [
+              77.127808,
+              28.610108
+            ],
+            [
+              77.126608,
+              28.610108
+            ],
+            [
+              77.126608,
+              28.609508
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-001",
+        "class": "Zigzag",
+        "score": 0.8023,
+        "lat": 28.58112,
+        "lon": 77.16511,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 10,
+        "why": "Zigzag conversion; verify draft baffles"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.164514,
+              28.58082
+            ],
+            [
+              77.165714,
+              28.58082
+            ],
+            [
+              77.165714,
+              28.58142
+            ],
+            [
+              77.164514,
+              28.58142
+            ],
+            [
+              77.164514,
+              28.58082
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-005",
+        "class": "Zigzag",
+        "score": 0.7988,
+        "lat": 28.64378,
+        "lon": 77.20223,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 2",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 3 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.201629,
+              28.643485
+            ],
+            [
+              77.202829,
+              28.643485
+            ],
+            [
+              77.202829,
+              28.644085
+            ],
+            [
+              77.201629,
+              28.644085
+            ],
+            [
+              77.201629,
+              28.643485
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-008",
+        "class": "Zigzag",
+        "score": 0.797,
+        "lat": 28.61884,
+        "lon": 77.15752,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 4",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 5 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.156917,
+              28.618541
+            ],
+            [
+              77.158117,
+              28.618541
+            ],
+            [
+              77.158117,
+              28.619141
+            ],
+            [
+              77.156917,
+              28.619141
+            ],
+            [
+              77.156917,
+              28.618541
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-017",
+        "class": "Zigzag",
+        "score": 0.7968,
+        "lat": 28.56061,
+        "lon": 77.18613,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 12",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.185533,
+              28.560313
+            ],
+            [
+              77.186733,
+              28.560313
+            ],
+            [
+              77.186733,
+              28.560913
+            ],
+            [
+              77.185533,
+              28.560913
+            ],
+            [
+              77.185533,
+              28.560313
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-021",
+        "class": "FCBK",
+        "score": 0.7954,
+        "lat": 28.64266,
+        "lon": 77.1963,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 2",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.80); near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.195696,
+              28.642362
+            ],
+            [
+              77.196896,
+              28.642362
+            ],
+            [
+              77.196896,
+              28.642962
+            ],
+            [
+              77.195696,
+              28.642962
+            ],
+            [
+              77.195696,
+              28.642362
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-039",
+        "class": "FCBK",
+        "score": 0.7877,
+        "lat": 28.62041,
+        "lon": 77.16564,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 4",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.79); near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.165042,
+              28.620114
+            ],
+            [
+              77.166242,
+              28.620114
+            ],
+            [
+              77.166242,
+              28.620714
+            ],
+            [
+              77.165042,
+              28.620714
+            ],
+            [
+              77.165042,
+              28.620114
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-019",
+        "class": "FCBK",
+        "score": 0.7851,
+        "lat": 28.58538,
+        "lon": 77.14917,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 55,
+        "why": "Still FCBK post-2022 ban (conf 0.79)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.148565,
+              28.585083
+            ],
+            [
+              77.149765,
+              28.585083
+            ],
+            [
+              77.149765,
+              28.585683
+            ],
+            [
+              77.148565,
+              28.585683
+            ],
+            [
+              77.148565,
+              28.585083
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-049",
+        "class": "Zigzag",
+        "score": 0.7746,
+        "lat": 28.60731,
+        "lon": 77.15417,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 10,
+        "why": "Zigzag conversion; verify draft baffles"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.153574,
+              28.607008
+            ],
+            [
+              77.154774,
+              28.607008
+            ],
+            [
+              77.154774,
+              28.607608
+            ],
+            [
+              77.153574,
+              28.607608
+            ],
+            [
+              77.153574,
+              28.607008
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-055",
+        "class": "Zigzag",
+        "score": 0.7706,
+        "lat": 28.6031,
+        "lon": 77.10326,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 17",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.10266,
+              28.602798
+            ],
+            [
+              77.10386,
+              28.602798
+            ],
+            [
+              77.10386,
+              28.603398
+            ],
+            [
+              77.10266,
+              28.603398
+            ],
+            [
+              77.10266,
+              28.602798
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-041",
+        "class": "Zigzag",
+        "score": 0.7698,
+        "lat": 28.61826,
+        "lon": 77.185,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 10",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.184403,
+              28.617962
+            ],
+            [
+              77.185603,
+              28.617962
+            ],
+            [
+              77.185603,
+              28.618562
+            ],
+            [
+              77.184403,
+              28.618562
+            ],
+            [
+              77.184403,
+              28.617962
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-026",
+        "class": "FCBK",
+        "score": 0.7657,
+        "lat": 28.56293,
+        "lon": 77.19481,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 55,
+        "why": "Still FCBK post-2022 ban (conf 0.77)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.194206,
+              28.562632
+            ],
+            [
+              77.195406,
+              28.562632
+            ],
+            [
+              77.195406,
+              28.563232
+            ],
+            [
+              77.194206,
+              28.563232
+            ],
+            [
+              77.194206,
+              28.562632
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-051",
+        "class": "Zigzag",
+        "score": 0.7647,
+        "lat": 28.61028,
+        "lon": 77.17934,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 6",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.178739,
+              28.609978
+            ],
+            [
+              77.179939,
+              28.609978
+            ],
+            [
+              77.179939,
+              28.610578
+            ],
+            [
+              77.178739,
+              28.610578
+            ],
+            [
+              77.178739,
+              28.609978
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-031",
+        "class": "FCBK",
+        "score": 0.7614,
+        "lat": 28.57262,
+        "lon": 77.14102,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 55,
+        "why": "Still FCBK post-2022 ban (conf 0.76)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.140422,
+              28.57232
+            ],
+            [
+              77.141622,
+              28.57232
+            ],
+            [
+              77.141622,
+              28.57292
+            ],
+            [
+              77.140422,
+              28.57292
+            ],
+            [
+              77.140422,
+              28.57232
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-045",
+        "class": "FCBK",
+        "score": 0.7605,
+        "lat": 28.60902,
+        "lon": 77.11757,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 55,
+        "why": "Still FCBK post-2022 ban (conf 0.76)"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.116972,
+              28.608715
+            ],
+            [
+              77.118172,
+              28.608715
+            ],
+            [
+              77.118172,
+              28.609315
+            ],
+            [
+              77.116972,
+              28.609315
+            ],
+            [
+              77.116972,
+              28.608715
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-010",
+        "class": "Zigzag",
+        "score": 0.753,
+        "lat": 28.59167,
+        "lon": 77.11898,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 13",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 3 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.118384,
+              28.591367
+            ],
+            [
+              77.119584,
+              28.591367
+            ],
+            [
+              77.119584,
+              28.591967
+            ],
+            [
+              77.118384,
+              28.591967
+            ],
+            [
+              77.118384,
+              28.591367
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-036",
+        "class": "Zigzag",
+        "score": 0.7495,
+        "lat": 28.61571,
+        "lon": 77.13502,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 3",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 5 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.134424,
+              28.615406
+            ],
+            [
+              77.135624,
+              28.615406
+            ],
+            [
+              77.135624,
+              28.616006
+            ],
+            [
+              77.134424,
+              28.616006
+            ],
+            [
+              77.134424,
+              28.615406
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-033",
+        "class": "CFCBK",
+        "score": 0.7184,
+        "lat": 28.63323,
+        "lon": 77.18548,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 35,
+        "why": "CFCBK circular kiln (~3%); heritage review"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.184884,
+              28.63293
+            ],
+            [
+              77.186084,
+              28.63293
+            ],
+            [
+              77.186084,
+              28.63353
+            ],
+            [
+              77.184884,
+              28.63353
+            ],
+            [
+              77.184884,
+              28.63293
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-020",
+        "class": "FCBK",
+        "score": 0.718,
+        "lat": 28.63486,
+        "lon": 77.15489,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 18",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.72); near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.154287,
+              28.63456
+            ],
+            [
+              77.155487,
+              28.63456
+            ],
+            [
+              77.155487,
+              28.63516
+            ],
+            [
+              77.154287,
+              28.63516
+            ],
+            [
+              77.154287,
+              28.63456
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-037",
+        "class": "Zigzag",
+        "score": 0.7162,
+        "lat": 28.61645,
+        "lon": 77.14786,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 8",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 6 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.147257,
+              28.616147
+            ],
+            [
+              77.148457,
+              28.616147
+            ],
+            [
+              77.148457,
+              28.616747
+            ],
+            [
+              77.147257,
+              28.616747
+            ],
+            [
+              77.147257,
+              28.616147
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-024",
+        "class": "FCBK",
+        "score": 0.7147,
+        "lat": 28.59741,
+        "lon": 77.12353,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 5",
+        "converted": false,
+        "prev_class": "FCBK",
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.71); near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.122934,
+              28.597106
+            ],
+            [
+              77.124134,
+              28.597106
+            ],
+            [
+              77.124134,
+              28.597706
+            ],
+            [
+              77.122934,
+              28.597706
+            ],
+            [
+              77.122934,
+              28.597106
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-059",
+        "class": "FCBK",
+        "score": 0.7052,
+        "lat": 28.597,
+        "lon": 77.1471,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 16",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.71); near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.146501,
+              28.596696
+            ],
+            [
+              77.147701,
+              28.596696
+            ],
+            [
+              77.147701,
+              28.597296
+            ],
+            [
+              77.146501,
+              28.597296
+            ],
+            [
+              77.146501,
+              28.596696
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-011",
+        "class": "Zigzag",
+        "score": 0.698,
+        "lat": 28.61979,
+        "lon": 77.14167,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 8",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.141072,
+              28.61949
+            ],
+            [
+              77.142272,
+              28.61949
+            ],
+            [
+              77.142272,
+              28.62009
+            ],
+            [
+              77.141072,
+              28.62009
+            ],
+            [
+              77.141072,
+              28.61949
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-063",
+        "class": "CFCBK",
+        "score": 0.6929,
+        "lat": 28.60337,
+        "lon": 77.18968,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 35,
+        "why": "CFCBK circular kiln (~3%); heritage review"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.189082,
+              28.603071
+            ],
+            [
+              77.190282,
+              28.603071
+            ],
+            [
+              77.190282,
+              28.603671
+            ],
+            [
+              77.189082,
+              28.603671
+            ],
+            [
+              77.189082,
+              28.603071
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-061",
+        "class": "CFCBK",
+        "score": 0.6924,
+        "lat": 28.60048,
+        "lon": 77.16429,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 9",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 55,
+        "why": "CFCBK circular kiln (~3%); heritage review; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.16369,
+              28.600184
+            ],
+            [
+              77.16489,
+              28.600184
+            ],
+            [
+              77.16489,
+              28.600784
+            ],
+            [
+              77.16369,
+              28.600784
+            ],
+            [
+              77.16369,
+              28.600184
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-012",
+        "class": "Zigzag",
+        "score": 0.6867,
+        "lat": 28.60548,
+        "lon": 77.18373,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 6",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 3 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.18313,
+              28.605177
+            ],
+            [
+              77.18433,
+              28.605177
+            ],
+            [
+              77.18433,
+              28.605777
+            ],
+            [
+              77.18313,
+              28.605777
+            ],
+            [
+              77.18313,
+              28.605177
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-003",
+        "class": "Zigzag",
+        "score": 0.6752,
+        "lat": 28.6406,
+        "lon": 77.19189,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 2",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.19129,
+              28.640302
+            ],
+            [
+              77.19249,
+              28.640302
+            ],
+            [
+              77.19249,
+              28.640902
+            ],
+            [
+              77.19129,
+              28.640902
+            ],
+            [
+              77.19129,
+              28.640302
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-035",
+        "class": "CFCBK",
+        "score": 0.6502,
+        "lat": 28.62032,
+        "lon": 77.13047,
+        "near_1km": false,
+        "clustered_1km": false,
+        "cluster_id": "Isolated",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 35,
+        "why": "CFCBK circular kiln (~3%); heritage review"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.129867,
+              28.620024
+            ],
+            [
+              77.131067,
+              28.620024
+            ],
+            [
+              77.131067,
+              28.620624
+            ],
+            [
+              77.129867,
+              28.620624
+            ],
+            [
+              77.129867,
+              28.620024
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-043",
+        "class": "CFCBK",
+        "score": 0.6443,
+        "lat": 28.61883,
+        "lon": 77.20488,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 1",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 55,
+        "why": "CFCBK circular kiln (~3%); heritage review; near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.204285,
+              28.618534
+            ],
+            [
+              77.205485,
+              28.618534
+            ],
+            [
+              77.205485,
+              28.619134
+            ],
+            [
+              77.204285,
+              28.619134
+            ],
+            [
+              77.204285,
+              28.618534
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-013",
+        "class": "Zigzag",
+        "score": 0.6271,
+        "lat": 28.62781,
+        "lon": 77.15667,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 18",
+        "converted": true,
+        "prev_class": "FCBK",
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.156068,
+              28.62751
+            ],
+            [
+              77.157268,
+              28.62751
+            ],
+            [
+              77.157268,
+              28.62811
+            ],
+            [
+              77.156068,
+              28.62811
+            ],
+            [
+              77.156068,
+              28.62751
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-062",
+        "class": "Zigzag",
+        "score": 0.616,
+        "lat": 28.5974,
+        "lon": 77.17412,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 14",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.173521,
+              28.597098
+            ],
+            [
+              77.174721,
+              28.597098
+            ],
+            [
+              77.174721,
+              28.597698
+            ],
+            [
+              77.173521,
+              28.597698
+            ],
+            [
+              77.173521,
+              28.597098
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-044",
+        "class": "FCBK",
+        "score": 0.5637,
+        "lat": 28.61129,
+        "lon": 77.10634,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 17",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 75,
+        "why": "Still FCBK post-2022 ban (conf 0.56); near 1 kiln"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.105743,
+              28.610992
+            ],
+            [
+              77.106943,
+              28.610992
+            ],
+            [
+              77.106943,
+              28.611592
+            ],
+            [
+              77.105743,
+              28.611592
+            ],
+            [
+              77.105743,
+              28.610992
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-060",
+        "class": "Zigzag",
+        "score": 0.5472,
+        "lat": 28.60337,
+        "lon": 77.15986,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 9",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 30,
+        "why": "Zigzag conversion; verify draft baffles; near 2 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.159263,
+              28.60307
+            ],
+            [
+              77.160463,
+              28.60307
+            ],
+            [
+              77.160463,
+              28.60367
+            ],
+            [
+              77.159263,
+              28.60367
+            ],
+            [
+              77.159263,
+              28.60307
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "KILN-DEMO-054",
+        "class": "FCBK",
+        "score": 0.3839,
+        "lat": 28.6115,
+        "lon": 77.20386,
+        "near_1km": true,
+        "clustered_1km": true,
+        "cluster_id": "Cluster 1",
+        "converted": false,
+        "prev_class": null,
+        "priority_score": 75,
+        "why": "Unverified FCBK; low conf (0.38) check; near 4 kilns"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              77.203258,
+              28.6112
+            ],
+            [
+              77.204458,
+              28.6112
+            ],
+            [
+              77.204458,
+              28.6118
+            ],
+            [
+              77.203258,
+              28.6118
+            ],
+            [
+              77.203258,
+              28.6112
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

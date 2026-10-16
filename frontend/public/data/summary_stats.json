@@ -1,0 +1,20 @@
+{
+  "district_name": "Demo District",
+  "total_tiles_scanned": 120,
+  "raw_tile_detections": 69,
+  "unique_physical_kilns": 65,
+  "deduplicated_overlap_count": 4,
+  "class_counts_raw": {
+    "Zigzag": 30,
+    "FCBK": 27,
+    "CFCBK": 8
+  },
+  "kilns_within_1km_cluster": 51,
+  "total_clusters_count": 18,
+  "conversions_tracked": {
+    "total_2023_baseline_fcbk": 45,
+    "converted_to_zigzag": 18,
+    "unconverted_fcbk_violations": 15,
+    "dismantled_or_inactive": 10
+  }
+}

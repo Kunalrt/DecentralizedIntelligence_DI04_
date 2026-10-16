@@ -112,7 +112,44 @@ All regulatory field deliverables are generated under `brief/outputs/`:
 To re-run the Inspector's Brief analytical engine:
 ```bash
 python brief/analysis.py --detections submission.csv --out-dir brief/outputs
-python brief/generate_pdf_brief.py
+python brief/build_brief.py
+```
+
+---
+
+## 🌐 Interactive Frontend Dashboard
+
+An interactive React + Vite + TypeScript dashboard designed for **Inspector Farida Khan (State Pollution Control Board)** to plan field patrols, explore kiln clusters, and review mandate conversions.
+
+- **Live Deployment**: [https://kunalrt.github.io/new_repo/](https://kunalrt.github.io/new_repo/) (configured via GitHub Pages & GitHub Actions).
+- **Basemap Compliance**: Uses **OpenStreetMap standard tiles exclusively**; strictly zero satellite, Google, or Esri imagery.
+- **Color & Shape System**: FCBK (#E8710A, Circle), Zigzag (#1A73E8, Square), CFCBK (#188038, Triangle).
+
+### How to Run Locally
+
+```bash
+# 1. Install frontend dependencies
+cd frontend
+npm install --legacy-peer-deps
+
+# 2. Sync analytical outputs from brief/outputs/ to public/data/
+npm run sync
+# Or from root: make frontend-sync
+
+# 3. Start local development server
+npm run dev
+# Dashboard launches at: http://localhost:5173/
+
+# 4. Build production static bundle
+npm run build
+```
+
+*(Alternative via Makefile from repository root)*:
+```bash
+make frontend-install
+make frontend-sync
+make frontend-dev
+make frontend-build
 ```
 
 ---

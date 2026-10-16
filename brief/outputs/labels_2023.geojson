@@ -1,0 +1,1086 @@
+{
+  "type": "FeatureCollection",
+  "name": "Historical_2023_24_Kilns",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-000",
+        "class": "FCBK",
+        "lat": 28.61263,
+        "lon": 77.20039,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-000",
+        "matched_lat": 28.61261,
+        "matched_lon": 77.20037,
+        "distance_to_historical_m": 2.5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.200388,
+          28.612626
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-001",
+        "class": "FCBK",
+        "lat": 28.58116,
+        "lon": 77.16507,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-001",
+        "matched_lat": 28.58112,
+        "matched_lon": 77.16511,
+        "distance_to_historical_m": 5.7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.165071,
+          28.581158
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-002",
+        "class": "FCBK",
+        "lat": 28.63186,
+        "lon": 77.12067,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-002",
+        "matched_lat": 28.63173,
+        "matched_lon": 77.12062,
+        "distance_to_historical_m": 15.4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.120665,
+          28.631863
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-003",
+        "class": "FCBK",
+        "lat": 28.64049,
+        "lon": 77.19191,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-003",
+        "matched_lat": 28.6406,
+        "matched_lon": 77.19189,
+        "distance_to_historical_m": 12.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.191908,
+          28.640485
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-004",
+        "class": "FCBK",
+        "lat": 28.59268,
+        "lon": 77.17605,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-004",
+        "matched_lat": 28.59259,
+        "matched_lon": 77.17608,
+        "distance_to_historical_m": 10.4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.176047,
+          28.592679
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-005",
+        "class": "FCBK",
+        "lat": 28.64379,
+        "lon": 77.20231,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-005",
+        "matched_lat": 28.64378,
+        "matched_lon": 77.20223,
+        "distance_to_historical_m": 8.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.202314,
+          28.643786
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-006",
+        "class": "FCBK",
+        "lat": 28.57231,
+        "lon": 77.12632,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-006",
+        "matched_lat": 28.57221,
+        "matched_lon": 77.12633,
+        "distance_to_historical_m": 11.7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.126317,
+          28.572315
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-007",
+        "class": "FCBK",
+        "lat": 28.62959,
+        "lon": 77.12341,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-007",
+        "matched_lat": 28.62958,
+        "matched_lon": 77.12339,
+        "distance_to_historical_m": 2.6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.123414,
+          28.629591
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-008",
+        "class": "FCBK",
+        "lat": 28.61881,
+        "lon": 77.15766,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-008",
+        "matched_lat": 28.61884,
+        "matched_lon": 77.15752,
+        "distance_to_historical_m": 13.8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.157658,
+          28.618814
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-009",
+        "class": "FCBK",
+        "lat": 28.60757,
+        "lon": 77.13423,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-009",
+        "matched_lat": 28.60752,
+        "matched_lon": 77.13428,
+        "distance_to_historical_m": 7.5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.134231,
+          28.607572
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-010",
+        "class": "FCBK",
+        "lat": 28.59173,
+        "lon": 77.11901,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-010",
+        "matched_lat": 28.59167,
+        "matched_lon": 77.11898,
+        "distance_to_historical_m": 7.7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.119009,
+          28.591734
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-011",
+        "class": "FCBK",
+        "lat": 28.61988,
+        "lon": 77.14177,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-011",
+        "matched_lat": 28.61979,
+        "matched_lon": 77.14167,
+        "distance_to_historical_m": 13.8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.141768,
+          28.619879
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-012",
+        "class": "FCBK",
+        "lat": 28.60545,
+        "lon": 77.18378,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-012",
+        "matched_lat": 28.60548,
+        "matched_lon": 77.18373,
+        "distance_to_historical_m": 6.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.183782,
+          28.605448
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-013",
+        "class": "FCBK",
+        "lat": 28.62802,
+        "lon": 77.1566,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-013",
+        "matched_lat": 28.62781,
+        "matched_lon": 77.15667,
+        "distance_to_historical_m": 24.3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.156602,
+          28.62802
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-014",
+        "class": "FCBK",
+        "lat": 28.59344,
+        "lon": 77.10968,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-014",
+        "matched_lat": 28.59343,
+        "matched_lon": 77.1097,
+        "distance_to_historical_m": 2.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.109676,
+          28.593445
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-015",
+        "class": "FCBK",
+        "lat": 28.59211,
+        "lon": 77.12212,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-015",
+        "matched_lat": 28.59205,
+        "matched_lon": 77.12208,
+        "distance_to_historical_m": 8.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.122122,
+          28.592113
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-016",
+        "class": "FCBK",
+        "lat": 28.63987,
+        "lon": 77.2002,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-016",
+        "matched_lat": 28.63988,
+        "matched_lon": 77.20028,
+        "distance_to_historical_m": 7.4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.200205,
+          28.639871
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-017",
+        "class": "FCBK",
+        "lat": 28.56059,
+        "lon": 77.18611,
+        "status": "CONVERTED (FCBK -> Zigzag)",
+        "regulatory_compliance": "COMPLIANT",
+        "converted": true,
+        "matched_current_class": "Zigzag",
+        "matched_kiln_id": "KILN-DEMO-017",
+        "matched_lat": 28.56061,
+        "matched_lon": 77.18613,
+        "distance_to_historical_m": 2.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.186112,
+          28.560589
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-018",
+        "class": "FCBK",
+        "lat": 28.61878,
+        "lon": 77.11481,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-018",
+        "matched_lat": 28.61875,
+        "matched_lon": 77.11475,
+        "distance_to_historical_m": 7.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.114814,
+          28.618782
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-019",
+        "class": "FCBK",
+        "lat": 28.58536,
+        "lon": 77.14917,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-019",
+        "matched_lat": 28.58538,
+        "matched_lon": 77.14917,
+        "distance_to_historical_m": 2.0
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.149171,
+          28.585362
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-020",
+        "class": "FCBK",
+        "lat": 28.63486,
+        "lon": 77.15469,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-020",
+        "matched_lat": 28.63486,
+        "matched_lon": 77.15489,
+        "distance_to_historical_m": 19.5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.15469,
+          28.634855
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-021",
+        "class": "FCBK",
+        "lat": 28.64257,
+        "lon": 77.19624,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-021",
+        "matched_lat": 28.64266,
+        "matched_lon": 77.1963,
+        "distance_to_historical_m": 11.7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.196236,
+          28.642571
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-022",
+        "class": "FCBK",
+        "lat": 28.62282,
+        "lon": 77.17148,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-022",
+        "matched_lat": 28.62286,
+        "matched_lon": 77.17165,
+        "distance_to_historical_m": 17.5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.171478,
+          28.622817
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-023",
+        "class": "FCBK",
+        "lat": 28.61816,
+        "lon": 77.15719,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-023",
+        "matched_lat": 28.61803,
+        "matched_lon": 77.15719,
+        "distance_to_historical_m": 14.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.157187,
+          28.618157
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-024",
+        "class": "FCBK",
+        "lat": 28.59747,
+        "lon": 77.12356,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-024",
+        "matched_lat": 28.59741,
+        "matched_lon": 77.12353,
+        "distance_to_historical_m": 7.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.12356,
+          28.597469
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-025",
+        "class": "FCBK",
+        "lat": 28.56024,
+        "lon": 77.18278,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-025",
+        "matched_lat": 28.56011,
+        "matched_lon": 77.18279,
+        "distance_to_historical_m": 14.6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.182775,
+          28.560241
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-026",
+        "class": "FCBK",
+        "lat": 28.56289,
+        "lon": 77.19478,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-026",
+        "matched_lat": 28.56293,
+        "matched_lon": 77.19481,
+        "distance_to_historical_m": 5.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.194782,
+          28.56289
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-027",
+        "class": "FCBK",
+        "lat": 28.59296,
+        "lon": 77.1975,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-027",
+        "matched_lat": 28.59299,
+        "matched_lon": 77.19744,
+        "distance_to_historical_m": 6.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.197495,
+          28.592962
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-028",
+        "class": "FCBK",
+        "lat": 28.63781,
+        "lon": 77.12468,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-028",
+        "matched_lat": 28.63773,
+        "matched_lon": 77.12474,
+        "distance_to_historical_m": 10.7
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.124676,
+          28.637808
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-029",
+        "class": "FCBK",
+        "lat": 28.64162,
+        "lon": 77.13765,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-029",
+        "matched_lat": 28.64168,
+        "matched_lon": 77.1378,
+        "distance_to_historical_m": 16.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.137652,
+          28.641617
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-030",
+        "class": "FCBK",
+        "lat": 28.61138,
+        "lon": 77.13224,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-030",
+        "matched_lat": 28.61137,
+        "matched_lon": 77.13226,
+        "distance_to_historical_m": 2.6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.132237,
+          28.611381
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-031",
+        "class": "FCBK",
+        "lat": 28.57264,
+        "lon": 77.1408,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-031",
+        "matched_lat": 28.57262,
+        "matched_lon": 77.14102,
+        "distance_to_historical_m": 21.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.140804,
+          28.572641
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-032",
+        "class": "FCBK",
+        "lat": 28.62087,
+        "lon": 77.15946,
+        "status": "UNCONVERTED (Persistent FCBK)",
+        "regulatory_compliance": "VIOLATION (Post-2022 Mandate)",
+        "converted": false,
+        "matched_current_class": "FCBK",
+        "matched_kiln_id": "KILN-DEMO-032",
+        "matched_lat": 28.62078,
+        "matched_lon": 77.1595,
+        "distance_to_historical_m": 10.4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.159457,
+          28.620866
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-033",
+        "class": "FCBK",
+        "lat": 28.63319,
+        "lon": 77.18549,
+        "status": "DETECTED AS CFCBK",
+        "regulatory_compliance": "FURTHER REVIEW",
+        "converted": false,
+        "matched_current_class": "CFCBK",
+        "matched_kiln_id": "KILN-DEMO-033",
+        "matched_lat": 28.63323,
+        "matched_lon": 77.18548,
+        "distance_to_historical_m": 4.3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.18549,
+          28.633192
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-034",
+        "class": "FCBK",
+        "lat": 28.63903,
+        "lon": 77.20402,
+        "status": "DETECTED AS CFCBK",
+        "regulatory_compliance": "FURTHER REVIEW",
+        "converted": false,
+        "matched_current_class": "CFCBK",
+        "matched_kiln_id": "KILN-DEMO-034",
+        "matched_lat": 28.63905,
+        "matched_lon": 77.20392,
+        "distance_to_historical_m": 9.6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.204017,
+          28.639035
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-035",
+        "class": "FCBK",
+        "lat": 28.57761,
+        "lon": 77.12495,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 615.8
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.12495,
+          28.577614
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-036",
+        "class": "FCBK",
+        "lat": 28.64511,
+        "lon": 77.18682,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 704.6
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.18682,
+          28.645112
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-037",
+        "class": "FCBK",
+        "lat": 28.58337,
+        "lon": 77.17815,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 1044.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.178147,
+          28.58337
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-038",
+        "class": "FCBK",
+        "lat": 28.5777,
+        "lon": 77.11244,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 1487.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.112444,
+          28.5777
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-039",
+        "class": "FCBK",
+        "lat": 28.61404,
+        "lon": 77.11664,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 555.1
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.116639,
+          28.614041
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-040",
+        "class": "FCBK",
+        "lat": 28.56961,
+        "lon": 77.16754,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 1301.2
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.167543,
+          28.569615
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-041",
+        "class": "FCBK",
+        "lat": 28.61647,
+        "lon": 77.11139,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 414.5
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.111392,
+          28.616468
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-042",
+        "class": "FCBK",
+        "lat": 28.61822,
+        "lon": 77.13764,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 378.4
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.137637,
+          28.618221
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-043",
+        "class": "FCBK",
+        "lat": 28.58137,
+        "lon": 77.16897,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 378.3
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.168974,
+          28.581368
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": "HIST-2023-044",
+        "class": "FCBK",
+        "lat": 28.56749,
+        "lon": 77.15239,
+        "status": "DISMANTLED / INACTIVE",
+        "regulatory_compliance": "SHUT DOWN",
+        "converted": false,
+        "matched_current_class": "None",
+        "matched_kiln_id": NaN,
+        "matched_lat": null,
+        "matched_lon": null,
+        "distance_to_historical_m": 1247.9
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.152387,
+          28.567493
+        ]
+      }
+    }
+  ]
+}

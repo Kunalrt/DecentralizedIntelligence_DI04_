@@ -1,0 +1,5 @@
+class,detected,est_true_count_low,est_true_count_high,precision,recall,note
+FCBK,27,18,41,0.89,0.85,Banned 2022 design
+Zigzag,30,21,45,0.65,0.62,Mandate compliant
+CFCBK,8,3,14,0.90,0.95,Circular kiln (~3%)
+Total,65,42,100,-,-,All types combined

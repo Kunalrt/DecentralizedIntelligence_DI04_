@@ -5,6 +5,11 @@
 *.tar.gz
 *.parquet
 
+# Node & Frontend
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
 # Model Weights & Runs
 weights/*
 !weights/.gitkeep

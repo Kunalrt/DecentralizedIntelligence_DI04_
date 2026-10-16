@@ -242,6 +242,9 @@ def analyze_conversions(
         if best_match is not None and min_dist <= match_distance_m:
             cur_cls = best_match["class"]
             conf = best_match["score"]
+            best_match["matched_historical_id"] = hist["kiln_id"]
+            best_match["prev_class"] = "FCBK"
+            best_match["is_converted"] = (cur_cls == "Zigzag")
             if cur_cls == "Zigzag":
                 status = "CONVERTED (FCBK -> Zigzag)"
                 regulatory_compliance = "COMPLIANT"
@@ -265,6 +268,9 @@ def analyze_conversions(
                 "status": status,
                 "regulatory_compliance": regulatory_compliance,
                 "uncertainty_level": uncertainty,
+                "matched_kiln_id": best_match["kiln_id"],
+                "matched_lat": round(best_match["lat"], 5),
+                "matched_lon": round(best_match["lon"], 5),
             })
         else:
             conversion_records.append({
@@ -277,6 +283,9 @@ def analyze_conversions(
                 "status": "DISMANTLED / INACTIVE",
                 "regulatory_compliance": "SHUT DOWN",
                 "uncertainty_level": "High (Field Verification Needed)",
+                "matched_kiln_id": None,
+                "matched_lat": None,
+                "matched_lon": None,
             })
 
     return pd.DataFrame(conversion_records)
@@ -348,6 +357,13 @@ def rank_top_20_inspections(
             score += 20
             desc += f"; near {neigh_count} kiln{'s' if neigh_count != 1 else ''}"
 
+        k["priority_score"] = score
+        k["why_visit"] = desc
+        k["why"] = desc
+        k["near_1km"] = is_near
+        k["converted"] = k.get("is_converted", False)
+        k["prev_class"] = k.get("prev_class", None)
+
         ranked_items.append({
             "kiln_id": k["kiln_id"],
             "class": cls,
@@ -384,8 +400,13 @@ def export_geojson(kilns: List[Dict[str, Any]], out_path: Path):
                 "score": round(float(k["score"]), 4),
                 "lat": round(float(k["lat"]), 5),
                 "lon": round(float(k["lon"]), 5),
+                "near_1km": bool(k.get("near_other_kiln", False)),
+                "clustered_1km": bool(k.get("near_other_kiln", False)),
                 "cluster_id": k.get("cluster_id", "None"),
-                "clustered_1km": k.get("near_other_kiln", False),
+                "converted": bool(k.get("converted", False)),
+                "prev_class": k.get("prev_class", None),
+                "priority_score": int(k.get("priority_score", 0)),
+                "why": k.get("why", k.get("why_visit", "")),
             },
             "geometry": {
                 "type": "Polygon",
@@ -402,6 +423,80 @@ def export_geojson(kilns: List[Dict[str, Any]], out_path: Path):
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(geojson_dict, f, indent=2)
     print(f"[SUCCESS] Exported GeoJSON layer with {len(features)} features to {out_path.resolve()}")
+
+
+def export_labels_2023_geojson(conversion_df: pd.DataFrame, out_path: Path):
+    """Export 2023-24 historical baseline kiln inventory as GeoJSON Point layer."""
+    features = []
+    for _, r in conversion_df.iterrows():
+        is_conv = str(r["status"]).startswith("CONVERTED")
+        feat = {
+            "type": "Feature",
+            "properties": {
+                "id": r["historical_id"],
+                "class": "FCBK",
+                "lat": round(float(r["lat"]), 5),
+                "lon": round(float(r["lon"]), 5),
+                "status": r["status"],
+                "regulatory_compliance": r["regulatory_compliance"],
+                "converted": is_conv,
+                "matched_current_class": r["matched_current_class"],
+                "matched_kiln_id": r.get("matched_kiln_id", None),
+                "matched_lat": round(float(r["matched_lat"]), 5) if pd.notnull(r.get("matched_lat")) else None,
+                "matched_lon": round(float(r["matched_lon"]), 5) if pd.notnull(r.get("matched_lon")) else None,
+                "distance_to_historical_m": float(r["distance_to_historical_m"]) if pd.notnull(r.get("distance_to_historical_m")) else None,
+            },
+            "geometry": {
+                "type": "Point",
+                "coordinates": [round(float(r["lon"]), 6), round(float(r["lat"]), 6)],
+            },
+        }
+        features.append(feat)
+
+    geojson_dict = {
+        "type": "FeatureCollection",
+        "name": "Historical_2023_24_Kilns",
+        "features": features,
+    }
+    with open(out_path, "w", encoding="utf-8") as f:
+        json.dump(geojson_dict, f, indent=2)
+    print(f"[SUCCESS] Exported 2023-24 historical GeoJSON layer with {len(features)} features to {out_path.resolve()}")
+
+
+def export_metrics_and_experiments(out_dir: Path):
+    """Export metrics.json and experiments.json for frontend Method and Overview pages."""
+    metrics_data = {
+        "mAP": 0.8339,
+        "AP_FCBK": 0.8850,
+        "AP_CFCBK": 1.0000,
+        "AP_Zigzag": 0.6167,
+        "weights": {
+            "FCBK": 0.3333333333333333,
+            "CFCBK": 0.3333333333333333,
+            "Zigzag": 0.3333333333333333
+        },
+        "metric_definition": "Rotated-box IoU >= 0.50, DOTA-style all-point interpolated AP, equal 1/3 macro-averaged",
+        "citation": "SentinelKilnDB by Mondal et al., Sustainability Lab, IIT Gandhinagar (NeurIPS 2025 Datasets & Benchmarks)"
+    }
+    with open(out_dir / "metrics.json", "w", encoding="utf-8") as f:
+        json.dump(metrics_data, f, indent=2)
+
+    # Experiments summary from docs/experiments.md
+    experiments = [
+        {"id": "00", "model": "Initial Baseline Skeleton", "technique": "Repository setup, pipeline scaffold & metric validation", "val_mAP": None, "ap_fcbk": None, "ap_cfcbk": None, "ap_zigzag": None, "status": "Success", "outcome": "Pipeline initialized & verified."},
+        {"id": "01", "model": "Data Pipeline & Sampler", "technique": "YOLO-OBB 8-point parser, 360° rotation invariance, copy-paste rare CFCBK", "val_mAP": None, "ap_fcbk": None, "ap_cfcbk": None, "ap_zigzag": None, "status": "Success", "outcome": "Verified OBB transforms, clockwise vertex ordering, and 30x class weight balancing for rare CFCBK."},
+        {"id": "02", "model": "Metric Engine (Rotated IoU)", "technique": "Shapely polygon IoU + DOTA-style all-point interpolated AP with equal 1/3 macro-average", "val_mAP": 1.0000, "ap_fcbk": 1.0000, "ap_cfcbk": 1.0000, "ap_zigzag": 1.0000, "status": "Success", "outcome": "Verified exact competition metric: polygon IoU >= 0.5, precision envelope integration, and equal 1/3 weighting."},
+        {"id": "03", "model": "YOLO11s-OBB Baseline", "technique": "Pretrained YOLO11s-OBB, imgsz=128, 30 epochs, AMP=true, low conf=0.001", "val_mAP": 0.4556, "ap_fcbk": 0.9667, "ap_cfcbk": 0.0000, "ap_zigzag": 0.4000, "status": "Baseline", "outcome": "FCBK AP strong (0.9667), Zigzag moderate (0.4000), but rare CFCBK (~3%) collapsed to 0.0000, dragging down macro mAP."},
+        {"id": "04", "model": "Inference Engine Benchmark", "technique": "conf=0.001, max_det=100, NMS=0.5, schema validator, 8k latency extrapolation", "val_mAP": None, "ap_fcbk": None, "ap_cfcbk": None, "ap_zigzag": None, "status": "Success", "outcome": "Extrapolated 8,000-tile runtime is ~25-35s (0.4-0.6 min), easily exceeding the <=15 min T4 budget (14.4+ min margin)."},
+        {"id": "05", "model": "Exp 6a: Upscale Input", "technique": "Doubling resolution to 256px to resolve tiny 12x6 px kiln footprints", "val_mAP": 0.5250, "ap_fcbk": 1.0000, "ap_cfcbk": 0.0000, "ap_zigzag": 0.5750, "status": "Success (+0.0694)", "outcome": "Massive +0.0694 jump in mAP@0.5. Zigzag AP surged +17.5% (0.4000 -> 0.5750). Kept as standard resolution."},
+        {"id": "06", "model": "Exp 6c: Rare CFCBK Synthesis", "technique": "Targeted copy-paste CFCBK synthesis + cls loss weight 3.0 + copy_paste 0.5", "val_mAP": 0.8355, "ap_fcbk": 0.8850, "ap_cfcbk": 1.0000, "ap_zigzag": 0.6214, "status": "Champion (+0.3105)", "outcome": "Sensational +0.3105 leap in mAP@0.5! CFCBK AP jumped from 0.0000 to a perfect 1.0000. Single highest-impact intervention."},
+        {"id": "07", "model": "Exp 6e/6f: Hard Negatives & TTA", "technique": "Realistic negative tiles + Multi-view TTA (H-flip & 90° rot) + Rotated NMS", "val_mAP": 0.8339, "ap_fcbk": 0.8850, "ap_cfcbk": 1.0000, "ap_zigzag": 0.6167, "status": "Champion Robust", "outcome": "Robust against false alarms on rivers/fields/settlements. TTA merges multi-view detections in 52.8s total projected 8k runtime."},
+        {"id": "08", "model": "Step 7: Domain Shift Self-Training", "technique": "High-conf pseudo-labeling (conf > 0.70) on test tiles + held-out region validation", "val_mAP": 0.7620, "ap_fcbk": 0.8444, "ap_cfcbk": 1.0000, "ap_zigzag": 0.4417, "status": "Rejected (-0.0719)", "outcome": "Pseudo-labeling introduced label noise on subtle Zigzag boundaries. Decisively rejected pseudo-weights and preserved 0.8339 champion."},
+        {"id": "09", "model": "Brief v2: ReportLab Platypus", "technique": "Fixed column widths and Paragraph cells; fixed table misalignment", "val_mAP": None, "ap_fcbk": None, "ap_cfcbk": None, "ap_zigzag": None, "status": "Success", "outcome": "Rebuilt 2-page brief with verified alignment, exact mm column widths, and zero text overflow."}
+    ]
+    with open(out_dir / "experiments.json", "w", encoding="utf-8") as f:
+        json.dump(experiments, f, indent=2)
+    print(f"[SUCCESS] Exported metrics.json and experiments.json to {out_dir.resolve()}")
 
 
 def generate_cartographic_map(
@@ -817,6 +912,13 @@ def run_demo_district_analysis(
     # 8. Export GeoJSON
     geojson_path = out / "kilns.geojson"
     export_geojson(unique_kilns, geojson_path)
+
+    # 8b. Export 2023-24 Historical Labels GeoJSON
+    labels_2023_path = out / "labels_2023.geojson"
+    export_labels_2023_geojson(conversion_df, labels_2023_path)
+
+    # 8c. Export Metrics & Experiments JSON
+    export_metrics_and_experiments(out)
 
     # 9. Generate Cartographic Map (PNG: 182 mm wide, max 95 mm tall)
     map_png_path = out / "map.png"
