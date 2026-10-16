@@ -12,6 +12,7 @@ TEST_DIR="${TEST_DIR:-data/images/test}"
 OUT_CSV="${OUT_CSV:-submission.csv}"
 
 echo "[INFO] Running inference on $TEST_DIR using $WEIGHTS_PATH..."
-python src/infer.py --weights "$WEIGHTS_PATH" --test-dir "$TEST_DIR" --output "$OUT_CSV" --conf 0.001 --iou 0.50 --max-det 100
+python src/infer.py --weights "$WEIGHTS_PATH" --test-dir "$TEST_DIR" --output "$OUT_CSV" --conf 0.001 --iou 0.50 --max-det 100 --tta
 
 echo "[SUCCESS] Verified submission CSV generated at $OUT_CSV"
+

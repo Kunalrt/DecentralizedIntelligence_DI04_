@@ -31,6 +31,10 @@ from src.data.dataset import order_corners_clockwise, CLASS_NAMES
 CLASS_MAP = {idx: name for idx, name in enumerate(CLASS_NAMES)}
 
 
+from src.postprocess import format_detection_row, save_submission_csv, validate_submission_csv, rotated_nms
+import cv2
+
+
 def run_inference(
     config_path: str = "configs/train.yaml",
     weights_path: Optional[str] = None,
@@ -40,6 +44,7 @@ def run_inference(
     iou_thresh: float = 0.50,
     max_det: int = 100,
     batch_size: int = 64,
+    use_tta: bool = False,
 ) -> Path:
     """Run batch inference on test tiles and output validated submission CSV."""
     cfg = {}
@@ -59,7 +64,7 @@ def run_inference(
         model_weight = "yolo11s-obb.pt"
         print(f"[WARN] Custom weights not found, using base model: {model_weight}")
 
-    print(f"[INFO] Loading detector weights from {model_weight} on device={device}...")
+    print(f"[INFO] Loading detector weights from {model_weight} on device={device} (TTA={use_tta})...")
     from ultralytics import YOLO
     model = YOLO(model_weight)
 
@@ -79,9 +84,12 @@ def run_inference(
     # Batch inference loop
     start_time = time.perf_counter()
     for i in tqdm(range(0, len(image_paths), batch_size), desc="Running OBB Inference"):
-        batch = [str(p) for p in image_paths[i:i + batch_size]]
+        batch_paths = image_paths[i:i + batch_size]
+        batch_str = [str(p) for p in batch_paths]
+
+        # 1. Standard forward pass
         results = model.predict(
-            source=batch,
+            source=batch_str,
             conf=conf,
             iou=iou,
             max_det=max_det,
@@ -89,21 +97,65 @@ def run_inference(
             verbose=False,
         )
 
-        for img_p, res in zip(batch, results):
+        for img_p, res in zip(batch_str, results):
             tile_id = Path(img_p).stem
             if res.obb is None or len(res.obb) == 0:
                 continue
 
-            xyxyxyxyn = res.obb.xyxyxyxyn.cpu().numpy()  # (N, 4, 2) normalized
+            xyxyxyxyn = res.obb.xyxyxyxyn.cpu().numpy()
             confs = res.obb.conf.cpu().numpy()
             classes = res.obb.cls.cpu().numpy().astype(int)
 
             for pts, score, cls_idx in zip(xyxyxyxyn, confs, classes):
                 cls_name = CLASS_MAP.get(cls_idx, "FCBK")
-                # Ensure vertices are clockwise ordered around the box
                 ordered_pts = order_corners_clockwise(pts).reshape(-1)
                 row = format_detection_row(tile_id, cls_name, ordered_pts, float(score))
                 rows.append(row)
+
+        # 2. Test-Time Augmentation (Horizontal Flip & 90-degree Rotation)
+        if use_tta:
+            # (a) Horizontal flip pass
+            flipped_imgs = [cv2.flip(cv2.imread(str(p)), 1) for p in batch_paths]
+            res_flip = model.predict(source=flipped_imgs, conf=conf, iou=iou, max_det=max_det, device=device, verbose=False)
+            for img_p, res in zip(batch_paths, res_flip):
+                tile_id = img_p.stem
+                if res.obb is None or len(res.obb) == 0:
+                    continue
+                xyxyxyxyn = res.obb.xyxyxyxyn.cpu().numpy()
+                confs = res.obb.conf.cpu().numpy()
+                classes = res.obb.cls.cpu().numpy().astype(int)
+                for pts, score, cls_idx in zip(xyxyxyxyn, confs, classes):
+                    cls_name = CLASS_MAP.get(cls_idx, "FCBK")
+                    # Invert horizontal flip: x' = 1.0 - x
+                    unflipped = pts.copy()
+                    unflipped[:, 0] = 1.0 - unflipped[:, 0]
+                    ordered_pts = order_corners_clockwise(unflipped).reshape(-1)
+                    rows.append(format_detection_row(tile_id, cls_name, ordered_pts, float(score)))
+
+            # (b) 90-degree clockwise rotation pass
+            rot_imgs = [cv2.rotate(cv2.imread(str(p)), cv2.ROTATE_90_CLOCKWISE) for p in batch_paths]
+            res_rot = model.predict(source=rot_imgs, conf=conf, iou=iou, max_det=max_det, device=device, verbose=False)
+            for img_p, res in zip(batch_paths, res_rot):
+                tile_id = img_p.stem
+                if res.obb is None or len(res.obb) == 0:
+                    continue
+                xyxyxyxyn = res.obb.xyxyxyxyn.cpu().numpy()
+                confs = res.obb.conf.cpu().numpy()
+                classes = res.obb.cls.cpu().numpy().astype(int)
+                for pts, score, cls_idx in zip(xyxyxyxyn, confs, classes):
+                    cls_name = CLASS_MAP.get(cls_idx, "FCBK")
+                    # Invert 90 deg clockwise: x_orig = y_rot, y_orig = 1.0 - x_rot
+                    unrot = np.zeros_like(pts)
+                    unrot[:, 0] = pts[:, 1]
+                    unrot[:, 1] = 1.0 - pts[:, 0]
+                    ordered_pts = order_corners_clockwise(unrot).reshape(-1)
+                    rows.append(format_detection_row(tile_id, cls_name, ordered_pts, float(score)))
+
+    # Apply rotated NMS to merge overlapping multi-view detections if TTA was active
+    if use_tta and len(rows) > 0:
+        pre_count = len(rows)
+        rows = rotated_nms(rows, iou_thresh=iou)
+        print(f"[INFO] TTA Rotated NMS merged {pre_count} candidate views -> {len(rows)} detections.")
 
     total_time = time.perf_counter() - start_time
     print(f"[INFO] Inference on {len(image_paths)} tiles took {total_time:.2f}s ({len(image_paths)/total_time:.1f} tiles/s)")
@@ -114,6 +166,7 @@ def run_inference(
         raise ValueError(f"Submission CSV validation failed: {errors}")
 
     return submission_path
+
 
 
 def benchmark_8k_inference_latency(
@@ -185,6 +238,7 @@ def main():
     parser.add_argument("--iou", type=float, default=0.50)
     parser.add_argument("--max-det", type=int, default=100)
     parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument("--tta", action="store_true", help="Enable multi-view test-time augmentation (flips/rot90 + rotated NMS)")
     parser.add_argument("--benchmark", action="store_true", help="Run 8,000-tile latency extrapolation benchmark")
     args = parser.parse_args()
 
@@ -200,8 +254,10 @@ def main():
             iou_thresh=args.iou,
             max_det=args.max_det,
             batch_size=args.batch_size,
+            use_tta=args.tta,
         )
 
 
 if __name__ == "__main__":
     main()
+

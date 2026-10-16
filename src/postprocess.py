@@ -114,10 +114,53 @@ def validate_submission_csv(csv_path: Union[str, Path]) -> Tuple[bool, List[str]
 
     is_valid = len(errors) == 0
     if is_valid:
-        print(f"[SUCCESS] Submission CSV passed all {len(SUBMISSION_COLUMNS)} schema validation checks ({len(df)} rows).")
+        print(f"[SUCCESS] Submission CSV passed all schema validation checks ({len(df)} rows).")
     else:
         print(f"[ERROR] Submission CSV failed validation with {len(errors)} errors:")
         for err in errors:
             print(f"  - {err}")
 
     return is_valid, errors
+
+
+
+def rotated_nms(
+    detections: List[Dict[str, Any]],
+    iou_thresh: float = 0.50,
+) -> List[Dict[str, Any]]:
+    """Perform rotated Non-Maximum Suppression (NMS) on oriented bounding box detections.
+    
+    Args:
+        detections: List of dicts, each with keys 'tile_id', 'class', 'x1'..'y4', 'score'.
+        iou_thresh: Rotated IoU suppression threshold.
+        
+    Returns:
+        List of filtered non-overlapping detections.
+    """
+    from src.scorer import polygon_iou
+    from collections import defaultdict
+    if len(detections) <= 1:
+        return detections
+
+    grouped = defaultdict(list)
+    for d in detections:
+        grouped[(d["tile_id"], d["class"])].append(d)
+
+    kept: List[Dict[str, Any]] = []
+    for key, dets in grouped.items():
+        sorted_dets = sorted(dets, key=lambda x: x["score"], reverse=True)
+        survivors: List[Dict[str, Any]] = []
+        for cand in sorted_dets:
+            cand_pts = np.array([cand["x1"], cand["y1"], cand["x2"], cand["y2"], cand["x3"], cand["y3"], cand["x4"], cand["y4"]], dtype=np.float32)
+            suppressed = False
+            for surv in survivors:
+                surv_pts = np.array([surv["x1"], surv["y1"], surv["x2"], surv["y2"], surv["x3"], surv["y3"], surv["x4"], surv["y4"]], dtype=np.float32)
+                iou = polygon_iou(cand_pts, surv_pts)
+                if iou >= iou_thresh:
+                    suppressed = True
+                    break
+            if not suppressed:
+                survivors.append(cand)
+        kept.extend(survivors)
+    return kept
+

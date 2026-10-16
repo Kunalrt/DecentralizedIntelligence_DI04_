@@ -138,3 +138,63 @@ def synthesize_rare_cfcbk_tiles(data_dir: Path, multiplier: int = 5, seed: int =
 
     print(f"[SUCCESS] Synthesized {created_count} rare CFCBK training tiles into {train_img_dir.resolve()}")
     return created_count
+
+
+def add_hard_negative_tiles(data_dir: Path, num_train_neg: int = 8, num_val_neg: int = 2, seed: int = 42) -> int:
+    """Generate realistic kiln-free negative satellite tiles with zero-byte labels.
+    
+    Teaches the detector to suppress false alarms on rivers, agricultural fields,
+    roads, canals, and settlements without kiln structures.
+    """
+    random.seed(seed)
+    np.random.seed(seed)
+
+    created = 0
+    for split, count in [("train", num_train_neg), ("val", num_val_neg)]:
+        img_dir = data_dir / "images" / split
+        lbl_dir = data_dir / "labels" / split
+        img_dir.mkdir(parents=True, exist_ok=True)
+        lbl_dir.mkdir(parents=True, exist_ok=True)
+
+        for i in range(count):
+            tile_name = f"neg_tile_{split}_{i:02d}"
+            img_path = img_dir / f"{tile_name}.png"
+            lbl_path = lbl_dir / f"{tile_name}.txt"
+
+            # Create diverse realistic satellite background textures
+            tile = np.zeros((128, 128, 3), dtype=np.uint8)
+            pattern_type = i % 4
+
+            if pattern_type == 0:
+                # River / Water body: dark blue-green with gentle ripples
+                tile[:, :] = [random.randint(60, 90), random.randint(70, 100), random.randint(40, 60)]
+                noise = np.random.normal(0, 5, (128, 128, 3)).astype(np.int16)
+                tile = np.clip(tile.astype(np.int16) + noise, 0, 255).astype(np.uint8)
+            elif pattern_type == 1:
+                # Agricultural fields: rectangular patches of green and brown
+                tile[:, :] = [random.randint(40, 70), random.randint(90, 140), random.randint(50, 80)]
+                for _ in range(4):
+                    rx = random.randint(0, 100)
+                    ry = random.randint(0, 100)
+                    cv2.rectangle(tile, (rx, ry), (rx + 40, ry + 40), (random.randint(30, 60), random.randint(60, 110), random.randint(40, 70)), -1)
+            elif pattern_type == 2:
+                # Bare soil / fallow land with linear canal or road
+                tile[:, :] = [random.randint(80, 110), random.randint(100, 130), random.randint(110, 140)]
+                pt1 = (random.randint(0, 128), 0)
+                pt2 = (random.randint(0, 128), 128)
+                cv2.line(tile, pt1, pt2, (random.randint(120, 150), random.randint(120, 150), random.randint(120, 150)), 2)
+            else:
+                # Vegetation and rural settlement texture
+                tile[:, :] = [random.randint(40, 60), random.randint(80, 120), random.randint(40, 70)]
+                for _ in range(6):
+                    cx, cy = random.randint(20, 100), random.randint(20, 100)
+                    cv2.rectangle(tile, (cx, cy), (cx + 6, cy + 6), (random.randint(140, 180), random.randint(140, 180), random.randint(140, 180)), -1)
+
+            cv2.imwrite(str(img_path), tile)
+            # 0-byte label file signifies hard negative background in YOLO
+            lbl_path.write_text("", encoding="utf-8")
+            created += 1
+
+    print(f"[SUCCESS] Generated {created} hard negative background tiles across train/val.")
+    return created
+
