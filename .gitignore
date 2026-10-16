@@ -52,3 +52,4 @@ Thumbs.db
 *.log
 scratch/
 .system_generated/
+configs/resolved_*.yaml

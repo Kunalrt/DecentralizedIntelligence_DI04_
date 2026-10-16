@@ -16,6 +16,7 @@
 | **00** | Initial Baseline Skeleton | Repository setup, pipeline scaffold & metric validation | - | - | - | - | Pipeline initialized & verified. |
 | **01** | Data Pipeline & Sampler | YOLO-OBB 8-point parser, 360° rotation invariance, copy-paste rare CFCBK | - | - | - | - | Verified OBB geometry transforms, clockwise vertex ordering, and 30x class weight balancing for rare CFCBK. |
 | **02** | Metric Engine (Rotated IoU) | Shapely polygon IoU + DOTA-style all-point interpolated AP with equal 1/3 macro-average | 1.0000 | 1.0000 | 1.0000 | 1.0000 | Verified exact competition metric: polygon IoU >= 0.5, precision envelope integration, and equal weighting across FCBK, CFCBK, Zigzag. |
+| **03** | YOLO11s-OBB Baseline | Pretrained YOLO11s-OBB, imgsz=128, 30 epochs, AMP=true, low conf=0.001 | 0.4556 | 0.9667 | 0.0000 | 0.4000 | Baseline converged rapidly. FCBK AP is very strong (0.9667), Zigzag moderate (0.4000), but rare CFCBK (~3%) is 0.0000, dragging down macro mAP. Directly justifies Step 6 resolution scaling and CFCBK oversampling. |
 
 ---
 
@@ -43,3 +44,18 @@
   - `src/scorer.py`: Robust `polygon_iou` using Shapely with geometry validation fallback; continuous all-point trapezoidal area integration; CLI supporting CSV or YOLO-OBB label directories.
   - `tests/test_scorer.py`: Unit tests validating identical boxes (IoU 1.0), disjoint boxes (IoU 0.0), $45^\circ$ rotated boxes (IoU 0.5), precision envelope monotonicity, and equal 1/3 macro-averaging proof ($mAP = 0.6667$ when 2 classes perfect and CFCBK missed).
 - **Outcome**: Passed all 6 test suites. Metric engine is rock-solid and verified. Ready for baseline model training.
+
+### Exp 03: YOLO11s-OBB Baseline Training (imgsz=128, 30 epochs, AMP=true)
+- **Hypothesis**: Pretrained YOLO11s-OBB with full rotation augmentation ($180^\circ$) will quickly learn satellite kiln features at 128x128 resolution, providing a rigorous benchmark for subsequent iterations.
+- **Settings**:
+  - Model: `yolo11s-obb.pt` (Pretrained weights, fused 109 layers, 9.7M params)
+  - Hardware: NVIDIA GeForce RTX 3050 Laptop GPU (CUDA 12.4), AMP enabled
+  - Hyperparameters: `imgsz=128`, `epochs=30`, `batch=64`, `box=7.5`, `cls=1.5`
+- **Validation Evaluation (Custom Scorer @ conf=0.001)**:
+  - **Macro-Averaged mAP@0.5**: `0.4556`
+  - **AP_FCBK**: `0.9667` (Outstanding precision and recall on the dominant class)
+  - **AP_Zigzag**: `0.4000` (Moderate performance on modern rectangular kilns)
+  - **AP_CFCBK**: `0.0000` (Zero True Positives due to extreme 3% rarity and tiny circular footprint at 128x128)
+- **Key Takeaways & What's Next**:
+  1. The baseline confirms that CFCBK is the make-or-break bottleneck: because macro mAP weights it at 1/3, a 0.0 AP drops our maximum possible score from 1.0 to 0.667.
+  2. Kilns occupy only ~12x6 pixels at 128x128. In Step 6, input upscaling (256/384/512) and targeted copy-paste oversampling of CFCBK will be our highest-leverage improvements.

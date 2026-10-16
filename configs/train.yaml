@@ -1,17 +1,18 @@
-# Chimney Census Training Configuration
+# Chimney Census Baseline Training Configuration
 model:
-  architecture: "yolov8n-obb.pt"  # Pretrained backbone for fast transfer & T4 efficiency
+  architecture: "yolo11s-obb.pt"  # Ultralytics pretrained OBB backbone (fallback: yolov8s-obb.pt)
   task: "obb"
 
 data:
   config_path: "configs/data.yaml"
   imgsz: 128
   batch_size: 64
-  workers: 4
+  workers: 2
 
 train:
   epochs: 30
   patience: 10
+  amp: true          # Automatic Mixed Precision enabled for speed & memory efficiency
   lr0: 0.005
   lrf: 0.01
   momentum: 0.937
@@ -20,9 +21,9 @@ train:
   warmup_momentum: 0.8
   warmup_bias_lr: 0.1
   box: 7.5
-  cls: 1.5         # Boosted classification loss weight for rare CFCBK
+  cls: 1.5           # Boosted classification loss weight for rare CFCBK class (~3%)
   dfl: 1.5
-  degrees: 180.0   # Satellite overhead imagery is full-rotation invariant [0, 360)
+  degrees: 180.0     # Satellite nadir imagery is rotation-invariant [0, 360)
   fliplr: 0.5
   flipud: 0.5
   hsv_h: 0.015
@@ -30,11 +31,11 @@ train:
   hsv_v: 0.4
   mosaic: 0.5
   mixup: 0.1
-  copy_paste: 0.2  # Critical for rare class CFCBK (~3%)
+  copy_paste: 0.2    # Targeted copy-paste augmentation for rare CFCBK instances
 
 infer:
-  conf_threshold: 0.001  # Low threshold to maximize recall for all-point interpolated mAP
-  iou_threshold: 0.50   # NMS rotated IoU threshold
-  device: "0"           # GPU 0, fallback to "cpu"
+  conf_threshold: 0.001  # Low confidence threshold (~0.001) to maximize recall for all-point mAP
+  iou_threshold: 0.50    # Rotated NMS threshold
+  device: "0"            # Auto-detected (GPU 0 if available, else CPU)
   save_csv: true
   submission_path: "submission.csv"
