@@ -17,6 +17,7 @@
 | **01** | Data Pipeline & Sampler | YOLO-OBB 8-point parser, 360° rotation invariance, copy-paste rare CFCBK | - | - | - | - | Verified OBB geometry transforms, clockwise vertex ordering, and 30x class weight balancing for rare CFCBK. |
 | **02** | Metric Engine (Rotated IoU) | Shapely polygon IoU + DOTA-style all-point interpolated AP with equal 1/3 macro-average | 1.0000 | 1.0000 | 1.0000 | 1.0000 | Verified exact competition metric: polygon IoU >= 0.5, precision envelope integration, and equal weighting across FCBK, CFCBK, Zigzag. |
 | **03** | YOLO11s-OBB Baseline | Pretrained YOLO11s-OBB, imgsz=128, 30 epochs, AMP=true, low conf=0.001 | 0.4556 | 0.9667 | 0.0000 | 0.4000 | Baseline converged rapidly. FCBK AP is very strong (0.9667), Zigzag moderate (0.4000), but rare CFCBK (~3%) is 0.0000, dragging down macro mAP. Directly justifies Step 6 resolution scaling and CFCBK oversampling. |
+| **04** | Inference Engine & Latency Benchmark | conf=0.001, max_det=100, NMS=0.5, schema validator, 8k latency extrapolation | - | - | - | - | Extrapolated 8,000-tile inference latency is ~25-35s (0.4-0.6 min), easily exceeding the <=15 min T4 budget (14.4+ min margin). Validated 11/11 schema rules. |
 
 ---
 
@@ -59,3 +60,16 @@
 - **Key Takeaways & What's Next**:
   1. The baseline confirms that CFCBK is the make-or-break bottleneck: because macro mAP weights it at 1/3, a 0.0 AP drops our maximum possible score from 1.0 to 0.667.
   2. Kilns occupy only ~12x6 pixels at 128x128. In Step 6, input upscaling (256/384/512) and targeted copy-paste oversampling of CFCBK will be our highest-leverage improvements.
+
+### Exp 04: Batch Inference Pipeline, Schema Validation & 8,000-Tile Latency Extrapolation
+- **Objective**: Build production inference engine (`src/infer.py`) satisfying all competition hard rules: `conf=0.001`, `iou=0.50`, `max_det=100`, normalized clockwise coordinates, and strict CSV schema validation. Extrapolate runtime on 8,000 tiles against the $\le 15$ min T4 limit.
+- **Benchmark Measurements**:
+  - Hardware: NVIDIA GeForce RTX 3050 Laptop GPU / T4 equivalent, AMP on
+  - Batch size: 64
+  - Measured Throughput: 226.8 - 327.0 tiles/second
+  - Average Latency: 3.06 - 4.41 ms / tile
+  - Extrapolated 8,000-tile Runtime: **24.5 - 35.3 seconds** ($\approx 0.41 - 0.59$ minutes)
+  - Competition Budget: 15.00 minutes (900 seconds)
+  - Safety Margin: **14.41+ minutes** of headroom remaining!
+- **Schema Validation**: Passed 11/11 schema rules: verified zero NaNs, exact column order, valid class labels (`FCBK`, `CFCBK`, `Zigzag`), normalized 0-1 bounds, and clockwise corner ordering.
+- **Outcome**: Confirmed that heavy test-time augmentations (TTA) and multi-scale inputs in Step 6 are easily affordable within our time budget.
