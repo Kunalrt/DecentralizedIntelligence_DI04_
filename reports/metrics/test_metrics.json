@@ -1,0 +1,77 @@
+{
+  "metadata": {
+    "evaluation_set": "data/images/test",
+    "model_weights": "weights/best.pt",
+    "metric": "mAP@0.5 (DOTA continuous all-point interpolated, equal 1/3 macro-averaged)",
+    "operating_thresholds": {
+      "FCBK": 0.21,
+      "CFCBK": 0.07,
+      "Zigzag": 0.09
+    }
+  },
+  "mAP@0.5": 0.8472222222222222,
+  "mAP_95_CI": [
+    0.7037037039796511,
+    0.9778869034970801
+  ],
+  "per_class_AP": {
+    "FCBK": 0.7291666666666666,
+    "CFCBK": 1.0,
+    "Zigzag": 0.8125
+  },
+  "per_class_AP_95_CI": {
+    "FCBK": [
+      0.3333333432674408,
+      1.0
+    ],
+    "CFCBK": [
+      1.0,
+      1.0
+    ],
+    "Zigzag": [
+      0.20000000298023224,
+      1.0
+    ]
+  },
+  "operating_stats": {
+    "FCBK": {
+      "threshold": 0.21,
+      "TP": 4,
+      "FP": 4,
+      "FN": 0,
+      "GT_count": 4,
+      "Pred_count": 8,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666
+    },
+    "CFCBK": {
+      "threshold": 0.07,
+      "TP": 4,
+      "FP": 0,
+      "FN": 0,
+      "GT_count": 4,
+      "Pred_count": 4,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "Zigzag": {
+      "threshold": 0.09,
+      "TP": 3,
+      "FP": 2,
+      "FN": 1,
+      "GT_count": 4,
+      "Pred_count": 5,
+      "precision": 0.6,
+      "recall": 0.75,
+      "f1": 0.6666666666666665
+    },
+    "macro": {
+      "precision": 0.7000000000000001,
+      "recall": 0.9166666666666666,
+      "f1": 0.7777777777777777
+    }
+  },
+  "bootstrap_samples": 1000
+}
