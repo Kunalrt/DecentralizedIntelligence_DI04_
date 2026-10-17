@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "source": "val_split",
+    "model_weights": "weights/best.pt",
+    "iou_threshold": 0.5,
+    "leaderboard_csv_threshold": 0.001
+  },
+  "operating_thresholds": {
+    "FCBK": 0.21,
+    "CFCBK": 0.07,
+    "Zigzag": 0.09
+  },
+  "details": {
+    "FCBK": {
+      "optimal_threshold": 0.21,
+      "best_f1": 0.7692,
+      "precision_at_optimal": 0.625,
+      "recall_at_optimal": 1.0
+    },
+    "CFCBK": {
+      "optimal_threshold": 0.07,
+      "best_f1": 1.0,
+      "precision_at_optimal": 1.0,
+      "recall_at_optimal": 1.0
+    },
+    "Zigzag": {
+      "optimal_threshold": 0.09,
+      "best_f1": 0.8571,
+      "precision_at_optimal": 1.0,
+      "recall_at_optimal": 0.75
+    }
+  }
+}
