@@ -7,7 +7,7 @@
  * - Local fallback engine if backend server (localhost:8000) is offline.
  */
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = (import.meta.env.VITE_API_URL || 'https://agni-dhrishti-v1.onrender.com').replace(/\/+$/, '');
 
 export interface IngestSessionInfo {
   session_id: string;

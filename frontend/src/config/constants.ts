@@ -72,3 +72,7 @@ export const DISTRICT_INFO = {
   satelliteSource: 'Sentinel-2 RGB Multispectral (10 m/pixel nadir)',
   modelVersion: 'AgniDrishti-OBB v1.0 (Rotated IoU mAP: 0.834)',
 };
+
+export const API_CONFIG = {
+  baseUrl: (import.meta.env.VITE_API_URL || 'https://agni-dhrishti-v1.onrender.com').replace(/\/+$/, ''),
+};

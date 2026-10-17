@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Upload, Cpu, Loader2, Info } from 'lucide-react';
-import { KILN_COLORS } from '../../config/constants';
+import { Upload, Cpu, Loader2, Info, Crosshair, AlertTriangle, RefreshCw } from 'lucide-react';
+import { KILN_COLORS, API_CONFIG } from '../../config/constants';
 import { Badge } from '../../design';
 
 interface DemoSample {
@@ -71,75 +71,116 @@ const PRESET_SAMPLES: DemoSample[] = [
 
 export const TileInferenceDemo: React.FC = () => {
   const [selectedSample, setSelectedSample] = useState<DemoSample>(PRESET_SAMPLES[0]);
+  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
   const [customFile, setCustomFile] = useState<string | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [customPrediction, setCustomPrediction] = useState<DemoSample | null>(null);
+  const [latencyMs, setLatencyMs] = useState<number | null>(null);
+  const [detectedCount, setDetectedCount] = useState<number | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const activeData = customPrediction || selectedSample;
-  const color = KILN_COLORS[activeData.cls];
+  const color = KILN_COLORS[activeData.cls] || '#E8710A';
 
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Configurable Backend API URL from environment variable
+  const apiUrl = API_CONFIG.baseUrl;
+
+  const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    setIsProcessing(true);
+    setUploadedFile(file);
+    setErrorMessage(null);
+    setCustomPrediction(null);
+    setLatencyMs(null);
+    setDetectedCount(null);
+
+    // Generate immediate image preview
     const reader = new FileReader();
     reader.onload = (event) => {
       setCustomFile(event.target?.result as string);
-
-      fetch('http://localhost:8000/api/predict', {
-        method: 'POST',
-        body: (() => {
-          const formData = new FormData();
-          formData.append('file', file);
-          return formData;
-        })(),
-      })
-        .then((res) => (res.ok ? res.json() : Promise.reject('Backend unavailable')))
-        .then((data) => {
-          const det = data.detections[0];
-          setCustomPrediction({
-            id: 'custom-live',
-            label: `Custom: ${file.name}`,
-            desc: `Processed (${data.inference_time_ms} ms)`,
-            cls: (det.cls as any) || 'FCBK',
-            confidence: det.confidence || 0.92,
-            box: det.box_normalized || [
-              [0.3, 0.35],
-              [0.7, 0.35],
-              [0.7, 0.65],
-              [0.3, 0.65],
-            ],
-            status: det.legal_status || 'Prohibited (2022 Violation)',
-            interpretation: det.farida_interpretation || 'Detection verified.',
-            priority: (det.priority_level as any) || 'HIGH',
-          });
-        })
-        .catch(() => {
-          setTimeout(() => {
-            setCustomPrediction({
-              id: 'custom-client',
-              label: `Custom: ${file.name}`,
-              desc: 'Deterministic test prediction',
-              cls: 'FCBK',
-              confidence: 0.925,
-              box: [
-                [0.32, 0.38],
-                [0.68, 0.38],
-                [0.68, 0.62],
-                [0.32, 0.62],
-              ],
-              status: 'Prohibited (2022 Mandate Violation)',
-              interpretation:
-                'Detected natural-draft FCBK oval layout with central chimney shadow.',
-              priority: 'HIGH',
-            });
-            setIsProcessing(false);
-          }, 300);
-        })
-        .finally(() => setIsProcessing(false));
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleDetect = async () => {
+    if (!uploadedFile) return;
+
+    setIsProcessing(true);
+    setErrorMessage(null);
+
+    const formData = new FormData();
+    formData.append('file', uploadedFile);
+
+    try {
+      // Send as multipart/form-data to ${VITE_API_URL}/predict per specification
+      let res = await fetch(`${apiUrl}/predict`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      // Backward-compatible fallback to /api/predict if /predict returns 404
+      if (res.status === 404) {
+        res = await fetch(`${apiUrl}/api/predict`, {
+          method: 'POST',
+          body: formData,
+        });
+      }
+
+      if (!res.ok) {
+        const errDetail = await res.text().catch(() => '');
+        throw new Error(
+          `Inference server error (HTTP ${res.status}): ${errDetail || res.statusText || 'Request failed'}`
+        );
+      }
+
+      const data = await res.json();
+      const detections = data.detections || [];
+      if (detections.length === 0) {
+        throw new Error('Inference succeeded, but no kilns were detected in this image tile.');
+      }
+
+      const det = detections[0];
+      const clsName = (det.cls as 'FCBK' | 'Zigzag' | 'CFCBK') || 'FCBK';
+
+      setLatencyMs(data.inference_time_ms ?? null);
+      setDetectedCount(data.detections_count ?? detections.length);
+
+      setCustomPrediction({
+        id: `custom-live-${Date.now()}`,
+        label: `Custom: ${uploadedFile.name}`,
+        desc: `YOLO11s Inference: ${data.inference_time_ms} ms (${data.device || 'CPU'})`,
+        cls: clsName,
+        confidence: typeof det.confidence === 'number' ? det.confidence : 0.92,
+        box: det.box_normalized || [
+          [0.28, 0.35],
+          [0.72, 0.35],
+          [0.72, 0.65],
+          [0.28, 0.65],
+        ],
+        status:
+          det.legal_status ||
+          (clsName === 'Zigzag'
+            ? 'Compliant (Mandate-Approved)'
+            : clsName === 'CFCBK'
+            ? 'Special Review Required'
+            : 'Prohibited (2022 Mandate Violation)'),
+        interpretation:
+          det.farida_interpretation ||
+          `Detected ${clsName} kiln structure with ${(det.confidence * 100).toFixed(1)}% model confidence.`,
+        priority:
+          (det.priority_level as any) ||
+          (clsName === 'Zigzag' ? 'COMPLIANT' : clsName === 'CFCBK' ? 'MEDIUM' : 'HIGH'),
+      });
+    } catch (err: any) {
+      console.error('[YOLO11 INFERENCE ERROR]', err);
+      setErrorMessage(
+        err.message ||
+          `Failed to connect to backend at ${apiUrl}/predict. Please verify server status or network connection.`
+      );
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -155,12 +196,12 @@ export const TileInferenceDemo: React.FC = () => {
             </h3>
           </div>
           <p className="text-2xs text-[#656D76] font-mono m-0 mt-0.5">
-            Test satellite tile inference in real time &bull; 10 m/px Sentinel-2 RGB optical input.
+            Real-time YOLO11s-OBB detection &bull; Connected to <span className="text-[#1F4E5F] font-semibold">{apiUrl}</span>
           </p>
         </div>
 
         <Badge variant="outline">
-          Inference Engine (CPU / CUDA)
+          Inference Engine (YOLO11s-OBB)
         </Badge>
       </div>
 
@@ -172,6 +213,11 @@ export const TileInferenceDemo: React.FC = () => {
             type="button"
             onClick={() => {
               setCustomPrediction(null);
+              setUploadedFile(null);
+              setCustomFile(null);
+              setErrorMessage(null);
+              setLatencyMs(null);
+              setDetectedCount(null);
               setSelectedSample(sample);
             }}
             className={`px-2.5 py-1 rounded-[2px] border font-medium transition-colors ${
@@ -185,22 +231,59 @@ export const TileInferenceDemo: React.FC = () => {
         ))}
 
         {/* Upload Custom Tile */}
-        <label className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F2328] text-white rounded-[2px] text-2xs font-mono font-medium cursor-pointer hover:bg-black transition-colors shadow-xs">
-          {isProcessing ? (
-            <Loader2 size={12} strokeWidth={1.5} className="animate-spin" />
-          ) : (
-            <Upload size={12} strokeWidth={1.5} />
-          )}
-          <span>{isProcessing ? 'Analyzing...' : 'Upload Tile'}</span>
+        <label className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#FAF9F5] text-[#1F2328] border border-[#D9D6CE] rounded-[2px] text-2xs font-mono font-medium cursor-pointer hover:bg-[#F5F3EE] transition-colors shadow-xs">
+          <Upload size={12} strokeWidth={1.5} />
+          <span>{uploadedFile ? uploadedFile.name : 'Upload Image'}</span>
           <input
             type="file"
-            accept="image/png,image/jpeg"
-            onChange={handleFileUpload}
+            accept="image/png,image/jpeg,image/webp,image/tiff"
+            onChange={handleFileSelect}
             disabled={isProcessing}
             className="hidden"
           />
         </label>
+
+        {/* Dedicated Detect Action Button */}
+        {uploadedFile && (
+          <button
+            type="button"
+            onClick={handleDetect}
+            disabled={isProcessing}
+            className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#1F2328] text-white rounded-[2px] text-2xs font-mono font-semibold hover:bg-black transition-colors shadow-xs disabled:opacity-50"
+          >
+            {isProcessing ? (
+              <Loader2 size={12} strokeWidth={1.5} className="animate-spin text-[#38BDF8]" />
+            ) : (
+              <Crosshair size={12} strokeWidth={1.5} className="text-[#38BDF8]" />
+            )}
+            <span>{isProcessing ? 'Detecting...' : 'Detect'}</span>
+          </button>
+        )}
       </div>
+
+      {/* Useful Error Message Banner */}
+      {errorMessage && (
+        <div
+          role="alert"
+          className="p-3 bg-[#FEF2F2] border border-[#FCA5A5] rounded-[4px] text-xs font-mono text-[#991B1B] flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs"
+        >
+          <div className="flex items-center gap-2">
+            <AlertTriangle size={15} className="flex-shrink-0 text-[#DC2626]" />
+            <span>{errorMessage}</span>
+          </div>
+          {uploadedFile && (
+            <button
+              type="button"
+              onClick={handleDetect}
+              disabled={isProcessing}
+              className="inline-flex items-center gap-1 px-2.5 py-1 bg-[#DC2626] text-white rounded-[2px] text-2xs font-mono font-semibold hover:bg-[#B91C1C] transition-colors w-fit"
+            >
+              <RefreshCw size={11} className={isProcessing ? 'animate-spin' : ''} />
+              <span>Retry Detect</span>
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Interactive Inference Preview Area */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
@@ -210,7 +293,7 @@ export const TileInferenceDemo: React.FC = () => {
             {customFile ? (
               <img
                 src={customFile}
-                alt="Uploaded Satellite Tile"
+                alt="Uploaded Satellite Tile Preview"
                 className="w-full h-full object-cover"
               />
             ) : (
@@ -232,31 +315,47 @@ export const TileInferenceDemo: React.FC = () => {
             )}
 
             {/* Rotated Bounding Box (OBB) Overlay */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none">
-              <polygon
-                points={activeData.box
-                  .map(([x, y]) => `${x * 224},${y * 224}`)
-                  .join(' ')}
-                fill="none"
-                stroke={color}
-                strokeWidth="2"
-                strokeDasharray="4, 2"
-              />
-              <circle
-                cx={((activeData.box[0][0] + activeData.box[1][0]) / 2) * 224}
-                cy={((activeData.box[0][1] + activeData.box[2][1]) / 2) * 224}
-                r="3"
-                fill={color}
-              />
-            </svg>
+            {(customPrediction || !customFile) && (
+              <svg className="absolute inset-0 w-full h-full pointer-events-none">
+                <polygon
+                  points={activeData.box
+                    .map(([x, y]) => `${x * 224},${y * 224}`)
+                    .join(' ')}
+                  fill="none"
+                  stroke={color}
+                  strokeWidth="2"
+                  strokeDasharray="4, 2"
+                />
+                <circle
+                  cx={((activeData.box[0][0] + activeData.box[1][0]) / 2) * 224}
+                  cy={((activeData.box[0][1] + activeData.box[2][1]) / 2) * 224}
+                  r="3"
+                  fill={color}
+                />
+              </svg>
+            )}
 
             {/* In-Tile Badge */}
-            <div className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded-[2px] bg-black/80 text-white font-mono text-2xs">
-              {activeData.cls} &bull; {(activeData.confidence * 100).toFixed(1)}%
-            </div>
+            {customPrediction || !customFile ? (
+              <div className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded-[2px] bg-black/80 text-white font-mono text-2xs">
+                {activeData.cls} &bull; {(activeData.confidence * 100).toFixed(1)}%
+              </div>
+            ) : uploadedFile && !isProcessing ? (
+              <div className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded-[2px] bg-[#1F4E5F]/90 text-white font-mono text-2xs">
+                Ready &bull; Click "Detect"
+              </div>
+            ) : null}
+
+            {/* Loading Indicator Overlay */}
+            {isProcessing && (
+              <div className="absolute inset-0 bg-black/65 backdrop-blur-[1px] flex flex-col items-center justify-center text-white gap-2 z-10">
+                <Loader2 size={26} className="animate-spin text-[#38BDF8]" />
+                <span className="text-2xs font-mono font-medium tracking-wide">YOLO11s Running...</span>
+              </div>
+            )}
           </div>
           <div className="text-2xs text-[#656D76] mt-1 font-mono">
-            Sentinel-2 &bull; 10 m/px RGB Nadir (128x128)
+            Sentinel-2 &bull; 10 m/px RGB Optical Input (128x128)
           </div>
         </div>
 
@@ -294,9 +393,11 @@ export const TileInferenceDemo: React.FC = () => {
             </div>
 
             <div className="p-2 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE]">
-              <div className="text-2xs text-[#656D76]">Inference Latency</div>
+              <div className="text-2xs text-[#656D76]">
+                {latencyMs !== null ? 'Inference Latency' : 'Typical Latency'}
+              </div>
               <div className="text-sm font-bold text-[#16A34A] mt-0.5">
-                ~1.3 ms / tile
+                {latencyMs !== null ? `${latencyMs} ms` : '~1.3 ms / tile'}
               </div>
             </div>
           </div>
@@ -310,6 +411,12 @@ export const TileInferenceDemo: React.FC = () => {
               {activeData.interpretation}
             </p>
           </div>
+
+          {detectedCount !== null && (
+            <div className="text-2xs font-mono text-[#656D76]">
+              Total Detected: <strong className="text-[#1F2328]">{detectedCount}</strong> kiln{detectedCount !== 1 ? 's' : ''} in tile
+            </div>
+          )}
         </div>
       </div>
     </div>

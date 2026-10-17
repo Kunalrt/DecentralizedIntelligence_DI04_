@@ -37,6 +37,7 @@ import {
 import type { IngestResult } from '../../services/ingestApi';
 import { getExportDownloadUrl } from '../../services/ingestApi';
 import { TOKENS, StatTile, Badge, Button, DetailsCollapse } from '../../design';
+import { API_CONFIG } from '../../config/constants';
 
 interface ExploreResultViewProps {
   result: IngestResult;
@@ -255,7 +256,7 @@ export const ExploreResultView: React.FC<ExploreResultViewProps> = ({
 
   const downloadMapPng = () => {
     // If backend preview exists, download directly; otherwise generate canvas export
-    const previewUrl = `http://localhost:8000/ingest/${session_id}/preview.png`;
+    const previewUrl = `${API_CONFIG.baseUrl}/ingest/${session_id}/preview.png`;
     const a = document.createElement('a');
     a.href = previewUrl;
     a.target = '_blank';
@@ -759,7 +760,7 @@ export const ExploreResultView: React.FC<ExploreResultViewProps> = ({
               {/* Imagery Overlay if uploaded */}
               {summary.imagery.present && showImagery && mapBounds && (
                 <ImageOverlay
-                  url={`http://localhost:8000/ingest/${session_id}/preview.png`}
+                  url={`${API_CONFIG.baseUrl}/ingest/${session_id}/preview.png`}
                   bounds={mapBounds}
                   opacity={imageryOpacity}
                 />

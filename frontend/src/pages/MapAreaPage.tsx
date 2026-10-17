@@ -23,6 +23,7 @@ import {
   purgeIngestSession,
   getLocalExampleResult,
 } from '../services/ingestApi';
+import { API_CONFIG } from '../config/constants';
 import type { IngestStatus, IngestResult } from '../services/ingestApi';
 
 const SESSION_STORAGE_KEY = 'agni_drishti_last_ingest_result';
@@ -140,7 +141,7 @@ export const MapAreaPage: React.FC = () => {
       // Try fetching example from backend if running, or use verified fallback fixture
       let exampleData: IngestResult;
       try {
-        const res = await fetch('http://localhost:8000/ingest/example');
+        const res = await fetch(`${API_CONFIG.baseUrl}/ingest/example`);
         if (res.ok) {
           exampleData = getLocalExampleResult('demo-example-session');
         } else {

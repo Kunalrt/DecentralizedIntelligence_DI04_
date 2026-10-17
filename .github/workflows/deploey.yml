@@ -44,6 +44,7 @@ jobs:
         working-directory: ./frontend
         env:
           VITE_BASE_PATH: /new_repo/
+          VITE_API_URL: https://agni-dhrishti-v1.onrender.com
         run: npm run build
 
       - name: Setup Pages
