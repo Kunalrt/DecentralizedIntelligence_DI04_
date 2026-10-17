@@ -38,6 +38,8 @@ from backend.ingestion import (
     MAX_SESSION_BYTES,
 )
 
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+
 app = FastAPI(
     title="Agni Drishti Ingestion & Inference API",
     description="Real-time Sentinel-2 satellite tile OBB kiln detection and area ingestion for State Pollution Control Board",
@@ -396,6 +398,13 @@ def get_example_data():
         "banner": "Example data",
         "kilns_geojson": {"type": "FeatureCollection", "features": []},
     }
+
+
+# Optional static frontend serving in production / container mode
+frontend_dist = PROJECT_ROOT / "frontend" / "dist"
+if frontend_dist.exists() and (frontend_dist / "index.html").exists():
+    from fastapi.staticfiles import StaticFiles
+    app.mount("/", StaticFiles(directory=str(frontend_dist), html=True), name="frontend")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,24 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: agni-drishti:latest
+    container_name: agni_drishti_app
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - sessions_data:/app/backend/sessions
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/ingest/example"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+volumes:
+  sessions_data:
