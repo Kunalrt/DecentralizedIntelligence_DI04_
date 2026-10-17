@@ -1,5 +1,6 @@
 # Data & Datasets (anchor to root only)
 /data/
+/data_prepared/
 *.zip
 *.tar
 *.tar.gz
