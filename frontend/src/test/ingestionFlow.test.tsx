@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import '@testing-library/jest-dom';
 import { render, screen, fireEvent } from '@testing-library/react';
-import React from 'react';
 import { StepBar } from '../components/ingest/StepBar';
 import { DropzoneCard } from '../components/ingest/DropzoneCard';
 import { ProcessProgress } from '../components/ingest/ProcessProgress';

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Badge } from '../../design';
 
 export interface KpiCardProps {
   title: string;
@@ -28,65 +29,60 @@ export const KpiCard: React.FC<KpiCardProps> = ({
   accentBorderColor,
   onClick,
 }) => {
-  const badgeStyles: Record<string, string> = {
-    danger: 'bg-red-50 text-red-700 border-red-200',
-    warning: 'bg-orange-50 text-orange-700 border-orange-200',
-    info: 'bg-blue-50 text-blue-700 border-blue-200',
-    success: 'bg-emerald-50 text-emerald-700 border-emerald-200',
-    neutral: 'bg-slate-100 text-slate-700 border-slate-200',
-    purple: 'bg-purple-50 text-purple-700 border-purple-200',
-  };
-
   return (
     <div
       onClick={onClick}
-      className={`relative bg-white rounded-xl p-5 border border-slate-200/80 shadow-sm transition-all duration-200 ${
-        onClick ? 'cursor-pointer hover:shadow-md hover:border-slate-300' : ''
+      className={`bg-white rounded-[4px] p-3.5 border border-[#D9D6CE] transition-colors ${
+        onClick ? 'cursor-pointer hover:border-[#1F4E5F] hover:bg-[#FAF9F5]' : ''
       }`}
       style={{
         borderTop: accentBorderColor ? `3px solid ${accentBorderColor}` : undefined,
       }}
     >
-      <div className="flex items-center justify-between gap-2 mb-2">
-        <div className="flex items-center gap-2 text-slate-500 text-xs font-semibold uppercase tracking-wider">
+      <div className="flex items-center justify-between gap-1.5 mb-1.5">
+        <div className="flex items-center gap-1.5 text-[#656D76] font-mono text-2xs uppercase tracking-wider">
           {colorSwatch && (
             <span
-              className="w-2.5 h-2.5 rounded-full inline-block shadow-xs flex-shrink-0"
+              className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0"
               style={{ backgroundColor: colorSwatch }}
             />
           )}
-          <span>{title}</span>
+          <span className="font-semibold text-[#1F2328]">{title}</span>
         </div>
-        {icon && <div className="text-slate-400 flex-shrink-0">{icon}</div>}
+        {icon && <div className="text-[#656D76] flex-shrink-0">{icon}</div>}
       </div>
 
-      <div className="flex items-baseline gap-1.5 my-1">
-        <span className="text-3xl font-extrabold text-slate-900 tracking-tight">
+      <div className="flex items-baseline gap-1 my-1">
+        <span className="text-2xl font-mono font-bold text-[#1F2328]">
           {typeof value === 'number' ? value.toLocaleString() : value}
         </span>
-        {unit && <span className="text-sm font-semibold text-slate-500">{unit}</span>}
+        {unit && <span className="text-xs font-mono text-[#656D76]">{unit}</span>}
       </div>
 
       {rangeText && (
-        <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-xs font-medium bg-slate-100 text-slate-700 border border-slate-200 mb-2">
-          <span className="text-[11px] text-slate-500 font-normal">Est. Range:</span>
-          <span className="font-semibold text-slate-800">{rangeText}</span>
+        <div className="inline-flex items-center gap-1.5 px-1.5 py-0.5 rounded-[2px] text-2xs font-mono bg-[#FAF9F5] text-[#1F2328] border border-[#D9D6CE] mb-1.5">
+          <span className="text-[#656D76]">CI:</span>
+          <span className="font-semibold">{rangeText}</span>
         </div>
       )}
 
       {badge && (
-        <div className="mb-2">
-          <span
-            className={`inline-block text-[11px] font-semibold px-2 py-0.5 rounded-full border ${
-              badgeStyles[badge.variant || 'neutral']
-            }`}
+        <div className="mb-1.5">
+          <Badge
+            variant={
+              badge.variant === 'danger' || badge.variant === 'warning'
+                ? 'warning'
+                : badge.variant === 'success'
+                ? 'success'
+                : 'outline'
+            }
           >
             {badge.text}
-          </span>
+          </Badge>
         </div>
       )}
 
-      {subtitle && <p className="text-xs text-slate-500 leading-normal m-0">{subtitle}</p>}
+      {subtitle && <p className="text-2xs text-[#656D76] m-0 font-sans truncate">{subtitle}</p>}
     </div>
   );
 };

@@ -7,6 +7,7 @@ import { UncertaintyPanel } from '../components/overview/UncertaintyPanel';
 import { CountsComparisonChart } from '../components/overview/CountsComparisonChart';
 import { PrecisionRecallTable } from '../components/overview/PrecisionRecallTable';
 import { InspectorActionCard } from '../components/overview/InspectorActionCard';
+import { SectionHeader, Badge } from '../design';
 import {
   Layers,
   Flame,
@@ -40,7 +41,14 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigateTab }) => 
   const clusteredKilns = data.summaryStats?.kilns_within_1km_cluster ?? (data.within1km?.length ?? 0);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 max-w-7xl mx-auto">
+      {/* Section Header */}
+      <SectionHeader
+        title="District Surveillance Overview"
+        subtitle="Automated satellite inventory across 3,000 km² Demo District based on 10 m/px Sentinel-2 imagery."
+        badge={<Badge variant="accent">Registry 2026</Badge>}
+      />
+
       {/* 1. Inspector Farida Khan Operational Dispatch Banner */}
       <InspectorActionCard
         clusteredKilns={clusteredKilns}
@@ -51,15 +59,15 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigateTab }) => 
       />
 
       {/* 2. Primary KPI Cards Grid (5 Cards: Total, FCBK, Zigzag, CFCBK, Clusters) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
         {/* Total Kilns */}
         <KpiCard
           title="Total Kilns"
           value={totalDetected}
           rangeText={`${totalRow?.est_low ?? 42} – ${totalRow?.est_high ?? 100}`}
-          subtitle="Deduplicated across 120 Sentinel-2 tiles (4 overlaps resolved)"
-          icon={<Layers className="w-5 h-5" />}
-          accentBorderColor="#64748B"
+          subtitle="Deduplicated in 120 tiles"
+          icon={<Layers size={16} strokeWidth={1.5} />}
+          accentBorderColor="#656D76"
         />
 
         {/* FCBK Violations */}
@@ -67,11 +75,11 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigateTab }) => 
           title="FCBK (Banned)"
           value={fcbkDetected}
           rangeText={`${fcbkRow?.est_low ?? 18} – ${fcbkRow?.est_high ?? 41}`}
-          badge={{ text: '2022 Ban Violations', variant: 'warning' }}
+          badge={{ text: 'Illegal Draft', variant: 'warning' }}
           colorSwatch={KILN_COLORS.FCBK}
           accentBorderColor={KILN_COLORS.FCBK}
-          subtitle="Illegal natural draft; priority vehicle inspection targets"
-          icon={<Flame className="w-5 h-5 text-orange-500" />}
+          subtitle="Priority vehicle targets"
+          icon={<Flame size={16} strokeWidth={1.5} className="text-[#E8710A]" />}
           onClick={onNavigateTab ? () => onNavigateTab('map') : undefined}
         />
 
@@ -83,8 +91,8 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigateTab }) => 
           badge={{ text: `${convZigzag} Converted`, variant: 'info' }}
           colorSwatch={KILN_COLORS.Zigzag}
           accentBorderColor={KILN_COLORS.Zigzag}
-          subtitle="Mandate-compliant forced-draft design conversions"
-          icon={<CheckCircle2 className="w-5 h-5 text-blue-500" />}
+          subtitle="Forced-draft retrofits"
+          icon={<CheckCircle2 size={16} strokeWidth={1.5} className="text-[#1A73E8]" />}
           onClick={onNavigateTab ? () => onNavigateTab('map') : undefined}
         />
 
@@ -96,8 +104,8 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigateTab }) => 
           badge={{ text: 'Legacy Design', variant: 'success' }}
           colorSwatch={KILN_COLORS.CFCBK}
           accentBorderColor={KILN_COLORS.CFCBK}
-          subtitle="Circular Bull's Trench (~12% of district detections)"
-          icon={<CircleDot className="w-5 h-5 text-emerald-600" />}
+          subtitle="Circular Bull's Trench"
+          icon={<CircleDot size={16} strokeWidth={1.5} className="text-[#188038]" />}
           onClick={onNavigateTab ? () => onNavigateTab('map') : undefined}
         />
 
@@ -106,10 +114,10 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigateTab }) => 
           title="1 km Clusters"
           value={clusteredKilns}
           unit="kilns"
-          badge={{ text: `${clustersCount} Patrol Clusters`, variant: 'purple' }}
-          accentBorderColor="#8B5CF6"
-          subtitle="Sites within 1.0 km neighbor gap for optimal jeep routing"
-          icon={<Navigation className="w-5 h-5 text-purple-600" />}
+          badge={{ text: `${clustersCount} Clusters`, variant: 'neutral' }}
+          accentBorderColor="#1F4E5F"
+          subtitle="Within 1.0 km neighbor gap"
+          icon={<Navigation size={16} strokeWidth={1.5} className="text-[#1F4E5F]" />}
           onClick={onNavigateTab ? () => onNavigateTab('field') : undefined}
         />
       </div>

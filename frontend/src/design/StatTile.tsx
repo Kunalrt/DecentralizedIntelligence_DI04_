@@ -8,6 +8,7 @@ interface StatTileProps {
   sublabel?: string;
   tooltip?: React.ReactNode;
   accentColor?: string;
+  colorSwatch?: string;
   badge?: React.ReactNode;
   className?: string;
   onClick?: () => void;
@@ -20,6 +21,7 @@ export const StatTile: React.FC<StatTileProps> = ({
   sublabel,
   tooltip,
   accentColor,
+  colorSwatch,
   badge,
   className = '',
   onClick,
@@ -50,7 +52,14 @@ export const StatTile: React.FC<StatTileProps> = ({
           className="flex items-center gap-1.5 text-[#656D76]"
           style={accentColor ? { color: accentColor } : undefined}
         >
-          <span className="flex-shrink-0">{icon}</span>
+          {colorSwatch ? (
+            <span
+              className="w-2.5 h-2.5 rounded-full inline-block flex-shrink-0"
+              style={{ backgroundColor: colorSwatch }}
+            />
+          ) : (
+            <span className="flex-shrink-0">{icon}</span>
+          )}
           <span className="text-xs font-medium text-[#656D76] uppercase tracking-wider truncate">
             {label}
           </span>

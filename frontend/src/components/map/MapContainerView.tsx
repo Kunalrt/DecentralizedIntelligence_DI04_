@@ -46,14 +46,20 @@ function MapController({
   return null;
 }
 
-// Custom DivIcon marker for kilns
+// Custom DivIcon marker with distinct shapes: FCBK (Circle), Zigzag (Square), CFCBK (Triangle)
 function createKilnDivIcon(
   kilnClass: 'FCBK' | 'Zigzag' | 'CFCBK',
   isSelected: boolean
 ): L.DivIcon {
-  const color = KILN_COLORS[kilnClass] || '#64748B';
-  const symbol = kilnClass === 'FCBK' ? '▲' : kilnClass === 'Zigzag' ? '■' : '●';
-  const size = isSelected ? 26 : 20;
+  const color = KILN_COLORS[kilnClass] || '#1F4E5F';
+  const symbol = kilnClass === 'FCBK' ? '●' : kilnClass === 'Zigzag' ? '■' : '▲';
+  const radiusStyle =
+    kilnClass === 'FCBK'
+      ? 'border-radius: 50%;'
+      : kilnClass === 'Zigzag'
+      ? 'border-radius: 1px;'
+      : 'border-radius: 3px;';
+  const size = isSelected ? 24 : 18;
 
   return L.divIcon({
     className: 'custom-kiln-div-icon',
@@ -63,18 +69,18 @@ function createKilnDivIcon(
         color: white;
         width: ${size}px;
         height: ${size}px;
-        border-radius: ${kilnClass === 'CFCBK' ? '50%' : kilnClass === 'FCBK' ? '5px' : '3px'};
+        ${radiusStyle}
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: ${isSelected ? '12px' : '10px'};
+        font-size: ${isSelected ? '11px' : '9px'};
         font-weight: bold;
         box-shadow: ${
           isSelected
-            ? `0 0 0 3px #ffffff, 0 0 10px ${color}`
-            : '0 1px 4px rgba(0,0,0,0.4)'
+            ? `0 0 0 2px #ffffff, 0 0 0 3.5px #1F2328`
+            : '0 1px 3px rgba(0,0,0,0.3)'
         };
-        border: 2px solid #ffffff;
+        border: 1.5px solid #ffffff;
         cursor: pointer;
         transition: transform 0.15s ease;
       ">
@@ -94,22 +100,22 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
   showHistorical,
   mapTarget,
 }) => {
-  // Pre-calculate 1 km cluster hulls from filtered kilns
   const clusterHulls = useMemo(() => {
     return computeClusterHulls(filteredKilns);
   }, [filteredKilns]);
 
   return (
-    <div className="relative w-full h-[620px] rounded-xl overflow-hidden border border-slate-300 shadow-sm">
+    <div className="relative w-full h-[620px] rounded-[4px] overflow-hidden border border-[#D9D6CE] shadow-sm bg-[#14181C]">
       <MapContainer
         center={MAP_CONFIG.defaultCenter}
         zoom={MAP_CONFIG.defaultZoom}
         minZoom={MAP_CONFIG.minZoom}
         maxZoom={MAP_CONFIG.maxZoom}
         scrollWheelZoom={true}
+        preferCanvas={true}
         className="w-full h-full"
       >
-        {/* OpenStreetMap Standard Vector Tile Layer ONLY (No satellite, no Google, no Esri) */}
+        {/* OpenStreetMap Standard Vector Tile Layer ONLY */}
         <TileLayer
           url={MAP_CONFIG.tileLayerUrl}
           attribution={MAP_CONFIG.attribution}
@@ -128,17 +134,17 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
             key={`hull-${hull.clusterId}`}
             positions={hull.polygon}
             pathOptions={{
-              color: '#6366F1',
-              fillColor: '#818CF8',
-              fillOpacity: 0.12,
-              weight: 2,
-              dashArray: '5, 5',
+              color: '#1F4E5F',
+              fillColor: '#1F4E5F',
+              fillOpacity: 0.08,
+              weight: 1.5,
+              dashArray: '4, 4',
             }}
           >
             <Tooltip sticky direction="top" className="custom-cluster-tooltip">
-              <div className="text-xs font-sans">
-                <strong className="text-indigo-800">{hull.clusterId}</strong>
-                <div className="text-[11px] text-slate-600">
+              <div className="text-2xs font-mono">
+                <strong className="text-[#1F4E5F]">{hull.clusterId}</strong>
+                <div className="text-[#656D76]">
                   {hull.count} kilns ({hull.classesSummary})
                 </div>
               </div>
@@ -146,7 +152,7 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
           </Polygon>
         ))}
 
-        {/* 2. Historical 2023 Baseline Sites (Subtle Gray Rings) */}
+        {/* 2. Historical 2023 Baseline Sites */}
         {showHistorical &&
           historicalFeatures.map((hist) => {
             const [lon, lat] = hist.geometry.coordinates;
@@ -154,19 +160,19 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
               <CircleMarker
                 key={`hist-${hist.properties.id}`}
                 center={[lat, lon]}
-                radius={8}
+                radius={7}
                 pathOptions={{
-                  color: '#475569',
-                  fillColor: '#94A3B8',
-                  fillOpacity: 0.35,
-                  weight: 1.5,
+                  color: '#1F2328',
+                  fillColor: '#ECEAE4',
+                  fillOpacity: 0.6,
+                  weight: 1.2,
                   dashArray: '3, 3',
                 }}
               >
                 <Tooltip direction="top">
-                  <div className="text-xs font-sans">
-                    <strong className="text-slate-800">2023 Baseline: {hist.properties.id}</strong>
-                    <div className="text-[11px] text-slate-600">{hist.properties.status}</div>
+                  <div className="text-2xs font-mono">
+                    <strong className="text-[#1F2328]">2023: {hist.properties.id}</strong>
+                    <div className="text-[#656D76]">{hist.properties.status}</div>
                   </div>
                 </Tooltip>
               </CircleMarker>
@@ -189,10 +195,10 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
               key={`obb-${feature.properties.id}`}
               positions={coords}
               pathOptions={{
-                color: isSelected ? '#0F172A' : color,
+                color: isSelected ? '#1F2328' : color,
                 fillColor: color,
-                fillOpacity: isSelected ? 0.65 : 0.35,
-                weight: isSelected ? 3 : 1.5,
+                fillOpacity: isSelected ? 0.6 : 0.25,
+                weight: isSelected ? 2.5 : 1.2,
               }}
               eventHandlers={{
                 click: () => onSelectKiln(feature.properties),
@@ -201,13 +207,13 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
           );
         })}
 
-        {/* 4. Center Markers for Every Kiln */}
+        {/* 4. Center Markers with Distinct Shapes */}
         {filteredKilns.map((feature) => {
           const kId = feature.properties.id || feature.properties.kiln_id || 'n/a';
           const isSelected = Boolean(selectedKiln?.id === feature.properties.id || (selectedKiln && selectedKiln.id === kId));
           const { lat, lon, score } = feature.properties;
           const kilnClass = feature.properties.class || 'n/a';
-          const scoreText = typeof score === 'number' ? `${(score * 100).toFixed(0)}%` : 'n/a';
+          const scoreText = typeof score === 'number' ? `${(score * 100).toFixed(0)}%` : '-';
 
           return (
             <Marker
@@ -218,8 +224,8 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
                 click: () => onSelectKiln(feature.properties),
               }}
             >
-              <Tooltip direction="top" offset={[0, -12]}>
-                <div className="text-xs font-sans font-medium">
+              <Tooltip direction="top" offset={[0, -10]}>
+                <div className="text-2xs font-mono font-medium">
                   <strong>{kId}</strong> &bull; {kilnClass} ({scoreText})
                 </div>
               </Tooltip>
@@ -227,6 +233,11 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
           );
         })}
       </MapContainer>
+
+      {/* North Arrow */}
+      <div className="absolute top-3 right-3 z-[400] bg-white/95 border border-[#D9D6CE] p-1.5 rounded-[2px] shadow-map text-center font-mono text-2xs text-[#1F2328] pointer-events-none">
+        <div className="font-bold">▲ N</div>
+      </div>
     </div>
   );
 };

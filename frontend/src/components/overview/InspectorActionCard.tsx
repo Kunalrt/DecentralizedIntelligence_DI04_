@@ -1,6 +1,7 @@
 import React from 'react';
-import { Car, MapPin, CheckCircle2, AlertOctagon, ArrowRight, FileText } from 'lucide-react';
+import { Car, MapPin, CheckCircle2, AlertOctagon, ArrowRight } from 'lucide-react';
 import type { TabKey } from '../Header';
+import { Button, Badge } from '../../design';
 
 interface InspectorActionCardProps {
   clusteredKilns: number;
@@ -18,63 +19,75 @@ export const InspectorActionCard: React.FC<InspectorActionCardProps> = ({
   onNavigateTab,
 }) => {
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-xl p-5 sm:p-6 shadow-md border border-slate-700">
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-        <div className="space-y-3 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-semibold">
-            <Car className="w-3.5 h-3.5" /> Field Inspection Directive &bull; 1-Jeep Operational Protocol
+    <div className="bg-white border border-[#D9D6CE] rounded-[4px] p-4 sm:p-5 shadow-xs">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <div className="space-y-2.5 max-w-3xl">
+          <div className="flex items-center gap-2">
+            <span className="p-1 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE] text-[#1F4E5F]">
+              <Car size={16} strokeWidth={1.5} />
+            </span>
+            <span className="font-mono text-2xs font-semibold text-[#1F4E5F] uppercase tracking-wider">
+              Field Directive &bull; 1-Jeep Operational Protocol
+            </span>
+            <Badge variant="accent">SPCB Enforcement</Badge>
           </div>
 
-          <h2 className="text-lg sm:text-xl font-bold tracking-tight text-white m-0">
-            Inspector Farida Khan&rsquo;s Field Action Briefing
+          <h2 className="text-base sm:text-lg font-serif font-bold text-[#1F2328] m-0">
+            Inspector Farida Khan Patrol Briefing
           </h2>
 
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed m-0">
-            With one vehicle and two field officers covering 3,000 sq km, random patrols are impractical.
-            Our spatial clustering identifies <strong>{clusteredKilns} of 65 kilns</strong> situated within <strong>1.0 km</strong> of each other across <strong>{totalClusters} compact clusters</strong>.
+          <p className="text-xs text-[#656D76] leading-relaxed m-0 font-sans">
+            Optimised patrol itinerary for 1 vehicle covering 3,000 km². Spatial clustering groups <strong>{clusteredKilns} of 65 kilns</strong> into <strong>{totalClusters} compact 1 km clusters</strong> for efficient field verification.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
-            <div className="p-3 rounded-lg bg-slate-800/80 border border-slate-700/80">
-              <div className="flex items-center gap-1.5 text-orange-400 text-xs font-semibold mb-1">
-                <AlertOctagon className="w-3.5 h-3.5" /> Persistent Violations
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+            <div className="p-2.5 rounded-[4px] bg-[#FAF9F5] border border-[#D9D6CE]">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-[#E8710A] mb-1">
+                <AlertOctagon size={14} strokeWidth={1.5} />
+                <span>Violations</span>
               </div>
-              <div className="text-xl font-extrabold text-white">{unconvertedViolations} FCBKs</div>
-              <div className="text-[11px] text-slate-400 mt-0.5">High-confidence enforcement targets</div>
+              <div className="text-lg font-mono font-bold text-[#1F2328]">{unconvertedViolations} FCBK</div>
+              <div className="text-2xs font-mono text-[#656D76]">Priority inspection targets</div>
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-800/80 border border-slate-700/80">
-              <div className="flex items-center gap-1.5 text-blue-400 text-xs font-semibold mb-1">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Verified Conversions
+            <div className="p-2.5 rounded-[4px] bg-[#FAF9F5] border border-[#D9D6CE]">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-[#1A73E8] mb-1">
+                <CheckCircle2 size={14} strokeWidth={1.5} />
+                <span>Conversions</span>
               </div>
-              <div className="text-xl font-extrabold text-white">{convertedZigzag} Zigzags</div>
-              <div className="text-[11px] text-slate-400 mt-0.5">Converted from 2023 baseline</div>
+              <div className="text-lg font-mono font-bold text-[#1F2328]">{convertedZigzag} Zigzag</div>
+              <div className="text-2xs font-mono text-[#656D76]">Verified retrofits</div>
             </div>
 
-            <div className="p-3 rounded-lg bg-slate-800/80 border border-slate-700/80">
-              <div className="flex items-center gap-1.5 text-purple-400 text-xs font-semibold mb-1">
-                <MapPin className="w-3.5 h-3.5" /> Patrol Efficiency
+            <div className="p-2.5 rounded-[4px] bg-[#FAF9F5] border border-[#D9D6CE]">
+              <div className="flex items-center gap-1.5 text-xs font-semibold text-[#1F4E5F] mb-1">
+                <MapPin size={14} strokeWidth={1.5} />
+                <span>Routing Efficiency</span>
               </div>
-              <div className="text-xl font-extrabold text-white">{clusteredKilns} Kilns</div>
-              <div className="text-[11px] text-slate-400 mt-0.5">Across {totalClusters} tight 1 km groups</div>
+              <div className="text-lg font-mono font-bold text-[#1F2328]">{clusteredKilns} Kilns</div>
+              <div className="text-2xs font-mono text-[#656D76]">Across {totalClusters} 1 km groups</div>
             </div>
           </div>
         </div>
 
         {onNavigateTab && (
-          <div className="flex flex-col sm:flex-row lg:flex-col gap-2.5 flex-shrink-0 self-stretch sm:self-auto justify-center">
-            <button
+          <div className="flex flex-col sm:flex-row lg:flex-col gap-2 flex-shrink-0 self-stretch sm:self-auto justify-center">
+            <Button
+              variant="primary"
+              size="md"
+              icon={<ArrowRight size={14} strokeWidth={1.5} />}
               onClick={() => onNavigateTab('field')}
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-brand-primary text-white text-xs font-semibold rounded-lg hover:bg-blue-600 transition shadow"
             >
-              <FileText className="w-4 h-4" /> Open Field Plan & Top 20 <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-            <button
+              Open Field Plan
+            </Button>
+            <Button
+              variant="secondary"
+              size="md"
+              icon={<MapPin size={14} strokeWidth={1.5} />}
               onClick={() => onNavigateTab('map')}
-              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 text-slate-200 border border-slate-600 text-xs font-semibold rounded-lg hover:bg-slate-700 transition"
             >
-              <MapPin className="w-4 h-4 text-emerald-400" /> View District Map
-            </button>
+              Surveillance Map
+            </Button>
           </div>
         )}
       </div>

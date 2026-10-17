@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Upload, Cpu, Sparkles, Loader2 } from 'lucide-react';
+import { Upload, Cpu, Loader2, Info } from 'lucide-react';
 import { KILN_COLORS } from '../../config/constants';
+import { Badge } from '../../design';
 
 interface DemoSample {
   id: string;
@@ -17,8 +18,8 @@ interface DemoSample {
 const PRESET_SAMPLES: DemoSample[] = [
   {
     id: 'sample-1',
-    label: 'Sample A: Persistent FCBK Violation',
-    desc: 'Cluster 1 &bull; 10 m optical nadir tile &bull; Prohibited natural-draft oval trench',
+    label: 'Sample A: Persistent FCBK',
+    desc: 'Cluster 1 &bull; Prohibited natural-draft oval trench',
     cls: 'FCBK',
     confidence: 0.954,
     box: [
@@ -27,15 +28,15 @@ const PRESET_SAMPLES: DemoSample[] = [
       [0.72, 0.65],
       [0.28, 0.65],
     ],
-    status: 'Non-Compliant (2022 Mandate Ban)',
+    status: 'Non-Compliant (2022 Ban)',
     interpretation:
-      'Persistent natural-draft FCBK oval layout with central chimney shadow. Operating in violation of statutory emissions ban. High vehicle inspection priority.',
+      'Persistent natural-draft FCBK oval layout with central chimney shadow. Priority inspection target.',
     priority: 'HIGH',
   },
   {
     id: 'sample-2',
-    label: 'Sample B: Compliant Zigzag Conversion',
-    desc: 'Cluster 3 &bull; Forced-draft zigzag channel layout &bull; Converted from 2023 baseline',
+    label: 'Sample B: Compliant Zigzag',
+    desc: 'Cluster 3 &bull; Forced-draft zigzag channel layout',
     cls: 'Zigzag',
     confidence: 0.861,
     box: [
@@ -44,15 +45,15 @@ const PRESET_SAMPLES: DemoSample[] = [
       [0.75, 0.68],
       [0.25, 0.68],
     ],
-    status: 'Mandate Compliant (Zigzag Retrofit)',
+    status: 'Compliant (Zigzag Retrofit)',
     interpretation:
-      'Verified rectangular forced-draft zigzag retrofit. Significantly lower particulate emissions. Confirm operational logbook during patrol.',
+      'Verified rectangular forced-draft zigzag retrofit. Significantly lower particulate emissions.',
     priority: 'COMPLIANT',
   },
   {
     id: 'sample-3',
-    label: 'Sample C: Rare Circular CFCBK Site',
-    desc: 'Cluster 9 &bull; Rare circular Bull’s Trench footprint (~3% regional prevalence)',
+    label: 'Sample C: Circular CFCBK',
+    desc: 'Cluster 9 &bull; Rare circular Bull’s Trench footprint (~3% prevalence)',
     cls: 'CFCBK',
     confidence: 0.937,
     box: [
@@ -61,9 +62,9 @@ const PRESET_SAMPLES: DemoSample[] = [
       [0.70, 0.70],
       [0.30, 0.70],
     ],
-    status: 'Special Heritage Review',
+    status: 'Heritage Review',
     interpretation:
-      'Rare circular Bull’s Trench kiln. Near-zero classification confusion. Check emissions compliance and local licensing registry.',
+      'Circular Bull’s Trench kiln. Near-zero classification confusion. Check local licensing registry.',
     priority: 'MEDIUM',
   },
 ];
@@ -86,7 +87,6 @@ export const TileInferenceDemo: React.FC = () => {
     reader.onload = (event) => {
       setCustomFile(event.target?.result as string);
 
-      // Attempt FastAPI backend inference or deterministic calibrated fallback
       fetch('http://localhost:8000/api/predict', {
         method: 'POST',
         body: (() => {
@@ -101,7 +101,7 @@ export const TileInferenceDemo: React.FC = () => {
           setCustomPrediction({
             id: 'custom-live',
             label: `Custom: ${file.name}`,
-            desc: `Processed via FastAPI (${data.inference_time_ms} ms on ${data.device})`,
+            desc: `Processed (${data.inference_time_ms} ms)`,
             cls: (det.cls as any) || 'FCBK',
             confidence: det.confidence || 0.92,
             box: det.box_normalized || [
@@ -116,12 +116,11 @@ export const TileInferenceDemo: React.FC = () => {
           });
         })
         .catch(() => {
-          // Graceful client fallback
           setTimeout(() => {
             setCustomPrediction({
               id: 'custom-client',
-              label: `Custom Upload: ${file.name}`,
-              desc: 'Client-side calibrated neural fallback (YOLO11s-OBB emulation)',
+              label: `Custom: ${file.name}`,
+              desc: 'Deterministic test prediction',
               cls: 'FCBK',
               confidence: 0.925,
               box: [
@@ -132,7 +131,7 @@ export const TileInferenceDemo: React.FC = () => {
               ],
               status: 'Prohibited (2022 Mandate Violation)',
               interpretation:
-                'Detected persistent natural-draft FCBK oval layout with central chimney shadow. Recommended for vehicle inspection.',
+                'Detected natural-draft FCBK oval layout with central chimney shadow.',
               priority: 'HIGH',
             });
             setIsProcessing(false);
@@ -144,38 +143,41 @@ export const TileInferenceDemo: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm p-5 sm:p-6 space-y-5">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
+    <div className="bg-white rounded-[4px] border border-[#D9D6CE] shadow-xs p-4 space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#D9D6CE] pb-2.5">
         <div>
           <div className="flex items-center gap-2">
-            <Cpu className="w-5 h-5 text-indigo-600" />
-            <h3 className="text-base font-bold text-slate-900 m-0">
-              Interactive Sentinel-2 Tile Inference Demo
+            <span className="p-1 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE] text-[#1F4E5F]">
+              <Cpu size={15} strokeWidth={1.5} />
+            </span>
+            <h3 className="text-sm font-serif font-bold text-[#1F2328] m-0">
+              Sentinel-2 Tile Inference Demo
             </h3>
           </div>
-          <p className="text-xs text-slate-500 m-0 mt-0.5">
-            Test satellite tile inference in real time &bull; View rotated bounding box (OBB) & Inspector Farida Khan guidance.
+          <p className="text-2xs text-[#656D76] font-mono m-0 mt-0.5">
+            Test satellite tile inference in real time &bull; 10 m/px Sentinel-2 RGB optical input.
           </p>
         </div>
 
-        <div className="text-xs font-semibold px-2.5 py-1 rounded bg-indigo-50 border border-indigo-200 text-indigo-700 self-start sm:self-auto">
-          CPU Mode Supported &bull; FastAPI Backend in <code>backend/</code>
-        </div>
+        <Badge variant="outline">
+          Inference Engine (CPU / CUDA)
+        </Badge>
       </div>
 
       {/* Preset Selectors & Upload */}
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2 font-mono text-2xs">
         {PRESET_SAMPLES.map((sample) => (
           <button
             key={sample.id}
+            type="button"
             onClick={() => {
               setCustomPrediction(null);
               setSelectedSample(sample);
             }}
-            className={`px-3 py-1.5 rounded-lg border text-xs font-semibold transition ${
+            className={`px-2.5 py-1 rounded-[2px] border font-medium transition-colors ${
               activeData.id === sample.id
-                ? 'bg-slate-900 text-white border-slate-900 shadow-xs'
-                : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                ? 'bg-[#1F4E5F] text-white border-[#1F4E5F] shadow-xs'
+                : 'bg-[#FAF9F5] text-[#1F2328] border-[#D9D6CE] hover:bg-[#F5F3EE]'
             }`}
           >
             {sample.label.split(':')[0]}
@@ -183,11 +185,11 @@ export const TileInferenceDemo: React.FC = () => {
         ))}
 
         {/* Upload Custom Tile */}
-        <label className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-primary text-white rounded-lg text-xs font-semibold cursor-pointer hover:bg-blue-600 transition shadow-xs">
+        <label className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-[#1F2328] text-white rounded-[2px] text-2xs font-mono font-medium cursor-pointer hover:bg-black transition-colors shadow-xs">
           {isProcessing ? (
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
+            <Loader2 size={12} strokeWidth={1.5} className="animate-spin" />
           ) : (
-            <Upload className="w-3.5 h-3.5" />
+            <Upload size={12} strokeWidth={1.5} />
           )}
           <span>{isProcessing ? 'Analyzing...' : 'Upload Tile'}</span>
           <input
@@ -201,10 +203,10 @@ export const TileInferenceDemo: React.FC = () => {
       </div>
 
       {/* Interactive Inference Preview Area */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
         {/* Simulated Tile with OBB Canvas */}
         <div className="md:col-span-5 flex flex-col items-center">
-          <div className="relative w-64 h-64 rounded-xl border border-slate-300 bg-slate-900 overflow-hidden shadow-inner flex items-center justify-center">
+          <div className="relative w-56 h-56 rounded-[2px] border border-[#D9D6CE] bg-[#14181C] overflow-hidden flex items-center justify-center">
             {customFile ? (
               <img
                 src={customFile}
@@ -212,21 +214,19 @@ export const TileInferenceDemo: React.FC = () => {
                 className="w-full h-full object-cover"
               />
             ) : (
-              /* Simulated Sentinel-2 Nadir Soil & Tile Pattern */
-              <div className="w-full h-full bg-gradient-to-br from-stone-300 via-amber-200 to-stone-400 relative">
-                {/* Simulated Kiln Oval Structure */}
+              <div className="w-full h-full bg-[#E5E3DC] relative">
+                {/* Simulated Kiln Structure */}
                 <div
-                  className="absolute rounded-full border-2 border-stone-800 shadow-inner"
+                  className="absolute rounded-full border border-[#1F2328]/60"
                   style={{
                     left: `${activeData.box[0][0] * 100}%`,
                     top: `${activeData.box[0][1] * 100}%`,
                     width: `${(activeData.box[1][0] - activeData.box[0][0]) * 100}%`,
                     height: `${(activeData.box[2][1] - activeData.box[0][1]) * 100}%`,
-                    backgroundColor: 'rgba(120, 53, 15, 0.45)',
+                    backgroundColor: 'rgba(120, 53, 15, 0.35)',
                   }}
                 >
-                  {/* Central Chimney Shadow */}
-                  <div className="w-2.5 h-2.5 rounded-full bg-black mx-auto mt-7 shadow" />
+                  <div className="w-2 h-2 rounded-full bg-[#1F2328] mx-auto mt-6" />
                 </div>
               </div>
             )}
@@ -235,82 +235,78 @@ export const TileInferenceDemo: React.FC = () => {
             <svg className="absolute inset-0 w-full h-full pointer-events-none">
               <polygon
                 points={activeData.box
-                  .map(([x, y]) => `${x * 256},${y * 256}`)
+                  .map(([x, y]) => `${x * 224},${y * 224}`)
                   .join(' ')}
                 fill="none"
                 stroke={color}
-                strokeWidth="2.5"
+                strokeWidth="2"
                 strokeDasharray="4, 2"
               />
               <circle
-                cx={((activeData.box[0][0] + activeData.box[1][0]) / 2) * 256}
-                cy={((activeData.box[0][1] + activeData.box[2][1]) / 2) * 256}
-                r="4"
+                cx={((activeData.box[0][0] + activeData.box[1][0]) / 2) * 224}
+                cy={((activeData.box[0][1] + activeData.box[2][1]) / 2) * 224}
+                r="3"
                 fill={color}
               />
             </svg>
 
             {/* In-Tile Badge */}
-            <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-black/70 text-white font-mono text-[10px] backdrop-blur-xs">
+            <div className="absolute bottom-2 left-2 px-1.5 py-0.5 rounded-[2px] bg-black/80 text-white font-mono text-2xs">
               {activeData.cls} &bull; {(activeData.confidence * 100).toFixed(1)}%
             </div>
           </div>
-          <div className="text-[11px] text-slate-400 mt-1 font-mono">
-            Sentinel-2 L2A &bull; 10 m Nadir RGB Tile (128x128)
+          <div className="text-2xs text-[#656D76] mt-1 font-mono">
+            Sentinel-2 &bull; 10 m/px RGB Nadir (128x128)
           </div>
         </div>
 
-        {/* Inference Results & Farida Interpretation */}
-        <div className="md:col-span-7 space-y-3 text-xs">
+        {/* Inference Results */}
+        <div className="md:col-span-7 space-y-2.5 text-xs">
           <div>
-            <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
-              Live Detection Analysis
-            </span>
-            <div className="flex items-center gap-2 mt-1">
+            <div className="flex items-center gap-2">
               <span
-                className="w-3.5 h-3.5 rounded flex-shrink-0"
+                className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                 style={{ backgroundColor: color }}
               />
-              <h4 className="text-base font-extrabold text-slate-900 m-0">
+              <h4 className="text-sm font-serif font-bold text-[#1F2328] m-0">
                 {activeData.cls} Kiln Detected
               </h4>
-              <span
-                className={`text-[11px] font-bold px-2 py-0.5 rounded-full border ${
+              <Badge
+                variant={
                   activeData.priority === 'HIGH'
-                    ? 'bg-red-50 text-red-700 border-red-200'
+                    ? 'danger'
                     : activeData.priority === 'COMPLIANT'
-                    ? 'bg-blue-50 text-blue-700 border-blue-200'
-                    : 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                }`}
+                    ? 'success'
+                    : 'warning'
+                }
               >
                 {activeData.status}
-              </span>
+              </Badge>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
-              <div className="text-[11px] text-slate-500 font-medium">Confidence Score</div>
-              <div className="text-sm font-extrabold text-slate-900 mt-0.5">
+          <div className="grid grid-cols-2 gap-2 text-xs font-mono">
+            <div className="p-2 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE]">
+              <div className="text-2xs text-[#656D76]">Confidence</div>
+              <div className="text-sm font-bold text-[#1F2328] mt-0.5">
                 {(activeData.confidence * 100).toFixed(1)}%
               </div>
             </div>
 
-            <div className="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
-              <div className="text-[11px] text-slate-500 font-medium">Inference Latency</div>
-              <div className="text-sm font-extrabold text-emerald-600 mt-0.5">
+            <div className="p-2 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE]">
+              <div className="text-2xs text-[#656D76]">Inference Latency</div>
+              <div className="text-sm font-bold text-[#16A34A] mt-0.5">
                 ~1.3 ms / tile
               </div>
             </div>
           </div>
 
-          {/* Farida Khan Action Advice */}
-          <div className="p-3.5 rounded-lg bg-indigo-50/70 border border-indigo-200/80 space-y-1">
-            <div className="font-bold text-indigo-900 text-[11px] flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-              <span>Inspector Farida Khan Field Guidance:</span>
+          <div className="p-2.5 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE] space-y-1">
+            <div className="font-mono text-2xs font-semibold text-[#1F4E5F] flex items-center gap-1">
+              <Info size={12} strokeWidth={1.5} />
+              <span>Inspection Guidance:</span>
             </div>
-            <p className="text-slate-700 text-xs leading-relaxed m-0">
+            <p className="text-2xs text-[#656D76] leading-relaxed m-0 font-sans">
               {activeData.interpretation}
             </p>
           </div>

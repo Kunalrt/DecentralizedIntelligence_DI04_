@@ -13,6 +13,7 @@ import {
   Crosshair,
   Compass,
 } from 'lucide-react';
+import { Button } from '../../design';
 
 interface KilnDetailDrawerProps {
   kiln: KilnProperties | null;
@@ -46,7 +47,7 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
   const handleCopy = () => {
     navigator.clipboard.writeText(coordString);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    setTimeout(() => setCopied(false), 1500);
   };
 
   const isFcbk = kiln.class === 'FCBK';
@@ -55,115 +56,116 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
   const kilnClass = kiln.class || 'n/a';
 
   return (
-    <div className="absolute top-4 right-4 z-[1000] w-80 sm:w-96 bg-white/95 backdrop-blur-md rounded-xl shadow-2xl border border-slate-200/90 overflow-hidden flex flex-col max-h-[calc(100%-2rem)] animate-in fade-in slide-in-from-right duration-200">
+    <div className="absolute top-3 right-3 z-[1000] w-80 sm:w-96 bg-white rounded-[4px] shadow-map border border-[#D9D6CE] overflow-hidden flex flex-col max-h-[calc(100%-1.5rem)] font-mono text-xs">
       {/* Top Accent Stripe */}
-      <div className="h-1.5 w-full" style={{ backgroundColor: color }} />
+      <div className="h-1 w-full" style={{ backgroundColor: color }} />
 
       {/* Header */}
-      <div className="p-4 pb-3 border-b border-slate-100 flex items-start justify-between gap-3">
+      <div className="p-3.5 pb-2.5 border-b border-[#D9D6CE] flex items-start justify-between gap-3">
         <div>
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-1.5 mb-0.5">
             <span
               className="w-2.5 h-2.5 rounded-full flex-shrink-0"
               style={{ backgroundColor: color }}
             />
-            <span className="font-mono text-xs font-bold text-slate-500 uppercase">
+            <span className="font-bold text-[#656D76] uppercase text-2xs">
               {kilnId}
             </span>
           </div>
-          <h3 className="text-base font-extrabold text-slate-900 m-0">
+          <h3 className="text-sm font-serif font-bold text-[#1F2328] m-0">
             {kilnClass} Kiln
           </h3>
-          <p className="text-xs text-slate-500 m-0">
+          <p className="text-2xs text-[#656D76] m-0 font-sans">
             {KILN_DESCRIPTIONS[kiln.class]?.legalStatus || 'Active Industrial Kiln'}
           </p>
         </div>
 
         <button
+          type="button"
           onClick={onClose}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition"
+          className="p-1 rounded text-[#656D76] hover:text-[#1F2328] hover:bg-[#FAF9F5]"
           aria-label="Close Inspector Drawer"
         >
-          <X className="w-4 h-4" />
+          <X size={15} strokeWidth={1.5} />
         </button>
       </div>
 
       {/* Content Body */}
-      <div className="p-4 space-y-4 overflow-y-auto text-xs">
+      <div className="p-3.5 space-y-3 overflow-y-auto">
         {/* Compliance Status Alert Box */}
         {isFcbk ? (
-          <div className="p-3 rounded-lg bg-orange-50 border border-orange-200 text-orange-900 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-xs text-orange-800">
-              <AlertTriangle className="w-4 h-4 text-orange-600 flex-shrink-0" />
+          <div className="p-2.5 rounded-[2px] bg-[#FFF7ED] border border-[#FDBA74] text-[#E8710A] space-y-0.5">
+            <div className="flex items-center gap-1.5 font-bold text-2xs">
+              <AlertTriangle size={13} strokeWidth={1.5} className="flex-shrink-0" />
               <span>Persistent 2022 Ban Violation</span>
             </div>
-            <p className="text-[11px] text-orange-700 leading-relaxed m-0">
-              Operating prohibited natural-draft FCBK. High enforcement priority for Inspector Farida Khan&rsquo;s team.
+            <p className="text-2xs text-[#9A3412] leading-relaxed m-0 font-sans">
+              Natural-draft FCBK. Priority inspection target.
             </p>
           </div>
         ) : isZigzag ? (
-          <div className="p-3 rounded-lg bg-blue-50 border border-blue-200 text-blue-900 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-xs text-blue-800">
-              <CheckCircle2 className="w-4 h-4 text-blue-600 flex-shrink-0" />
+          <div className="p-2.5 rounded-[2px] bg-[#EFF6FF] border border-[#93C5FD] text-[#1A73E8] space-y-0.5">
+            <div className="flex items-center gap-1.5 font-bold text-2xs">
+              <CheckCircle2 size={13} strokeWidth={1.5} className="flex-shrink-0" />
               <span>Compliant Forced-Draft Retrofit</span>
             </div>
-            <p className="text-[11px] text-blue-700 leading-relaxed m-0">
+            <p className="text-2xs text-[#1E40AF] leading-relaxed m-0 font-sans">
               {kiln.converted
-                ? 'Successfully converted from baseline 2023 FCBK site. Reduced particulate emissions.'
-                : 'Modern zigzag channel layout compliant with statutory pollution control norms.'}
+                ? 'Converted from 2023 FCBK baseline. Lower particulate emissions.'
+                : 'Modern zigzag channel layout compliant with norms.'}
             </p>
           </div>
         ) : (
-          <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-900 space-y-1">
-            <div className="flex items-center gap-1.5 font-bold text-xs text-emerald-800">
-              <ShieldCheck className="w-4 h-4 text-emerald-600 flex-shrink-0" />
+          <div className="p-2.5 rounded-[2px] bg-[#F0FDF4] border border-[#86EFAC] text-[#188038] space-y-0.5">
+            <div className="flex items-center gap-1.5 font-bold text-2xs">
+              <ShieldCheck size={13} strokeWidth={1.5} className="flex-shrink-0" />
               <span>Circular Bull&rsquo;s Trench Design</span>
             </div>
-            <p className="text-[11px] text-emerald-700 leading-relaxed m-0">
-              Distinct circular configuration (~12% of district kilns). High detection certainty.
+            <p className="text-2xs text-[#166534] leading-relaxed m-0 font-sans">
+              Circular configuration (~12% prevalence). High certainty.
             </p>
           </div>
         )}
 
         {/* Copyable Coordinates */}
-        <div className="bg-slate-50 p-3 rounded-lg border border-slate-200 space-y-1.5">
-          <div className="flex items-center justify-between text-slate-500 font-semibold text-[11px]">
+        <div className="bg-[#FAF9F5] p-2.5 rounded-[2px] border border-[#D9D6CE] space-y-1">
+          <div className="flex items-center justify-between text-[#656D76] font-semibold text-2xs">
             <span className="flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-brand-primary" /> GPS Coordinates
+              <MapPin size={12} strokeWidth={1.5} className="text-[#1F4E5F]" /> Coordinates
             </span>
             <button
+              type="button"
               onClick={handleCopy}
-              className="inline-flex items-center gap-1 text-[11px] font-semibold text-brand-primary hover:text-blue-700 transition"
+              className="inline-flex items-center gap-1 text-2xs font-semibold text-[#1F4E5F] hover:underline"
             >
               {copied ? (
                 <>
-                  <Check className="w-3 h-3 text-emerald-600" />
-                  <span className="text-emerald-600">Copied!</span>
+                  <Check size={11} strokeWidth={2} className="text-[#16A34A]" />
+                  <span className="text-[#16A34A]">Copied</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-3 h-3" />
+                  <Copy size={11} strokeWidth={1.5} />
                   <span>Copy</span>
                 </>
               )}
             </button>
           </div>
-          <div className="font-mono text-slate-800 text-xs font-bold select-all bg-white px-2.5 py-1.5 rounded border border-slate-200">
+          <div className="text-[#1F2328] text-xs font-bold select-all bg-white px-2 py-1 rounded-[2px] border border-[#D9D6CE]">
             {coordString}
           </div>
         </div>
 
-        {/* Metrics Grid: Score & Cluster */}
-        <div className="grid grid-cols-2 gap-2 text-xs">
-          {/* Model Confidence */}
-          <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70">
-            <div className="text-[11px] text-slate-500 font-medium">Confidence Score</div>
-            <div className="text-base font-extrabold text-slate-900 mt-0.5">
-              {kiln.score != null ? `${(kiln.score * 100).toFixed(1)}%` : 'n/a'}
+        {/* Metrics Grid */}
+        <div className="grid grid-cols-2 gap-2 text-2xs">
+          <div className="p-2 rounded-[2px] border border-[#D9D6CE] bg-[#FAF9F5]">
+            <div className="text-[#656D76]">Confidence Score</div>
+            <div className="text-sm font-bold text-[#1F2328] mt-0.5">
+              {kiln.score != null ? `${(kiln.score * 100).toFixed(1)}%` : '-'}
             </div>
-            <div className="w-full bg-slate-200 h-1.5 rounded-full mt-1.5 overflow-hidden">
+            <div className="w-full bg-[#D9D6CE] h-1 rounded-[1px] mt-1 overflow-hidden">
               <div
-                className="h-full rounded-full"
+                className="h-full rounded-[1px]"
                 style={{
                   width: `${Math.min(100, Math.max(10, (kiln.score ?? 0) * 100))}%`,
                   backgroundColor: color,
@@ -172,67 +174,65 @@ export const KilnDetailDrawer: React.FC<KilnDetailDrawerProps> = ({
             </div>
           </div>
 
-          {/* Cluster ID */}
-          <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/70">
-            <div className="text-[11px] text-slate-500 font-medium">Spatial Cluster</div>
-            <div className="text-sm font-extrabold text-slate-900 mt-0.5 truncate">
-              {kiln.cluster_id || 'n/a'}
+          <div className="p-2 rounded-[2px] border border-[#D9D6CE] bg-[#FAF9F5]">
+            <div className="text-[#656D76]">Spatial Cluster</div>
+            <div className="text-sm font-bold text-[#1F2328] mt-0.5 truncate">
+              {kiln.cluster_id || '-'}
             </div>
-            <div className="text-[10px] text-slate-500 mt-1">
-              {kiln.near_1km ? 'Within 1.0 km neighbor' : 'Isolated site'}
+            <div className="text-[#656D76] mt-0.5">
+              {kiln.near_1km ? '&le; 1.0 km neighbor' : 'Isolated site'}
             </div>
           </div>
         </div>
 
-        {/* Operational Why & Inspection Reason */}
+        {/* Operational Note */}
         {kiln.why && (
-          <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
-            <div className="flex items-center gap-1 text-[11px] font-semibold text-slate-700">
-              <Compass className="w-3.5 h-3.5 text-slate-500" />
-              <span>Field Inspection Rationale</span>
+          <div className="p-2 rounded-[2px] border border-[#D9D6CE] bg-[#FAF9F5] space-y-0.5">
+            <div className="flex items-center gap-1 text-2xs font-semibold text-[#1F2328]">
+              <Compass size={12} strokeWidth={1.5} className="text-[#1F4E5F]" />
+              <span>Field Inspection Note</span>
             </div>
-            <p className="text-slate-600 text-[11px] leading-relaxed m-0">{kiln.why || 'n/a'}</p>
+            <p className="text-[#656D76] text-2xs leading-relaxed m-0 font-sans">{kiln.why}</p>
           </div>
         )}
 
         {/* Historical 2023 Correlation */}
         {historicalMatch && (
-          <div className="p-2.5 rounded-lg border border-slate-200 bg-slate-50/50 space-y-1">
-            <div className="text-[11px] font-semibold text-slate-700">
-              2023–24 Baseline Association
+          <div className="p-2 rounded-[2px] border border-[#D9D6CE] bg-[#FAF9F5] space-y-0.5">
+            <div className="text-2xs font-semibold text-[#1F2328]">
+              2023–24 Baseline Match
             </div>
-            <div className="text-[11px] text-slate-600">
-              Matched Site: <strong>{historicalMatch.id || historicalMatch.kiln_id || 'n/a'}</strong> (
+            <div className="text-2xs text-[#656D76]">
+              Site: <strong>{historicalMatch.id || historicalMatch.kiln_id || '-'}</strong> (
               {historicalMatch.distance_to_historical_m != null
                 ? `${historicalMatch.distance_to_historical_m.toFixed(1)} m gap`
                 : 'Exact match'}
               )
-            </div>
-            <div className="text-[10px] text-slate-500 italic">
-              Status: {historicalMatch.status || 'n/a'}
             </div>
           </div>
         )}
       </div>
 
       {/* Drawer Action Buttons Footer */}
-      <div className="p-3 border-t border-slate-200 bg-slate-50 flex items-center justify-between gap-2">
-        <button
+      <div className="p-2.5 border-t border-[#D9D6CE] bg-[#FAF9F5] flex items-center justify-between gap-2">
+        <Button
+          size="sm"
+          variant="secondary"
+          icon={<Crosshair size={13} strokeWidth={1.5} />}
           onClick={() => onCenterOnMap(kiln.lat ?? 0, kiln.lon ?? 0)}
-          className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-white text-slate-800 border border-slate-300 rounded-lg text-xs font-semibold hover:bg-slate-100 transition shadow-xs"
+          className="flex-1"
         >
-          <Crosshair className="w-3.5 h-3.5 text-brand-primary" />
-          <span>Center Map</span>
-        </button>
+          Center Map
+        </Button>
 
         <a
           href={`https://www.openstreetmap.org/?mlat=${kiln.lat ?? 0}&mlon=${kiln.lon ?? 0}#map=16/${kiln.lat ?? 0}/${kiln.lon ?? 0}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-1.5 px-3 py-2 bg-brand-primary text-white rounded-lg text-xs font-semibold hover:bg-blue-600 transition shadow-xs"
+          className="inline-flex items-center justify-center gap-1 px-3 py-1 bg-[#1F4E5F] text-white rounded-[2px] text-xs font-mono font-medium hover:bg-[#163B48] transition-colors shadow-xs"
         >
-          <ExternalLink className="w-3.5 h-3.5" />
-          <span>OSM View</span>
+          <ExternalLink size={13} strokeWidth={1.5} />
+          <span>OSM</span>
         </a>
       </div>
     </div>

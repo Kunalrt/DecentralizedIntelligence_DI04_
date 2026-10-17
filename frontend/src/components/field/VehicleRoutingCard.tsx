@@ -1,5 +1,6 @@
 import React from 'react';
 import { Car, Compass, Zap, Shield, Gauge } from 'lucide-react';
+import { Badge } from '../../design';
 
 interface VehicleRoutingCardProps {
   totalKilns: number;
@@ -15,96 +16,103 @@ export const VehicleRoutingCard: React.FC<VehicleRoutingCardProps> = ({
   const clusterPercentage = ((clusteredKilns / (totalKilns || 65)) * 100).toFixed(1);
 
   return (
-    <div className="bg-gradient-to-br from-slate-900 via-slate-800 to-indigo-950 text-white rounded-xl p-5 sm:p-6 shadow-md border border-slate-700">
-      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-        <div className="space-y-3 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 text-xs font-semibold">
-            <Car className="w-3.5 h-3.5" /> 1-Jeep Vehicle Routing Protocol
+    <div className="bg-white rounded-[4px] border border-[#D9D6CE] p-4 sm:p-5 shadow-xs">
+      <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-4">
+        <div className="space-y-2.5 max-w-3xl">
+          <div className="flex items-center gap-2">
+            <span className="p-1 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE] text-[#1F4E5F]">
+              <Car size={15} strokeWidth={1.5} />
+            </span>
+            <span className="font-mono text-2xs font-semibold text-[#1F4E5F] uppercase tracking-wider">
+              1-Jeep Vehicle Routing Protocol
+            </span>
+            <Badge variant="accent">{clusterPercentage}% Clustered</Badge>
           </div>
 
-          <h2 className="text-lg sm:text-xl font-bold tracking-tight text-white m-0">
-            Cluster-First Dispatch: Saving ~120 km of Field Transit
+          <h2 className="text-base sm:text-lg font-serif font-bold text-[#1F2328] m-0">
+            Cluster-First Dispatch: ~120 km Field Transit Reduction
           </h2>
 
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed m-0">
-            Inspector Farida Khan has <strong>one jeep</strong> and <strong>two field staff</strong> covering a 3,000 sq km territory.
-            Visiting individual sites arbitrarily would require over 185 km of driving with extensive backtracking.
-            Because <strong>{clusteredKilns} of {totalKilns} detected kilns ({clusterPercentage}%)</strong> sit within <strong>1.0 km</strong> of a neighboring site, grouping patrols by cluster cuts route distance by over 64%.
+          <p className="text-xs text-[#656D76] leading-relaxed m-0 font-sans">
+            Grouping inspections by 1.0 km proximity cuts required patrol mileage from ~185 km to ~65 km across the 3,000 km² Demo District.
           </p>
 
           {/* Key Metrics Row */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-            <div className="p-3 rounded-lg bg-slate-800/90 border border-slate-700">
-              <div className="flex items-center gap-1.5 text-slate-400 text-xs font-medium mb-1">
-                <Gauge className="w-3.5 h-3.5 text-slate-400" /> Naive Unclustered Route
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 pt-1">
+            <div className="p-2.5 rounded-[4px] bg-[#FAF9F5] border border-[#D9D6CE]">
+              <div className="flex items-center gap-1.5 text-[#656D76] text-2xs font-mono font-medium mb-1">
+                <Gauge size={13} strokeWidth={1.5} />
+                <span>Naive Route</span>
               </div>
-              <div className="text-xl font-bold text-slate-300 line-through">~185 km</div>
-              <div className="text-[11px] text-slate-400 mt-0.5">Scattered single-site driving</div>
+              <div className="text-lg font-mono font-bold text-[#656D76] line-through">~185 km</div>
+              <div className="text-2xs font-mono text-[#656D76]">Unclustered transit</div>
             </div>
 
-            <div className="p-3 rounded-lg bg-emerald-950/40 border border-emerald-500/30">
-              <div className="flex items-center gap-1.5 text-emerald-400 text-xs font-semibold mb-1">
-                <Compass className="w-3.5 h-3.5 text-emerald-400" /> Clustered Patrol Route
+            <div className="p-2.5 rounded-[4px] bg-[#FAFDFB] border border-[#86EFAC]">
+              <div className="flex items-center gap-1.5 text-[#166534] text-2xs font-mono font-semibold mb-1">
+                <Compass size={13} strokeWidth={1.5} />
+                <span>Clustered Route</span>
               </div>
-              <div className="text-xl font-extrabold text-emerald-300">~65 km</div>
-              <div className="text-[11px] text-emerald-400/80 mt-0.5">Across {totalClusters} tight groups</div>
+              <div className="text-lg font-mono font-bold text-[#166534]">~65 km</div>
+              <div className="text-2xs font-mono text-[#656D76]">{totalClusters} clusters</div>
             </div>
 
-            <div className="p-3 rounded-lg bg-indigo-950/40 border border-indigo-500/30">
-              <div className="flex items-center gap-1.5 text-indigo-300 text-xs font-semibold mb-1">
-                <Zap className="w-3.5 h-3.5 text-indigo-400" /> Transit Efficiency Gain
+            <div className="p-2.5 rounded-[4px] bg-[#FAF9F5] border border-[#1F4E5F]">
+              <div className="flex items-center gap-1.5 text-[#1F4E5F] text-2xs font-mono font-semibold mb-1">
+                <Zap size={13} strokeWidth={1.5} />
+                <span>Transit Saved</span>
               </div>
-              <div className="text-xl font-extrabold text-white">~120 km Saved</div>
-              <div className="text-[11px] text-indigo-300/80 mt-0.5">64.8% fuel & time reduction</div>
+              <div className="text-lg font-mono font-bold text-[#1F4E5F]">~120 km</div>
+              <div className="text-2xs font-mono text-[#656D76]">64.8% reduction</div>
             </div>
           </div>
         </div>
 
         {/* Recommended Sequence Stepper */}
-        <div className="bg-slate-800/90 p-4 rounded-xl border border-slate-700/80 text-xs space-y-2.5 w-full lg:w-72 flex-shrink-0">
-          <div className="font-bold text-slate-200 border-b border-slate-700 pb-1.5 flex items-center justify-between">
-            <span>Recommended Patrol Sequence</span>
-            <Shield className="w-3.5 h-3.5 text-brand-primary" />
+        <div className="bg-[#FAF9F5] p-3 rounded-[4px] border border-[#D9D6CE] text-xs font-mono space-y-2 w-full lg:w-72 flex-shrink-0">
+          <div className="font-bold text-[#1F2328] border-b border-[#D9D6CE] pb-1 flex items-center justify-between">
+            <span>Patrol Sequence</span>
+            <Shield size={13} strokeWidth={1.5} className="text-[#1F4E5F]" />
           </div>
 
-          <div className="space-y-2 text-slate-300 text-[11px]">
+          <div className="space-y-1.5 text-2xs text-[#1F2328]">
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-orange-500/20 text-orange-300 border border-orange-500/30 flex items-center justify-center font-bold text-[10px]">
+              <span className="w-4 h-4 rounded-[2px] bg-[#FFF7ED] text-[#E8710A] border border-[#FDBA74] flex items-center justify-center font-bold text-[10px]">
                 1
               </span>
               <div>
-                <strong className="text-white">Leg A: South-Central</strong>
-                <div className="text-slate-400">Cluster 12 &bull; 2 kilns (331 m gap)</div>
+                <strong className="text-[#1F2328]">Leg A: South-Central</strong>
+                <div className="text-[#656D76]">Cluster 12 &bull; 2 kilns</div>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30 flex items-center justify-center font-bold text-[10px]">
+              <span className="w-4 h-4 rounded-[2px] bg-[#EFF6FF] text-[#1A73E8] border border-[#93C5FD] flex items-center justify-center font-bold text-[10px]">
                 2
               </span>
               <div>
-                <strong className="text-white">Leg B: Eastern Belt</strong>
-                <div className="text-slate-400">Clusters 1, 15, 2 &bull; 12 kilns</div>
+                <strong className="text-[#1F2328]">Leg B: Eastern Belt</strong>
+                <div className="text-[#656D76]">Clusters 1, 15, 2 &bull; 12 kilns</div>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-purple-500/20 text-purple-300 border border-purple-500/30 flex items-center justify-center font-bold text-[10px]">
+              <span className="w-4 h-4 rounded-[2px] bg-[#FAF9F5] text-[#1F4E5F] border border-[#1F4E5F] flex items-center justify-center font-bold text-[10px]">
                 3
               </span>
               <div>
-                <strong className="text-white">Leg C: Central Corridor</strong>
-                <div className="text-slate-400">Clusters 4, 6, 10 &bull; 9 kilns</div>
+                <strong className="text-[#1F2328]">Leg C: Central Corridor</strong>
+                <div className="text-[#656D76]">Clusters 4, 6, 10 &bull; 9 kilns</div>
               </div>
             </div>
 
             <div className="flex items-center gap-2">
-              <span className="w-5 h-5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 flex items-center justify-center font-bold text-[10px]">
+              <span className="w-4 h-4 rounded-[2px] bg-[#F0FDF4] text-[#188038] border border-[#86EFAC] flex items-center justify-center font-bold text-[10px]">
                 4
               </span>
               <div>
-                <strong className="text-white">Leg D: Western Dense Hub</strong>
-                <div className="text-slate-400">Clusters 3, 5, 11, 13 &bull; 11 kilns</div>
+                <strong className="text-[#1F2328]">Leg D: Western Dense Hub</strong>
+                <div className="text-[#656D76]">Clusters 3, 5, 11, 13 &bull; 11 kilns</div>
               </div>
             </div>
           </div>

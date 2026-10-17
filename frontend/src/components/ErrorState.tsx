@@ -1,5 +1,6 @@
 import React from 'react';
 import { AlertTriangle, RefreshCw } from 'lucide-react';
+import { Button } from '../design';
 
 interface ErrorStateProps {
   message?: string;
@@ -11,27 +12,26 @@ export const ErrorState: React.FC<ErrorStateProps> = ({
   onRetry,
 }) => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[50vh] p-8 text-center">
-      <div className="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center mb-4">
-        <AlertTriangle className="w-8 h-8 text-red-600" />
+    <div className="flex flex-col items-center justify-center min-h-[40vh] p-6 text-center font-mono">
+      <div className="w-12 h-12 rounded-[4px] bg-[#FEF2F2] border border-[#DC2626] flex items-center justify-center mb-3">
+        <AlertTriangle size={22} strokeWidth={1.5} className="text-[#DC2626]" />
       </div>
-      <h3 className="text-lg font-bold text-slate-800">Data Synchronization Error</h3>
-      <p className="mt-2 text-sm text-slate-600 max-w-md bg-white p-3 rounded border border-red-200 text-red-700 font-mono text-xs">
+      <h3 className="text-sm font-serif font-bold text-[#1F2328]">Data Synchronization Error</h3>
+      <p className="mt-2 text-2xs text-[#B91C1C] max-w-md bg-[#FEF2F2] p-2.5 rounded-[4px] border border-[#DC2626]">
         {message}
       </p>
-      <div className="mt-6 flex flex-col sm:flex-row gap-3">
-        {onRetry && (
-          <button
+      {onRetry && (
+        <div className="mt-4">
+          <Button
+            size="sm"
+            variant="primary"
+            icon={<RefreshCw size={13} strokeWidth={1.5} />}
             onClick={onRetry}
-            className="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg text-sm font-medium hover:bg-slate-800 transition shadow"
           >
-            <RefreshCw className="w-4 h-4" /> Retry Data Load
-          </button>
-        )}
-      </div>
-      <p className="mt-4 text-xs text-slate-400">
-        Run <code>npm run sync</code> or <code>bash frontend/scripts/sync_data.sh</code> to re-sync brief/outputs.
-      </p>
+            Retry Data Load
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

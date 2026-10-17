@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { KILN_COLORS } from '../../config/constants';
 import type { ClusterSummaryRow, Within1kmRow } from '../../types/data';
 import {
   ChevronDown,
-  ChevronUp,
-  MapPin,
+  ChevronRight,
   Copy,
   Check,
   Layers,
 } from 'lucide-react';
+import { Badge } from '../../design';
 
 interface ClustersBreakdownProps {
   clusters: ClusterSummaryRow[];
@@ -29,137 +28,114 @@ export const ClustersBreakdown: React.FC<ClustersBreakdownProps> = ({
   const handleCopyCenter = (cId: string, coords: string) => {
     navigator.clipboard.writeText(coords);
     setCopiedCenter(cId);
-    setTimeout(() => setCopiedCenter(null), 2000);
+    setTimeout(() => setCopiedCenter(null), 1500);
   };
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-      <div className="p-4 sm:p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div className="bg-white rounded-[4px] border border-[#D9D6CE] shadow-xs overflow-hidden">
+      <div className="p-4 border-b border-[#D9D6CE] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <Layers className="w-5 h-5 text-indigo-600" />
-            <h3 className="text-base font-bold text-slate-900 m-0">
-              18 Spatial Proximity Clusters Breakdown
+            <span className="p-1 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE] text-[#1F4E5F]">
+              <Layers size={15} strokeWidth={1.5} />
+            </span>
+            <h3 className="text-sm font-serif font-bold text-[#1F2328] m-0">
+              Spatial Proximity Clusters Breakdown
             </h3>
           </div>
-          <p className="text-xs text-slate-500 m-0 mt-0.5">
-            Groups of kilns separated by &le; 1.0 km neighbor gaps. Farida can park once and inspect multiple sites on foot.
+          <p className="text-2xs text-[#656D76] font-mono m-0 mt-0.5">
+            Groups of kilns separated by &le; 1.0 km. Officers park once and verify multiple sites on foot.
           </p>
         </div>
 
-        <div className="text-xs font-semibold px-2.5 py-1 rounded bg-indigo-50 border border-indigo-200 text-indigo-700 self-start sm:self-auto">
-          51 Kilns across 18 Patrol Hubs
-        </div>
+        <Badge variant="accent">
+          {within1km.length} Kilns across {clusters.length} Clusters
+        </Badge>
       </div>
 
-      <div className="divide-y divide-slate-100">
+      <div className="divide-y divide-[#D9D6CE]/60 font-mono text-xs">
         {clusters.map((c) => {
           const isExpanded = expandedCluster === c.cluster;
           const clusterKilns = within1km.filter((k) => k.cluster === c.cluster);
 
           return (
-            <div key={c.cluster} className="transition-colors hover:bg-slate-50/50">
-              {/* Row Header */}
+            <div key={c.cluster} className="transition-colors hover:bg-[#FAF9F5]/60">
               <div
                 onClick={() => toggleCluster(c.cluster)}
-                className="p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer"
+                className="p-3 flex items-center justify-between gap-3 cursor-pointer select-none"
               >
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-700 border border-indigo-100 flex items-center justify-center font-bold text-xs flex-shrink-0">
-                    {c.cluster.replace('Cluster ', '#')}
+                <div className="flex items-center gap-2.5">
+                  <span className="text-[#656D76]">
+                    {isExpanded ? <ChevronDown size={14} strokeWidth={1.5} /> : <ChevronRight size={14} strokeWidth={1.5} />}
                   </span>
                   <div>
-                    <div className="flex items-center gap-2">
-                      <strong className="text-sm font-bold text-slate-900">{c.cluster}</strong>
-                      <span className="px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
-                        {c.kilns} Kilns
-                      </span>
-                    </div>
-                    <div className="text-xs text-slate-500 mt-0.5">{c.types}</div>
+                    <span className="font-bold text-[#1F2328] mr-2">{c.cluster}</span>
+                    <span className="text-2xs text-[#656D76]">
+                      ({c.kilns} kilns &bull; Max gap: {c.max_gap_m ? `${c.max_gap_m} m` : '< 500 m'})
+                    </span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between sm:justify-end gap-4 text-xs">
-                  {/* Centre Lat/Lon */}
-                  <div className="flex items-center gap-1.5 font-mono text-[11px] text-slate-600 bg-slate-100/80 px-2.5 py-1 rounded border border-slate-200">
-                    <MapPin className="w-3 h-3 text-slate-400" />
+                <div className="flex items-center gap-3 text-2xs">
+                  <div className="flex items-center gap-1.5">
+                    <span className="text-[#656D76]">Center:</span>
                     <span>{c.centre_lat_lon}</span>
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         handleCopyCenter(c.cluster, c.centre_lat_lon);
                       }}
-                      title="Copy Cluster Center Coordinates"
-                      className="p-0.5 rounded text-slate-400 hover:text-brand-primary"
+                      className="p-0.5 text-[#656D76] hover:text-[#1F4E5F]"
+                      title="Copy cluster center"
                     >
                       {copiedCenter === c.cluster ? (
-                        <Check className="w-3 h-3 text-emerald-600" />
+                        <Check size={11} strokeWidth={2} className="text-[#16A34A]" />
                       ) : (
-                        <Copy className="w-3 h-3" />
+                        <Copy size={11} strokeWidth={1.5} />
                       )}
                     </button>
                   </div>
-
-                  {/* Max Gap */}
-                  <div className="text-right whitespace-nowrap">
-                    <span className="text-[11px] text-slate-500">Max Gap: </span>
-                    <strong className="text-slate-800">{c.max_gap_m} m</strong>
-                  </div>
-
-                  {/* Expand Chevron */}
-                  <div className="p-1 rounded text-slate-400 hover:text-slate-700">
-                    {isExpanded ? (
-                      <ChevronUp className="w-4 h-4" />
-                    ) : (
-                      <ChevronDown className="w-4 h-4" />
-                    )}
-                  </div>
+                  <Badge variant="outline">{c.types || `${c.kilns} kilns`}</Badge>
                 </div>
               </div>
 
-              {/* Collapsible Details */}
               {isExpanded && (
-                <div className="px-4 pb-4 pt-1 bg-slate-50/80 border-t border-slate-100 text-xs animate-in fade-in duration-150">
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-2">
-                    Kilns Assigned to {c.cluster} ({clusterKilns.length} sites):
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
-                    {clusterKilns.map((k) => {
-                      const color =
-                        k.class === 'FCBK'
-                          ? KILN_COLORS.FCBK
-                          : k.class === 'Zigzag'
-                          ? KILN_COLORS.Zigzag
-                          : KILN_COLORS.CFCBK;
-
-                      return (
-                        <div
-                          key={k.kiln_id}
-                          className="p-2.5 rounded-lg bg-white border border-slate-200 shadow-xs space-y-1"
-                        >
-                          <div className="flex items-center justify-between">
-                            <span className="font-mono font-bold text-slate-900">{k.kiln_id}</span>
+                <div className="px-4 pb-3 pt-1 bg-[#FAF9F5] border-t border-[#D9D6CE]/40">
+                  <table className="w-full text-left text-2xs">
+                    <thead>
+                      <tr className="text-[#656D76] border-b border-[#D9D6CE]/50">
+                        <th className="py-1">Kiln ID</th>
+                        <th className="py-1">Class</th>
+                        <th className="py-1">Coordinates</th>
+                        <th className="py-1">Distance to Nearest Neighbour</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#D9D6CE]/30">
+                      {clusterKilns.map((k) => (
+                        <tr key={k.kiln_id}>
+                          <td className="py-1 font-bold text-[#1F2328]">{k.kiln_id}</td>
+                          <td className="py-1">
                             <span
-                              className="px-1.5 py-0.5 rounded text-[10px] font-bold text-white"
-                              style={{ backgroundColor: color }}
+                              className="px-1 py-0.2 rounded-[2px]"
+                              style={{
+                                color:
+                                  k.class === 'FCBK'
+                                    ? '#E8710A'
+                                    : k.class === 'Zigzag'
+                                    ? '#1A73E8'
+                                    : '#188038',
+                              }}
                             >
                               {k.class}
                             </span>
-                          </div>
-
-                          <div className="font-mono text-[11px] text-slate-600">
-                            {Number(k.lat).toFixed(5)}, {Number(k.lon).toFixed(5)}
-                          </div>
-
-                          <div className="text-[11px] text-slate-500 flex items-center justify-between border-t border-slate-100 pt-1">
-                            <span>Neighbor gap:</span>
-                            <span className="font-semibold text-slate-700">{k.nearest_gap_m} m</span>
-                          </div>
-                        </div>
-                      );
-                    })}
-                  </div>
+                          </td>
+                          <td className="py-1">{k.lat?.toFixed(5)}°, {k.lon?.toFixed(5)}°</td>
+                          <td className="py-1 text-[#656D76]">{k.nearest_gap_m ? `${k.nearest_gap_m} m` : '< 500 m'}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
                 </div>
               )}
             </div>

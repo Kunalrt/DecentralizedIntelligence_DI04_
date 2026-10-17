@@ -6,7 +6,8 @@ import { MapFilterBar, type MapFiltersState } from '../components/map/MapFilterB
 import { MapContainerView } from '../components/map/MapContainerView';
 import { MapLegend } from '../components/map/MapLegend';
 import { KilnDetailDrawer } from '../components/map/KilnDetailDrawer';
-import { MapPin, ShieldAlert, Sparkles } from 'lucide-react';
+import { SectionHeader, Badge } from '../design';
+import { Info } from 'lucide-react';
 
 const INITIAL_FILTERS: MapFiltersState = {
   classes: {
@@ -106,32 +107,18 @@ export const MapPage: React.FC = () => {
   if (!data) return null;
 
   return (
-    <div className="space-y-4">
-      {/* Header & Sub-bar */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-2">
-            <MapPin className="w-5 h-5 text-brand-primary" />
-            <h2 className="text-lg font-bold text-slate-900 m-0">
-              Interactive Spatial Surveillance Map
-            </h2>
+    <div className="space-y-4 max-w-7xl mx-auto">
+      {/* Header */}
+      <SectionHeader
+        title="Interactive Spatial Surveillance Map"
+        subtitle="OpenStreetMap standard vector tiles with rotated OBB polygons and 1.0 km proximity vehicle cluster zones."
+        badge={
+          <div className="flex items-center gap-1.5">
+            <Badge variant="warning">27 FCBK Targets</Badge>
+            <Badge variant="accent">18 Clusters</Badge>
           </div>
-          <p className="text-xs text-slate-500 m-0 mt-0.5">
-            OpenStreetMap standard vector tiles &bull; Rotated OBB polygons &bull; 1.0 km vehicle cluster zones
-          </p>
-        </div>
-
-        <div className="flex items-center gap-2 self-start sm:self-auto text-xs">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-orange-50 border border-orange-200 text-orange-800 font-semibold">
-            <ShieldAlert className="w-3.5 h-3.5 text-orange-600" />
-            <span>27 FCBK Targets</span>
-          </div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-purple-50 border border-purple-200 text-purple-800 font-semibold">
-            <Sparkles className="w-3.5 h-3.5 text-purple-600" />
-            <span>18 Proximity Clusters</span>
-          </div>
-        </div>
-      </div>
+        }
+      />
 
       {/* Filter Toolbar */}
       <MapFilterBar
@@ -145,7 +132,7 @@ export const MapPage: React.FC = () => {
       />
 
       {/* Map Viewport Area */}
-      <div className="relative">
+      <div className="relative border border-[#D9D6CE] rounded-[4px] overflow-hidden bg-[#14181C]">
         <MapContainerView
           filteredKilns={filteredKilns}
           historicalFeatures={historicalFeatures}
@@ -173,12 +160,13 @@ export const MapPage: React.FC = () => {
       </div>
 
       {/* Field Officer Tip Banner */}
-      <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 text-xs text-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
-        <div>
-          <strong className="text-slate-800 font-semibold">Inspector Tip:</strong> Click any kiln marker or rotated bounding box to view its copyable coordinates, cluster group, and field rationale.
+      <div className="p-2.5 bg-white rounded-[4px] border border-[#D9D6CE] text-2xs font-mono text-[#656D76] flex flex-col sm:flex-row sm:items-center justify-between gap-2 shadow-xs">
+        <div className="flex items-center gap-1.5">
+          <Info size={13} strokeWidth={1.5} className="text-[#1F4E5F] flex-shrink-0" />
+          <span>Click any marker to inspect geodetic vertices, nearest road distance, and cluster group.</span>
         </div>
-        <div className="text-[11px] text-slate-500 italic">
-          Projection: EPSG:4326 &bull; Georeferenced to Sentinel-2 L2A tiles
+        <div>
+          EPSG:4326 &bull; Georeferenced to Sentinel-2 L2A tiles
         </div>
       </div>
     </div>

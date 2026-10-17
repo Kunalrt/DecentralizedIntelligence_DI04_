@@ -1,7 +1,8 @@
 import React from 'react';
 import { KILN_COLORS } from '../../config/constants';
 import type { CountRow, MetricsData } from '../../types/data';
-import { Table, CheckCircle2, AlertTriangle, ShieldCheck } from 'lucide-react';
+import { Table, AlertTriangle, CheckCircle2, ShieldCheck, Info } from 'lucide-react';
+import { Badge } from '../../design';
 
 interface PrecisionRecallTableProps {
   counts: CountRow[];
@@ -16,7 +17,7 @@ export const PrecisionRecallTable: React.FC<PrecisionRecallTableProps> = ({
     if (cls === 'FCBK') return (metrics.AP_FCBK * 100).toFixed(1) + '%';
     if (cls === 'Zigzag') return (metrics.AP_Zigzag * 100).toFixed(1) + '%';
     if (cls === 'CFCBK') return (metrics.AP_CFCBK * 100).toFixed(1) + '%';
-    if (cls === 'Total') return (metrics.mAP * 100).toFixed(1) + '% (mAP)';
+    if (cls === 'Total') return (metrics.mAP * 100).toFixed(1) + '%';
     return '-';
   };
 
@@ -29,78 +30,72 @@ export const PrecisionRecallTable: React.FC<PrecisionRecallTableProps> = ({
   const getStatusBadge = (cls: string) => {
     if (cls === 'FCBK') {
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-orange-100 text-orange-800 border border-orange-200">
-          <AlertTriangle className="w-3 h-3 text-orange-600" /> Banned Design
-        </span>
+        <Badge variant="warning" icon={<AlertTriangle size={11} strokeWidth={1.5} />}>
+          Banned
+        </Badge>
       );
     }
     if (cls === 'Zigzag') {
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-100 text-blue-800 border border-blue-200">
-          <CheckCircle2 className="w-3 h-3 text-blue-600" /> Mandate Compliant
-        </span>
+        <Badge variant="accent" icon={<CheckCircle2 size={11} strokeWidth={1.5} />}>
+          Compliant
+        </Badge>
       );
     }
     if (cls === 'CFCBK') {
       return (
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-100 text-emerald-800 border border-emerald-200">
-          <ShieldCheck className="w-3 h-3 text-emerald-600" /> Legacy Circular
-        </span>
+        <Badge variant="success" icon={<ShieldCheck size={11} strokeWidth={1.5} />}>
+          Legacy
+        </Badge>
       );
     }
-    return (
-      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[11px] font-semibold bg-slate-100 text-slate-700 border border-slate-200">
-        District Total
-      </span>
-    );
+    return <Badge variant="outline">Total</Badge>;
   };
 
   const getOperationalGuidance = (cls: string) => {
-    if (cls === 'FCBK') {
-      return 'High model precision (0.89). ~9 in 10 detections are true persistent violators. Priority enforcement target.';
-    }
-    if (cls === 'Zigzag') {
-      return 'Moderate precision (0.65) / recall (0.62). Retrofit shapes vary. Field officer visual inspection recommended.';
-    }
-    if (cls === 'CFCBK') {
-      return 'Very high precision (0.90) & recall (0.95). Unmistakable circular footprint; near-zero classification confusion.';
-    }
-    return 'Deduplicated across 120 satellite tiles. 51 kilns (78.5%) clustered within 1 km for efficient vehicle routing.';
+    if (cls === 'FCBK') return 'Precision 0.89. High confidence; priority enforcement.';
+    if (cls === 'Zigzag') return 'Precision 0.65. Varied retrofits; field check advised.';
+    if (cls === 'CFCBK') return 'Precision 0.90. Distinct circular shape; near-zero confusion.';
+    return 'Deduplicated across 120 tiles; 78.5% in 1 km clusters.';
   };
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
-      <div className="p-5 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div className="bg-white rounded-[4px] border border-[#D9D6CE] shadow-xs overflow-hidden">
+      <div className="p-4 border-b border-[#D9D6CE] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
           <div className="flex items-center gap-2">
-            <Table className="w-5 h-5 text-brand-primary" />
-            <h3 className="text-base font-bold text-slate-900 m-0">
+            <span className="p-1 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE] text-[#1F4E5F]">
+              <Table size={15} strokeWidth={1.5} />
+            </span>
+            <h3 className="text-sm font-serif font-bold text-[#1F2328] m-0">
               Validation Metrics & Detection Summary
             </h3>
           </div>
-          <p className="text-xs text-slate-500 m-0 mt-0.5">
+          <p className="text-2xs text-[#656D76] font-mono m-0 mt-0.5">
             Per-class precision, recall, and AP@0.50 on validation benchmarks (Rotated IoU &ge; 0.50).
           </p>
         </div>
-        <div className="text-xs text-slate-500 font-medium bg-slate-50 px-3 py-1.5 rounded-lg border border-slate-200 self-start sm:self-auto">
-          IoU Threshold: <strong>&ge; 0.50</strong> &bull; Macro mAP: <strong>{(metrics.mAP * 100).toFixed(1)}%</strong>
+        <div className="text-2xs font-mono text-[#1F2328] bg-[#FAF9F5] px-2.5 py-1 rounded-[2px] border border-[#D9D6CE] self-start sm:self-auto flex items-center gap-2">
+          <span>IoU: <strong>&ge; 0.50</strong></span>
+          <span>&bull;</span>
+          <span>mAP: <strong>{(metrics.mAP * 100).toFixed(1)}%</strong></span>
         </div>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse text-xs">
+        <table className="w-full text-left border-collapse text-xs font-mono">
           <thead>
-            <tr className="bg-slate-50/80 text-slate-600 font-semibold border-b border-slate-200 uppercase tracking-wider text-[11px]">
-              <th className="py-3 px-4">Class & Legal Status</th>
-              <th className="py-3 px-4 text-right">Detected</th>
-              <th className="py-3 px-4 text-right">Est. True Count (95% CI)</th>
-              <th className="py-3 px-4 text-right">Val. Precision</th>
-              <th className="py-3 px-4 text-right">Val. Recall</th>
-              <th className="py-3 px-4 text-right">AP@0.50</th>
-              <th className="py-3 px-4">Operational Interpretation</th>
+            <tr className="bg-[#FAF9F5] text-[#656D76] font-semibold border-b border-[#D9D6CE] text-2xs uppercase tracking-wider">
+              <th className="py-2.5 px-3">Class & Status</th>
+              <th className="py-2.5 px-3 text-right">Detected</th>
+              <th className="py-2.5 px-3 text-right">95% CI Range</th>
+              <th className="py-2.5 px-3 text-right">Precision</th>
+              <th className="py-2.5 px-3 text-right">Recall</th>
+              <th className="py-2.5 px-3 text-right">AP@0.50</th>
+              <th className="py-2.5 px-3">Field Guidance</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-100">
+          <tbody className="divide-y divide-[#D9D6CE]/60">
             {counts.map((row) => {
               const isTotal = row.class === 'Total';
               const color =
@@ -110,58 +105,56 @@ export const PrecisionRecallTable: React.FC<PrecisionRecallTableProps> = ({
                   ? KILN_COLORS.Zigzag
                   : row.class === 'CFCBK'
                   ? KILN_COLORS.CFCBK
-                  : '#475569';
+                  : '#1F4E5F';
 
               return (
                 <tr
                   key={row.class}
-                  className={`hover:bg-slate-50/60 transition ${
-                    isTotal ? 'bg-slate-50/90 font-bold border-t-2 border-slate-300' : ''
+                  className={`hover:bg-[#FAF9F5] transition-colors ${
+                    isTotal ? 'bg-[#FAF9F5] font-bold border-t-2 border-[#D9D6CE]' : ''
                   }`}
                 >
                   {/* Class Name + Swatch + Badge */}
-                  <td className="py-3.5 px-4">
-                    <div className="flex items-center gap-2.5">
+                  <td className="py-2.5 px-3">
+                    <div className="flex items-center gap-2">
                       <span
-                        className="w-3 h-3 rounded-full flex-shrink-0 shadow-xs"
+                        className="w-2.5 h-2.5 rounded-full flex-shrink-0"
                         style={{ backgroundColor: color }}
                       />
-                      <span className="text-sm font-bold text-slate-900">{row.class}</span>
+                      <span className="font-bold text-[#1F2328]">{row.class}</span>
                       {getStatusBadge(row.class)}
                     </div>
                   </td>
 
                   {/* Detected */}
-                  <td className="py-3.5 px-4 text-right font-extrabold text-slate-900 text-sm">
-                    {row.detected != null ? row.detected.toLocaleString() : 'n/a'}
+                  <td className="py-2.5 px-3 text-right font-bold text-[#1F2328]">
+                    {row.detected != null ? row.detected.toLocaleString() : '-'}
                   </td>
 
                   {/* Range */}
-                  <td className="py-3.5 px-4 text-right font-semibold text-slate-700">
-                    <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-800">
-                      {row.est_low != null && row.est_high != null
-                        ? `${row.est_low.toLocaleString()} – ${row.est_high.toLocaleString()}`
-                        : 'n/a'}
-                    </span>
+                  <td className="py-2.5 px-3 text-right text-[#1F4E5F]">
+                    {row.est_low != null && row.est_high != null
+                      ? `${row.est_low} – ${row.est_high}`
+                      : '-'}
                   </td>
 
                   {/* Precision */}
-                  <td className="py-3.5 px-4 text-right font-medium text-slate-700">
-                    {row.precision != null ? format2dp(row.precision) : 'n/a'}
+                  <td className="py-2.5 px-3 text-right text-[#1F2328]">
+                    {row.precision != null ? format2dp(row.precision) : '-'}
                   </td>
 
                   {/* Recall */}
-                  <td className="py-3.5 px-4 text-right font-medium text-slate-700">
-                    {row.recall != null ? format2dp(row.recall) : 'n/a'}
+                  <td className="py-2.5 px-3 text-right text-[#1F2328]">
+                    {row.recall != null ? format2dp(row.recall) : '-'}
                   </td>
 
                   {/* AP@0.50 */}
-                  <td className="py-3.5 px-4 text-right font-semibold text-slate-900">
+                  <td className="py-2.5 px-3 text-right font-bold text-[#1F2328]">
                     {getApForClass(row.class)}
                   </td>
 
                   {/* Guidance */}
-                  <td className="py-3.5 px-4 text-slate-600 leading-relaxed max-w-xs sm:max-w-md">
+                  <td className="py-2.5 px-3 text-[#656D76] text-2xs truncate max-w-xs font-sans">
                     {getOperationalGuidance(row.class)}
                   </td>
                 </tr>
@@ -171,13 +164,12 @@ export const PrecisionRecallTable: React.FC<PrecisionRecallTableProps> = ({
         </table>
       </div>
 
-      <div className="p-3 bg-slate-50 border-t border-slate-200 text-[11px] text-slate-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-        <div>
-          Confidence bounds derived from DOTA-style rotated bounding box evaluation on SentinelKilnDB test partitions.
+      <div className="p-2.5 bg-[#FAF9F5] border-t border-[#D9D6CE] text-2xs font-mono text-[#656D76] flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5">
+          <Info size={12} strokeWidth={1.5} className="text-[#1F4E5F] flex-shrink-0" />
+          <span>Rotated IoU evaluation on SentinelKilnDB test partitions.</span>
         </div>
-        <div className="italic">
-          Precision = TP / (TP + FP) &bull; Recall = TP / (TP + FN)
-        </div>
+        <div>Precision = TP / (TP + FP) &bull; Recall = TP / (TP + FN)</div>
       </div>
     </div>
   );

@@ -5,7 +5,8 @@ import { ExperimentsTable } from '../components/method/ExperimentsTable';
 import { DatasetCitationCard } from '../components/method/DatasetCitationCard';
 import { HonestLimitations } from '../components/method/HonestLimitations';
 import { KILN_COLORS } from '../config/constants';
-import { GraduationCap, ShieldCheck } from 'lucide-react';
+import { SectionHeader, StatTile, Badge } from '../design';
+import { Trophy, Flame, CheckCircle2, CircleDot } from 'lucide-react';
 
 export const MethodPage: React.FC = () => {
   const { data } = useData();
@@ -16,101 +17,60 @@ export const MethodPage: React.FC = () => {
   const experiments = data.experiments;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 max-w-7xl mx-auto">
       {/* Page Header */}
-      <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <div className="flex items-center gap-2">
-            <GraduationCap className="w-5 h-5 text-indigo-600" />
-            <h2 className="text-xl font-bold text-slate-900 m-0">
-              Methodology, Architecture & Experimental Evidence
-            </h2>
-          </div>
-          <p className="text-xs text-slate-500 m-0 mt-1">
-            Engineered for hackathon judges & remote sensing regulators &bull; YOLO11s-OBB on Sentinel-2 10 m Nadir Optical Imagery
-          </p>
-        </div>
+      <SectionHeader
+        title="Methodology, Architecture & Experimental Evidence"
+        subtitle="YOLO11s-OBB trained on Sentinel-2 10 m nadir optical imagery with rotated bounding box heads."
+        badge={<Badge variant="accent">IoU &ge; 0.50 Benchmark</Badge>}
+      />
 
-        <div className="flex items-center gap-2 text-xs">
-          <span className="px-3 py-1 bg-emerald-50 text-emerald-800 border border-emerald-200 rounded-lg font-semibold flex items-center gap-1.5">
-            <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-            Rotated IoU &ge; 0.50 Metric Verified
-          </span>
-        </div>
+      {/* Top Metrics Summary Grid (4 Tiles) */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        <StatTile
+          icon={<Trophy size={16} strokeWidth={1.5} className="text-[#16A34A]" />}
+          value={`${(metrics.mAP * 100).toFixed(2)}%`}
+          label="Macro mAP@0.5"
+          sublabel="Rotated IoU"
+          tooltip="Exact continuous DOTA-style rotated bounding box evaluation metric."
+        />
+        <StatTile
+          icon={<Flame size={16} strokeWidth={1.5} className="text-[#E8710A]" />}
+          value={`${(metrics.AP_FCBK * 100).toFixed(1)}%`}
+          label="FCBK AP"
+          sublabel="Oval Trench"
+          colorSwatch={KILN_COLORS.FCBK}
+          tooltip="Average precision on illegal Fixed Chimney Bull's Trench kilns."
+        />
+        <StatTile
+          icon={<CheckCircle2 size={16} strokeWidth={1.5} className="text-[#1A73E8]" />}
+          value={`${(metrics.AP_Zigzag * 100).toFixed(1)}%`}
+          label="Zigzag AP"
+          sublabel="Rectangular Draft"
+          colorSwatch={KILN_COLORS.Zigzag}
+          tooltip="Average precision on compliant forced/natural-draft Zigzag designs."
+        />
+        <StatTile
+          icon={<CircleDot size={16} strokeWidth={1.5} className="text-[#188038]" />}
+          value={`${(metrics.AP_CFCBK * 100).toFixed(1)}%`}
+          label="CFCBK AP"
+          sublabel="Circular Trench"
+          colorSwatch={KILN_COLORS.CFCBK}
+          tooltip="Average precision on legacy Circular Bull's Trench designs."
+        />
       </div>
 
-      {/* Top Metrics Summary Grid (4 Cards) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-slate-900 text-white p-5 rounded-xl shadow-sm border border-slate-800">
-          <div className="text-xs text-slate-400 font-medium">Rotated IoU Macro mAP@0.5</div>
-          <div className="text-3xl font-extrabold text-emerald-400 mt-2">
-            {(metrics.mAP * 100).toFixed(2)}%
-          </div>
-          <div className="text-[11px] text-slate-400 mt-1">
-            Exact DOTA-style continuous interpolation
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <div className="text-xs text-slate-500 font-medium flex items-center gap-1.5">
-            <span
-              className="w-2.5 h-2.5 rounded-full"
-              style={{ backgroundColor: KILN_COLORS.FCBK }}
-            />
-            <span>AP: FCBK (Oval Trench)</span>
-          </div>
-          <div className="text-2xl font-extrabold text-slate-900 mt-2">
-            {(metrics.AP_FCBK * 100).toFixed(1)}%
-          </div>
-          <div className="text-[11px] text-slate-500 mt-1">
-            High precision enforcement envelope
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <div className="text-xs text-slate-500 font-medium flex items-center gap-1.5">
-            <span
-              className="w-2.5 h-2.5 rounded"
-              style={{ backgroundColor: KILN_COLORS.Zigzag }}
-            />
-            <span>AP: Zigzag (Rectangle)</span>
-          </div>
-          <div className="text-2xl font-extrabold text-slate-900 mt-2">
-            {(metrics.AP_Zigzag * 100).toFixed(1)}%
-          </div>
-          <div className="text-[11px] text-slate-500 mt-1">
-            +17.5% gain from 256 px resolution
-          </div>
-        </div>
-
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-          <div className="text-xs text-slate-500 font-medium flex items-center gap-1.5">
-            <span
-              className="w-2.5 h-2.5 rounded-full"
-              style={{ backgroundColor: KILN_COLORS.CFCBK }}
-            />
-            <span>AP: CFCBK (Circular ~3%)</span>
-          </div>
-          <div className="text-2xl font-extrabold text-emerald-700 mt-2">
-            {(metrics.AP_CFCBK * 100).toFixed(1)}%
-          </div>
-          <div className="text-[11px] text-slate-500 mt-1">
-            Flawless recall via copy-paste synthesis
-          </div>
-        </div>
-      </div>
-
-      {/* 1. End-to-End Architecture Diagram */}
+      {/* 1. End-to-End Architecture Stepper */}
       <ArchitecturePipeline />
 
-      {/* 2. 10-Experiment Engineering Progression Table */}
+      {/* 2. 10-Experiment Progression Table */}
       <ExperimentsTable experiments={experiments} />
 
-      {/* 3. Official Benchmark & Dataset Citation */}
-      <DatasetCitationCard />
-
-      {/* 4. Honest Machine Learning Limitations */}
+      {/* 3. Systemic ML & Remote Sensing Limitations */}
       <HonestLimitations />
+
+      {/* 4. Official Benchmark & Dataset Citation Card */}
+      <DatasetCitationCard />
     </div>
   );
 };

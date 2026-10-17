@@ -4,7 +4,7 @@ import { VehicleRoutingCard } from '../components/field/VehicleRoutingCard';
 import { Top20PriorityTable } from '../components/field/Top20PriorityTable';
 import { ClustersBreakdown } from '../components/field/ClustersBreakdown';
 import { PrintFieldSheet } from '../components/field/PrintFieldSheet';
-import { ClipboardList, ShieldAlert, Sparkles } from 'lucide-react';
+import { SectionHeader, Badge } from '../design';
 
 export const FieldListPage: React.FC = () => {
   const { data } = useData();
@@ -24,36 +24,22 @@ export const FieldListPage: React.FC = () => {
 
   return (
     <>
-      {/* 1. Print-Only Clipboard Sheet (Hidden on screen, visible during window.print) */}
+      {/* 1. Print-Only Clipboard Sheet */}
       <PrintFieldSheet rows={top20} />
 
-      {/* 2. Interactive Screen View (Hidden when printing) */}
-      <div className="space-y-6 print:hidden">
+      {/* 2. Interactive Screen View */}
+      <div className="space-y-4 print:hidden max-w-7xl mx-auto">
         {/* Header Bar */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div>
-            <div className="flex items-center gap-2">
-              <ClipboardList className="w-5 h-5 text-amber-500" />
-              <h2 className="text-xl font-bold text-slate-900 m-0">
-                Field Inspection Dispatch & Route Planning
-              </h2>
+        <SectionHeader
+          title="Field Inspection Roster & Vehicle Dispatch"
+          subtitle="Inspector Farida Khan (SPCB) &bull; 1-Jeep Vehicle Optimization &bull; Demo District (3,000 km²)"
+          badge={
+            <div className="flex items-center gap-1.5">
+              <Badge variant="warning">{top20.length} Priority Targets</Badge>
+              <Badge variant="accent">{totalClusters} Clusters</Badge>
             </div>
-            <p className="text-xs text-slate-500 m-0 mt-1">
-              Inspector Farida Khan (SPCB) &bull; 1-Jeep Vehicle Optimization &bull; Demo District (3,000 sq km)
-            </p>
-          </div>
-
-          <div className="flex items-center gap-2 text-xs">
-            <span className="px-3 py-1 bg-amber-50 text-amber-800 border border-amber-200 rounded-lg font-semibold flex items-center gap-1.5">
-              <ShieldAlert className="w-3.5 h-3.5 text-amber-600" />
-              {top20.length} Priority Targets
-            </span>
-            <span className="px-3 py-1 bg-indigo-50 text-indigo-800 border border-indigo-200 rounded-lg font-semibold flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-              {totalClusters} Proximity Clusters
-            </span>
-          </div>
-        </div>
+          }
+        />
 
         {/* Vehicle Routing Logistics & Distance Savings Card */}
         <VehicleRoutingCard
@@ -62,10 +48,10 @@ export const FieldListPage: React.FC = () => {
           totalClusters={totalClusters}
         />
 
-        {/* Top 20 Priority Targets Table with Exports */}
+        {/* Top 20 Interactive Priority Table */}
         <Top20PriorityTable rows={top20} onPrint={handlePrint} />
 
-        {/* 18 Proximity Clusters Breakdown */}
+        {/* Spatial Clusters Breakdown */}
         <ClustersBreakdown clusters={clusters} within1km={within1km} />
       </div>
     </>

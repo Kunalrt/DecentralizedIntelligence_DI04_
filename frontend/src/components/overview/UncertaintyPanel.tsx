@@ -1,6 +1,7 @@
 import React from 'react';
 import { HelpCircle, AlertCircle, Compass, Microscope } from 'lucide-react';
 import type { MetricsData } from '../../types/data';
+import { Badge, DetailsCollapse, StatTile } from '../../design';
 
 interface UncertaintyPanelProps {
   metrics: MetricsData;
@@ -8,70 +9,68 @@ interface UncertaintyPanelProps {
 
 export const UncertaintyPanel: React.FC<UncertaintyPanelProps> = ({ metrics }) => {
   return (
-    <div className="bg-amber-50/50 rounded-xl border border-amber-200/90 p-5 md:p-6 shadow-xs">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 border-b border-amber-200/60 pb-3">
-        <div className="flex items-center gap-2.5">
-          <div className="p-2 rounded-lg bg-amber-100 text-amber-800 flex-shrink-0">
-            <HelpCircle className="w-5 h-5" />
-          </div>
+    <div className="bg-white rounded-[4px] border border-[#D9D6CE] p-4 shadow-xs space-y-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-[#D9D6CE]">
+        <div className="flex items-center gap-2">
+          <span className="p-1 rounded-[2px] bg-[#FAF9F5] border border-[#D9D6CE] text-[#1F4E5F]">
+            <HelpCircle size={15} strokeWidth={1.5} />
+          </span>
           <div>
-            <h3 className="text-base font-bold text-slate-900 m-0">
-              How Sure Are We? Model Uncertainty & Field Realities
+            <h3 className="text-sm font-serif font-bold text-[#1F2328] m-0">
+              Model Uncertainty & Field Constraints
             </h3>
-            <p className="text-xs text-slate-600 m-0 mt-0.5">
-              Honest machine learning bounds for Inspector Farida Khan and the verification team.
+            <p className="text-2xs text-[#656D76] font-mono m-0">
+              Statistical boundaries and physical limits for verification patrols.
             </p>
           </div>
         </div>
 
-        <div className="inline-flex items-center gap-2 self-start sm:self-auto px-2.5 py-1 rounded bg-amber-100/80 border border-amber-300 text-amber-900 text-xs font-semibold">
-          <Microscope className="w-3.5 h-3.5" /> Macro mAP: {(metrics.mAP * 100).toFixed(1)}%
+        <div className="flex items-center gap-2">
+          <Badge variant="outline" icon={<Microscope size={12} strokeWidth={1.5} />}>
+            Macro mAP: {(metrics.mAP * 100).toFixed(1)}%
+          </Badge>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-        {/* Bullet 1: 10m Resolution */}
-        <div className="bg-white/80 rounded-lg p-3.5 border border-amber-200/70 space-y-1.5">
-          <div className="flex items-center gap-1.5 font-bold text-slate-800">
-            <Compass className="w-4 h-4 text-amber-600 flex-shrink-0" />
-            <span>1. 10-Meter Pixel Scale</span>
-          </div>
-          <p className="text-slate-600 leading-relaxed m-0">
-            Sentinel-2 imagery captures 10&nbsp;m ground resolution. An average 30–45&nbsp;m kiln spans only 3 to 5 pixels across. Oval trenches and tall chimney shadows are distinguishable, but small artisanal clamps or degraded trenches can blur into dry soil.
-          </p>
-        </div>
-
-        {/* Bullet 2: Domain Shift */}
-        <div className="bg-white/80 rounded-lg p-3.5 border border-amber-200/70 space-y-1.5">
-          <div className="flex items-center gap-1.5 font-bold text-slate-800">
-            <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0" />
-            <span>2. 2025–26 Domain Shift</span>
-          </div>
-          <p className="text-slate-600 leading-relaxed m-0">
-            Model weights were trained on benchmark 2023 labeled tiles. Deploying on 2025–2026 post-monsoon imagery introduces seasonal soil moisture variation, differing operational schedules, and newer partial hybrid kiln retrofits.
-          </p>
-        </div>
-
-        {/* Bullet 3: Statistical Bounds */}
-        <div className="bg-white/80 rounded-lg p-3.5 border border-amber-200/70 space-y-1.5">
-          <div className="flex items-center gap-1.5 font-bold text-slate-800">
-            <HelpCircle className="w-4 h-4 text-amber-600 flex-shrink-0" />
-            <span>3. No Prior Ground Truth</span>
-          </div>
-          <p className="text-slate-600 leading-relaxed m-0">
-            No physical field census has yet been performed in this Demo District. Because precision and recall vary across classes (e.g. Zigzag AP is {(metrics.AP_Zigzag * 100).toFixed(1)}%), counts are reported with honest 95% confidence bounds (FCBK: 18–41, Zigzag: 21–45).
-          </p>
-        </div>
+      {/* 3 Metric Tiles with Tooltips */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+        <StatTile
+          icon={<Compass size={16} strokeWidth={1.5} />}
+          value="10 m/px"
+          label="Ground Resolution"
+          sublabel="Sentinel-2 Optical"
+          tooltip="At 10 m resolution, an average 30-45 m kiln spans 3 to 5 pixels. Oval trenches and shadows are clear, but small artisanal clamps can blend into dry soil."
+        />
+        <StatTile
+          icon={<AlertCircle size={16} strokeWidth={1.5} />}
+          value="2023 → 2026"
+          label="Domain Shift"
+          sublabel="Seasonal Soil Baseline"
+          tooltip="Trained on 2023-24 tiles. Deploying on 2025-26 imagery introduces seasonal soil moisture variation and newer hybrid kiln retrofits."
+        />
+        <StatTile
+          icon={<HelpCircle size={16} strokeWidth={1.5} />}
+          value="95% CI"
+          label="Statistical Bounds"
+          sublabel="Poisson Error Margins"
+          tooltip="Ranges (e.g. 18-41 FCBK) reflect empirical false positive and false negative rates from test benchmarks."
+        />
       </div>
 
-      <div className="mt-4 pt-3 border-t border-amber-200/60 flex flex-col sm:flex-row sm:items-center justify-between text-[11px] text-slate-600 gap-2">
-        <div>
-          <strong className="text-slate-800 font-semibold">Recommended Field Strategy:</strong> Prioritize the 18 dense clusters (51 kilns) and top-confidence FCBK sites first before dispatching the jeep to isolated edge detections.
+      {/* Collapsible Detailed Field Caveats */}
+      <DetailsCollapse summary="Technical Caveats & Uncertainty Explanations">
+        <div className="text-xs text-[#1F2328] font-sans space-y-2 pt-1">
+          <div>
+            <strong>1. Nadir Spatial Limitation:</strong> The 10 m ground sampling distance resolves main kiln bodies and chimneys but cannot discern internal combustion brick stacking or active flame temperature.
+          </div>
+          <div>
+            <strong>2. Partial Retrofits:</strong> Conversions from FCBK to Zigzag often alter only internal draft channels while retaining legacy exterior boundaries. Field verification remains necessary for borderline cases.
+          </div>
+          <div>
+            <strong>3. Weather & Cloud Shadow:</strong> Monsoon moisture alters surface reflectance; all inference uses L2A surface reflectance tiles with &lt;10% cloud threshold.
+          </div>
         </div>
-        <div className="text-slate-500 italic flex-shrink-0">
-          Source: SentinelKilnDB (NeurIPS 2025)
-        </div>
-      </div>
+      </DetailsCollapse>
     </div>
   );
 };
