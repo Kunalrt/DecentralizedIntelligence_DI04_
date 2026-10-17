@@ -233,13 +233,15 @@ def test_full_session_api_lifecycle():
     assert r4.status_code == 200
     assert "step" in r4.json()
 
-    # Wait for completion (fast test)
+    # Wait for completion (allows background pipeline thread to finish)
     import time
-    for _ in range(20):
-        st = client.get(f"/ingest/{sid}/status").json()
-        if st.get("completed"):
+    final_st = {}
+    for _ in range(60):
+        final_st = client.get(f"/ingest/{sid}/status").json()
+        if final_st.get("completed"):
             break
-        time.sleep(0.2)
+        time.sleep(0.5)
+    assert final_st.get("completed"), f"Pipeline did not complete in time: {final_st}"
 
     # 5. Fetch result
     r5 = client.get(f"/ingest/{sid}/result")
