@@ -14,9 +14,9 @@ export const FieldListPage: React.FC = () => {
   const top20 = data.top20;
   const clusters = data.clusters;
   const within1km = data.within1km;
-  const totalKilns = data.summaryStats.unique_physical_kilns;
-  const clusteredKilns = data.summaryStats.kilns_within_1km_cluster;
-  const totalClusters = data.summaryStats.total_clusters_count;
+  const totalKilns = data.summaryStats?.unique_physical_kilns ?? (data.top20?.length ?? 20);
+  const clusteredKilns = data.summaryStats?.kilns_within_1km_cluster ?? (data.within1km?.length ?? 0);
+  const totalClusters = data.summaryStats?.total_clusters_count ?? (data.clusters?.length ?? 0);
 
   const handlePrint = () => {
     window.print();

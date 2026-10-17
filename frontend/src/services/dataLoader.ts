@@ -108,7 +108,7 @@ export async function loadAllData(): Promise<AppData> {
       top20,
       metrics,
       experiments,
-      summaryStats,
+      summaryStatsRaw,
     ] = await Promise.all([
       fetchJSON<KilnGeoJSON>(getAssetUrl('data/kilns.geojson')),
       fetchJSON<HistoricalGeoJSON>(getAssetUrl('data/labels_2023.geojson')),
@@ -119,7 +119,7 @@ export async function loadAllData(): Promise<AppData> {
       fetchCSV<Top20Row>(getAssetUrl('data/top20.csv')),
       fetchJSON<MetricsData>(getAssetUrl('data/metrics.json')),
       fetchJSON<ExperimentItem[]>(getAssetUrl('data/experiments.json')),
-      fetchJSON<SummaryStats>(getAssetUrl('data/summary_stats.json')),
+      fetchJSON<Record<string, any>>(getAssetUrl('data/summary_stats.json')),
     ]);
 
     // Normalize and validate counts.csv
@@ -132,6 +132,24 @@ export async function loadAllData(): Promise<AppData> {
       recall: row.recall ?? '-',
       note: String(row.note || ''),
     }));
+
+    // Normalize summaryStats with reliable fallbacks
+    const summaryStats: SummaryStats = {
+      district_name: String(summaryStatsRaw?.district_name || 'SentinelKilnDB Sector'),
+      total_tiles_scanned: Number(summaryStatsRaw?.total_tiles_scanned || 15),
+      raw_tile_detections: Number(summaryStatsRaw?.raw_tile_detections || kilns.features.length),
+      unique_physical_kilns: Number(summaryStatsRaw?.unique_physical_kilns || summaryStatsRaw?.total_detected || kilns.features.length),
+      deduplicated_overlap_count: Number(summaryStatsRaw?.deduplicated_overlap_count || 0),
+      class_counts_raw: summaryStatsRaw?.class_counts_raw || {},
+      kilns_within_1km_cluster: Number(summaryStatsRaw?.kilns_within_1km_cluster || within1km.length),
+      total_clusters_count: Number(summaryStatsRaw?.total_clusters_count || clusters.length),
+      conversions_tracked: {
+        total_2023_baseline_fcbk: Number(summaryStatsRaw?.conversions_tracked?.total_2023_baseline_fcbk ?? 0),
+        converted_to_zigzag: Number(summaryStatsRaw?.conversions_tracked?.converted_to_zigzag ?? 0),
+        unconverted_fcbk_violations: Number(summaryStatsRaw?.conversions_tracked?.unconverted_fcbk_violations ?? (counts.find((c) => c.class === 'FCBK')?.detected ?? 0)),
+        dismantled_or_inactive: Number(summaryStatsRaw?.conversions_tracked?.dismantled_or_inactive ?? 0),
+      },
+    };
 
     // Data Validation Assertions
     if (!kilns || !kilns.features || kilns.features.length === 0) {

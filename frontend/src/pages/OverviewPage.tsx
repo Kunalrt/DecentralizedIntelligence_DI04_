@@ -29,15 +29,15 @@ export const OverviewPage: React.FC<OverviewPageProps> = ({ onNavigateTab }) => 
   const zigzagRow = data.counts.find((c) => c.class === 'Zigzag');
   const cfcbkRow = data.counts.find((c) => c.class === 'CFCBK');
 
-  const totalDetected = totalRow?.detected ?? data.summaryStats.unique_physical_kilns;
-  const fcbkDetected = fcbkRow?.detected ?? 27;
-  const zigzagDetected = zigzagRow?.detected ?? 30;
-  const cfcbkDetected = cfcbkRow?.detected ?? 8;
+  const totalDetected = totalRow?.detected ?? data.summaryStats?.unique_physical_kilns ?? 20;
+  const fcbkDetected = fcbkRow?.detected ?? 8;
+  const zigzagDetected = zigzagRow?.detected ?? 9;
+  const cfcbkDetected = cfcbkRow?.detected ?? 3;
 
-  const convZigzag = data.summaryStats.conversions_tracked.converted_to_zigzag;
-  const unconvertedFcbk = data.summaryStats.conversions_tracked.unconverted_fcbk_violations;
-  const clustersCount = data.summaryStats.total_clusters_count;
-  const clusteredKilns = data.summaryStats.kilns_within_1km_cluster;
+  const convZigzag = data.summaryStats?.conversions_tracked?.converted_to_zigzag ?? 0;
+  const unconvertedFcbk = data.summaryStats?.conversions_tracked?.unconverted_fcbk_violations ?? fcbkDetected;
+  const clustersCount = data.summaryStats?.total_clusters_count ?? (data.clusters?.length ?? 0);
+  const clusteredKilns = data.summaryStats?.kilns_within_1km_cluster ?? (data.within1km?.length ?? 0);
 
   return (
     <div className="space-y-6">
