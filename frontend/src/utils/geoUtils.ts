@@ -135,7 +135,7 @@ export function computeClusterHulls(features: KilnGeoJSONFeature[]): ClusterHull
 
   features.forEach((f) => {
     const cId = f.properties.cluster_id;
-    if (cId && cId.startsWith('Cluster')) {
+    if (cId && /^cluster/i.test(cId)) {
       if (!clusterMap[cId]) clusterMap[cId] = [];
       clusterMap[cId].push(f);
     }

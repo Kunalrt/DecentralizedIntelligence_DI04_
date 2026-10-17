@@ -17,7 +17,7 @@ const INITIAL_FILTERS: MapFiltersState = {
   },
   onlyClustered: false,
   onlyConverted: false,
-  minScore: 0.25,
+  minScore: 0.0,
   showHistorical: false,
   searchQuery: '',
 };
@@ -31,7 +31,20 @@ export const MapPage: React.FC = () => {
     lat: number;
     lon: number;
     zoom?: number;
-  } | null>(null);
+  } | null>(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const lat = params.get('lat');
+      const lon = params.get('lon');
+      const zoom = params.get('zoom');
+      if (lat && lon) {
+        return { lat: parseFloat(lat), lon: parseFloat(lon), zoom: zoom ? parseInt(zoom, 10) : 16 };
+      }
+    } catch {
+      // Fallback to null
+    }
+    return null;
+  });
 
   const allKilns = useMemo(() => data?.kilns.features ?? [], [data]);
   const historicalFeatures = useMemo(() => data?.labels2023.features ?? [], [data]);

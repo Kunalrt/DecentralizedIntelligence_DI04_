@@ -156,7 +156,33 @@ export async function loadAllData(): Promise<AppData> {
       throw new Error('kilns.geojson is empty or corrupted');
     }
 
-    // Ensure every kiln has consistent id and kiln_id properties, and null-safe attributes
+    // Build lookup for proximity clusters from clusters_summary.csv and within_1km.csv
+    const tileToClusterName: Record<string, string> = {};
+    clusters.forEach((c) => {
+      const match = c.cluster.match(/\(([^)]+)\)/);
+      if (match) {
+        tileToClusterName[match[1]] = c.cluster;
+      }
+    });
+
+    const kilnClusterMap: Record<string, { near_1km: boolean; cluster_id: string }> = {};
+    within1km.forEach((item) => {
+      const w = item as Record<string, any>;
+      const clusterName =
+        (w.tile_id && tileToClusterName[w.tile_id]) ||
+        w.cluster ||
+        (w.tile_id ? `Cluster (${w.tile_id})` : 'Cluster 1');
+      const k1 = w.kiln_id_1 || w.kiln_id;
+      const k2 = w.kiln_id_2;
+      if (k1) {
+        kilnClusterMap[k1] = { near_1km: true, cluster_id: clusterName };
+      }
+      if (k2) {
+        kilnClusterMap[k2] = { near_1km: true, cluster_id: clusterName };
+      }
+    });
+
+    // Ensure every kiln has consistent id and kiln_id properties, cluster attributes, and null-safe properties
     kilns.features.forEach((f) => {
       const p = f.properties;
       const kId = p.kiln_id || p.id || 'n/a';
@@ -164,6 +190,24 @@ export async function loadAllData(): Promise<AppData> {
       p.kiln_id = kId;
       if (p.prev_class === undefined) p.prev_class = null;
       if (p.converted === undefined) p.converted = false;
+
+      // Normalise class string at data loader (case-insensitive match to FCBK / CFCBK / Zigzag)
+      const rawClass = String(p.class || '').trim();
+      if (/^zigzag$/i.test(rawClass)) {
+        p.class = 'Zigzag';
+      } else if (/^cfcbk$/i.test(rawClass)) {
+        p.class = 'CFCBK';
+      } else if (/^fcbk$/i.test(rawClass)) {
+        p.class = 'FCBK';
+      }
+
+      // Enrich 1 km proximity clustering properties
+      if (p.cluster_id === undefined) {
+        p.cluster_id = kilnClusterMap[kId]?.cluster_id || 'ISOLATED';
+      }
+      if (p.near_1km === undefined) {
+        p.near_1km = kilnClusterMap[kId]?.near_1km ?? (p.cluster_id ? p.cluster_id.toLowerCase().startsWith('cluster') : false);
+      }
     });
 
     const totalFromCounts = counts.find((c) => c.class === 'Total')?.detected;

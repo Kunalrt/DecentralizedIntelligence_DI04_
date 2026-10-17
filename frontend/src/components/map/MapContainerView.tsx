@@ -3,13 +3,13 @@ import {
   MapContainer,
   TileLayer,
   Polygon,
-  Marker,
   Tooltip,
   CircleMarker,
   ScaleControl,
   useMap,
 } from 'react-leaflet';
 import L from 'leaflet';
+import 'leaflet.markercluster';
 import { KILN_COLORS, MAP_CONFIG } from '../../config/constants';
 import type {
   KilnGeoJSONFeature,
@@ -90,6 +90,65 @@ function createKilnDivIcon(
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],
   });
+}
+
+// Marker cluster group for kiln markers at low zoom
+function KilnMarkerClusterGroup({
+  filteredKilns,
+  selectedKiln,
+  onSelectKiln,
+}: {
+  filteredKilns: KilnGeoJSONFeature[];
+  selectedKiln: KilnProperties | null;
+  onSelectKiln: (kiln: KilnProperties) => void;
+}) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (!map) return;
+
+    const clusterGroup = L.markerClusterGroup({
+      maxClusterRadius: 50,
+      disableClusteringAtZoom: 16,
+      spiderfyOnMaxZoom: true,
+      chunkedLoading: true,
+    });
+
+    filteredKilns.forEach((feature) => {
+      const kId = feature.properties.id || feature.properties.kiln_id || 'n/a';
+      const isSelected = Boolean(
+        selectedKiln?.id === feature.properties.id ||
+          (selectedKiln && selectedKiln.id === kId)
+      );
+      const { lat, lon, score } = feature.properties;
+      const kilnClass = (feature.properties.class as 'FCBK' | 'Zigzag' | 'CFCBK') || 'FCBK';
+      const scoreText =
+        typeof score === 'number' ? `${(score * 100).toFixed(0)}%` : '-';
+
+      const marker = L.marker([lat, lon], {
+        icon: createKilnDivIcon(kilnClass, isSelected),
+      });
+
+      marker.bindTooltip(
+        `<div class="text-2xs font-mono font-medium"><strong>${kId}</strong> &bull; ${kilnClass} (${scoreText})</div>`,
+        { direction: 'top', offset: [0, -10] }
+      );
+
+      marker.on('click', () => {
+        onSelectKiln(feature.properties);
+      });
+
+      clusterGroup.addLayer(marker);
+    });
+
+    map.addLayer(clusterGroup);
+
+    return () => {
+      map.removeLayer(clusterGroup);
+    };
+  }, [map, filteredKilns, selectedKiln, onSelectKiln]);
+
+  return null;
 }
 
 export const MapContainerView: React.FC<MapContainerViewProps> = ({
@@ -207,31 +266,12 @@ export const MapContainerView: React.FC<MapContainerViewProps> = ({
           );
         })}
 
-        {/* 4. Center Markers with Distinct Shapes */}
-        {filteredKilns.map((feature) => {
-          const kId = feature.properties.id || feature.properties.kiln_id || 'n/a';
-          const isSelected = Boolean(selectedKiln?.id === feature.properties.id || (selectedKiln && selectedKiln.id === kId));
-          const { lat, lon, score } = feature.properties;
-          const kilnClass = feature.properties.class || 'n/a';
-          const scoreText = typeof score === 'number' ? `${(score * 100).toFixed(0)}%` : '-';
-
-          return (
-            <Marker
-              key={`marker-${kId}`}
-              position={[lat, lon]}
-              icon={createKilnDivIcon(kilnClass, isSelected)}
-              eventHandlers={{
-                click: () => onSelectKiln(feature.properties),
-              }}
-            >
-              <Tooltip direction="top" offset={[0, -10]}>
-                <div className="text-2xs font-mono font-medium">
-                  <strong>{kId}</strong> &bull; {kilnClass} ({scoreText})
-                </div>
-              </Tooltip>
-            </Marker>
-          );
-        })}
+        {/* 4. Center Markers Grouped in MarkerClusterGroup */}
+        <KilnMarkerClusterGroup
+          filteredKilns={filteredKilns}
+          selectedKiln={selectedKiln}
+          onSelectKiln={onSelectKiln}
+        />
       </MapContainer>
 
       {/* North Arrow */}

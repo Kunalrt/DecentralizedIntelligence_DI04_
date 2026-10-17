@@ -182,7 +182,7 @@ export const MapFilterBar: React.FC<MapFilterBarProps> = ({
           </span>
           <input
             type="range"
-            min="0.25"
+            min="0.0"
             max="0.95"
             step="0.05"
             value={filters.minScore}
