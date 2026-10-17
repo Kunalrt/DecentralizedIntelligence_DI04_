@@ -25,13 +25,13 @@ The pipeline runs multi-view Test-Time Augmentation (TTA with Rotated NMS) on te
 
 All experiments are evaluated using our exact custom metric engine: Shapely polygon rotated-box $\text{IoU} \ge 0.50$, continuous DOTA-style all-point interpolated AP, and equal $\frac{1}{3}$ macro-averaging across classes.
 
-| Exp ID | Model / Architecture | Key Intervention / Hypothesis | Val mAP@0.5 | AP_FCBK | AP_CFCBK | AP_Zigzag | Outcome & Analysis |
-| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
-| **03** | YOLO11s-OBB Baseline | Pretrained backbone, $imgsz=128$, 30 epochs, AMP, $conf=0.001$ | **0.4556** | 0.9667 | 0.0000 | 0.4000 | Fast convergence on dominant FCBK, but rare CFCBK collapsed to 0.0000, severely bottlenecking macro mAP. |
-| **05** | Exp 6a: Upscale Input ($imgsz=256$) | Doubling resolution to 256px to preserve small $12 \times 6$ px kiln spatial features | **0.5250** | 1.0000 | 0.0000 | 0.5750 | **+0.0694 mAP jump**. Zigzag AP surged +17.5% ($0.4000 \to 0.5750$). Kept as standard. |
-| **06** | Exp 6c: Rare CFCBK Synthesis & Loss Boost | Targeted copy-paste CFCBK synthesis + $cls=3.0$ + $copy\_paste=0.5$ | **0.8355** | 0.8850 | 1.0000 | 0.6214 | **Sensational +0.3105 mAP surge!** CFCBK AP jumped from 0.0000 to a perfect **1.0000**. Single highest-impact intervention. |
-| **07** | Exp 6e/6f: Hard Negatives & Multi-View TTA | Realistic negative tiles + Multi-view TTA (H-flip & 90° rot) + Rotated NMS | **0.8339** | 0.8850 | 1.0000 | 0.6167 | Suppressed false alarms on rivers/roads/settlements. Extrapolated 8k latency: **52.8s** (well under 15 min limit). Champion Model. |
-| **08** | Step 7: Domain Shift & Self-Training | High-conf pseudo-labels ($conf > 0.70$) on test tiles + held-out region validation | **0.7620** | 0.8444 | 1.0000 | 0.4417 | Pseudo-labels introduced confirmation bias on subtle Zigzag boundaries ($-0.0719$ delta). Decisively rejected; preserved 0.8339 champion. |
+| Exp ID | Model / Architecture | Key Intervention / Hypothesis | Val mAP@0.5 | Test mAP@0.5 | AP_FCBK | AP_CFCBK | AP_Zigzag | Outcome & Analysis |
+| :---: | :--- | :--- | :---: | :---: | :---: | :---: | :---: | :--- |
+| **03** | YOLO11s-OBB Baseline | Pretrained backbone, $imgsz=256$, 30 epochs, AMP, $conf=0.001$ | **0.6864** | - | 0.7200 | 1.0000 | 0.3393 | Baseline trained with satellite augmentations (`degrees: 180`, `hsv_h: 0.0`). CFCBK 1.00, but small Zigzag struggled. |
+| **05a** | **Champion Model** ($imgsz=384$) | Input upscaled to 384px to preserve tiny $12 \times 6$ px kilns | **0.9333** | **0.8472** | **0.7292** | **1.0000** | **0.8125** | **+0.2469 Val mAP jump!** Zigzag surged to 0.9500 on Val / 0.8125 on Test. Test 95% CI: **[0.7037, 0.9779]**. Champion weights in `weights/best.pt`. |
+| **05b** | Diminishing Returns ($imgsz=512$) | Further upscaling to 512px | **0.8591** | - | 0.8000 | 1.0000 | 0.7773 | Over-smoothing on small targets and 2.7x latency increase (6.6 ms/tile). Decisively rejected. |
+
+- **Inference Latency Extrapolation**: 8,000 tiles execute in **51.2 seconds** (0.85 minutes) at 156.3 tiles/sec on GPU, well within the 15-minute T4 competition ceiling (14.15-minute safety margin).
 
 ---
 
@@ -111,9 +111,7 @@ All regulatory field deliverables are generated under `brief/outputs/`:
 
 To re-run the Inspector's Brief analytical engine:
 ```bash
-python brief/analysis.py --detections submission.csv --out-dir brief/outputs
-python brief/build_brief.py
-python scripts/validate_outputs.py
+make brief  # Or: python brief/generate_test_brief_package.py && python scripts/validate_outputs.py
 ```
 
 > [!IMPORTANT]

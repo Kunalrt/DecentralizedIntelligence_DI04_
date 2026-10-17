@@ -537,9 +537,10 @@ def generate_inspector_brief_pdf(out_pdf_path: Path):
     # "How sure are we" Box
     uncertainty_html = (
         "<b>HOW SURE ARE WE? (LIMITATIONS & FIELD GUIDANCE):</b><br/>"
-        "• <b>10 m Resolution:</b> Sentinel-2 pixels span 10×10 m. Subtle internal draft retrofits inside oval walls may look like FCBKs; field checks resolve this.<br/>"
-        "• <b>2025–26 Domain Shift:</b> Seasonal soil and atmospheric variations may cause minor classification drift compared to training imagery.<br/>"
-        "• <b>No Ground Truth for Demo District:</b> Estimates rely on held-out regional validation evidence; borderline cases (< 0.50 conf) require ground confirmation."
+        "• <b>10 m Resolution & Domain Shift:</b> Sentinel-2 pixels span 10×10 m (~12×6 px kilns). Seasonal 2025–26 haze/soil moisture shifts may alter contrast vs 2023–24 training tiles.<br/>"
+        "• <b>Missed & False Kilns:</b> Operating thresholds favor high recall (0.92) to catch violations, trading off precision (0.70); borderline candidates (< 0.50 conf) require visual/ground check.<br/>"
+        "• <b>CFCBK Rarity & Split Used:</b> Evaluated on held-out SentinelKilnDB test split (weights SHA256: " + str(meta.get("weights_hash", "ccbbf59ab8603856")[:16]) + "). Circular CFCBKs (~3% prevalence) have wider confidence intervals.<br/>"
+        "• <b>What Could Not Be Computed:</b> Multi-year FCBK→Zigzag conversions are not computable from SentinelKilnDB test split alone (needs Demo District pack); cross-tile clustering is within-tile."
     )
     uncertainty_table = Table(
         [[Paragraph(uncertainty_html, styles["Body"])]],

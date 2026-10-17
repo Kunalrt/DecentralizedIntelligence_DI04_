@@ -35,11 +35,10 @@ infer:
 	$(PYTHON) src/infer.py --weights weights/best.pt --test-dir data/images/test --output submission.csv --conf 0.001 --iou 0.50 --max-det 100 --tta
 
 score:
-	$(PYTHON) -c "from ultralytics import YOLO; from pathlib import Path; from src.train import evaluate_val_split_with_custom_scorer; m = YOLO('weights/best.pt'); evaluate_val_split_with_custom_scorer(m, Path('data'))"
+	$(PYTHON) src/evaluate_test.py --submission submission.csv --test-labels data/labels/test --weights weights/best.pt
 
 brief:
-	$(PYTHON) brief/analysis.py --detections submission.csv --out-dir brief/outputs
-	$(PYTHON) brief/build_brief.py
+	$(PYTHON) brief/generate_test_brief_package.py
 	$(PYTHON) scripts/validate_outputs.py
 
 frontend-install:
