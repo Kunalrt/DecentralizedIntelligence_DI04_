@@ -32,10 +32,8 @@ export const MapPage: React.FC = () => {
     zoom?: number;
   } | null>(null);
 
-  if (!data) return null;
-
-  const allKilns = data.kilns.features;
-  const historicalFeatures = data.labels2023.features;
+  const allKilns = useMemo(() => data?.kilns.features ?? [], [data]);
+  const historicalFeatures = useMemo(() => data?.labels2023.features ?? [], [data]);
 
   // Filter kilns based on active filter state
   const filteredKilns = useMemo(() => {
@@ -104,6 +102,8 @@ export const MapPage: React.FC = () => {
   const handleCenterOnKiln = (lat: number, lon: number) => {
     setMapTarget({ lat, lon, zoom: 17 });
   };
+
+  if (!data) return null;
 
   return (
     <div className="space-y-4">

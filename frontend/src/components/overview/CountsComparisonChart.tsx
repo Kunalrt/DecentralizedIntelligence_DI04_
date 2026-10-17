@@ -18,6 +18,50 @@ interface CountsComparisonChartProps {
   counts: CountRow[];
 }
 
+const CustomTooltip = ({ active, payload }: any) => {
+  if (active && payload && payload.length) {
+    const d = payload[0].payload;
+    return (
+      <div className="bg-slate-900/95 backdrop-blur-md text-white p-3.5 rounded-xl shadow-xl border border-slate-700 text-xs space-y-2 min-w-[220px]">
+        <div className="flex items-center gap-2 font-bold border-b border-slate-700/80 pb-1.5">
+          <span
+            className="w-3 h-3 rounded-full flex-shrink-0"
+            style={{ backgroundColor: d.color }}
+          />
+          <span className="text-sm">{d.class} Kilns</span>
+        </div>
+
+        <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-slate-300">
+          <div>Detected:</div>
+          <div className="font-bold text-white text-right">{d.detected}</div>
+
+          <div>Est. Range (95% CI):</div>
+          <div className="font-bold text-amber-300 text-right">
+            {d.est_low} – {d.est_high}
+          </div>
+
+          <div>Val. Precision:</div>
+          <div className="text-right text-slate-200">
+            {typeof d.precision === 'number' ? d.precision.toFixed(2) : d.precision}
+          </div>
+
+          <div>Val. Recall:</div>
+          <div className="text-right text-slate-200">
+            {typeof d.recall === 'number' ? d.recall.toFixed(2) : d.recall}
+          </div>
+        </div>
+
+        {d.note && (
+          <div className="text-[11px] text-slate-400 italic pt-1 border-t border-slate-800">
+            {d.note}
+          </div>
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
 export const CountsComparisonChart: React.FC<CountsComparisonChartProps> = ({ counts }) => {
   const [includeTotal, setIncludeTotal] = useState(false);
 
@@ -49,50 +93,6 @@ export const CountsComparisonChart: React.FC<CountsComparisonChartProps> = ({ co
       color,
     };
   });
-
-  const CustomTooltip = ({ active, payload }: any) => {
-    if (active && payload && payload.length) {
-      const d = payload[0].payload;
-      return (
-        <div className="bg-slate-900/95 backdrop-blur-md text-white p-3.5 rounded-xl shadow-xl border border-slate-700 text-xs space-y-2 min-w-[220px]">
-          <div className="flex items-center gap-2 font-bold border-b border-slate-700/80 pb-1.5">
-            <span
-              className="w-3 h-3 rounded-full flex-shrink-0"
-              style={{ backgroundColor: d.color }}
-            />
-            <span className="text-sm">{d.class} Kilns</span>
-          </div>
-
-          <div className="grid grid-cols-2 gap-x-3 gap-y-1 text-slate-300">
-            <div>Detected:</div>
-            <div className="font-bold text-white text-right">{d.detected}</div>
-
-            <div>Est. Range (95% CI):</div>
-            <div className="font-bold text-amber-300 text-right">
-              {d.est_low} – {d.est_high}
-            </div>
-
-            <div>Val. Precision:</div>
-            <div className="text-right text-slate-200">
-              {typeof d.precision === 'number' ? d.precision.toFixed(2) : d.precision}
-            </div>
-
-            <div>Val. Recall:</div>
-            <div className="text-right text-slate-200">
-              {typeof d.recall === 'number' ? d.recall.toFixed(2) : d.recall}
-            </div>
-          </div>
-
-          {d.note && (
-            <div className="text-[11px] text-slate-400 italic pt-1 border-t border-slate-800">
-              {d.note}
-            </div>
-          )}
-        </div>
-      );
-    }
-    return null;
-  };
 
   return (
     <div className="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">

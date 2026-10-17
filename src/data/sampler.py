@@ -1,4 +1,4 @@
-"""Class imbalance and rare-class handling for Chimney Census.
+"""Class imbalance and rare-class handling for Agni Drishti.
 
 CFCBK accounts for only ~3% of all kilns in SentinelKilnDB, but contributes
 an equal 1/3 (33.3%) to the final macro-averaged mAP@0.5 competition metric.

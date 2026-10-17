@@ -1,4 +1,4 @@
-"""FastAPI inference microservice for Chimney Census
+"""FastAPI inference microservice for Agni Drishti
 Single fast endpoint POST /api/predict supporting CPU mode / mock fallback.
 """
 
@@ -10,7 +10,7 @@ import time
 from typing import List, Optional
 
 app = FastAPI(
-    title="Chimney Census Inference API",
+    title="Agni Drishti Inference API",
     description="Real-time Sentinel-2 satellite tile OBB kiln detection for Inspector Farida Khan",
     version="1.0.0",
 )
@@ -47,7 +47,7 @@ class PredictionResponse(BaseModel):
 def health_check():
     return {
         "status": "healthy",
-        "service": "chimney-census-backend",
+        "service": "agni-drishti-backend",
         "model": "YOLO11s-OBB (256px resolution)",
         "device": "cpu",
         "timestamp": time.time(),

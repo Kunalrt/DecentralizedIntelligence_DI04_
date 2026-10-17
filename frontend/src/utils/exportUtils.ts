@@ -1,5 +1,5 @@
 /**
- * Data export utilities for Chimney Census
+ * Data export utilities for Agni Drishti
  * - CSV export
  * - GPX export for handheld GPS devices / phone apps
  */
@@ -48,17 +48,17 @@ export function exportTop20ToCsv(rows: Top20Row[]) {
     ),
   ];
 
-  downloadFile(csvRows.join('\n'), 'ChimneyCensus_Top20_Priority_FieldList.csv', 'text/csv;charset=utf-8;');
+  downloadFile(csvRows.join('\n'), 'AgniDrishti_Top20_Priority_FieldList.csv', 'text/csv;charset=utf-8;');
 }
 
 export function exportTop20ToGpx(rows: Top20Row[]) {
   const gpxHeader = `<?xml version="1.0" encoding="UTF-8"?>
-<gpx version="1.1" creator="ChimneyCensus - State Pollution Control Board"
+<gpx version="1.1" creator="Agni Drishti - State Pollution Control Board"
   xmlns="http://www.topografix.com/GPX/1/1"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
   <metadata>
-    <name>Chimney Census - Top 20 Priority Inspection Targets</name>
+    <name>Agni Drishti - Top 20 Priority Inspection Targets</name>
     <desc>Priority brick kiln enforcement patrol route for Inspector Farida Khan</desc>
     <time>${new Date().toISOString()}</time>
   </metadata>`;
@@ -79,5 +79,5 @@ export function exportTop20ToGpx(rows: Top20Row[]) {
   const gpxFooter = '\n</gpx>';
   const fullGpx = `${gpxHeader}\n${waypoints}${gpxFooter}`;
 
-  downloadFile(fullGpx, 'ChimneyCensus_Top20_Waypoints.gpx', 'application/gpx+xml;charset=utf-8;');
+  downloadFile(fullGpx, 'AgniDrishti_Top20_Waypoints.gpx', 'application/gpx+xml;charset=utf-8;');
 }

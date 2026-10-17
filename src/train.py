@@ -1,4 +1,4 @@
-"""Training entrypoint and validation evaluation harness for Chimney Census.
+"""Training entrypoint and validation evaluation harness for Agni Drishti.
 
 Pipeline:
 1. Loads training hyperparameters from configs/train.yaml
@@ -134,7 +134,7 @@ def save_training_figures(save_dir: Path, run_name: str):
         axes[1, 2].legend()
         axes[1, 2].grid(True)
 
-        plt.suptitle(f"Chimney Census Training Curves ({run_name})", fontsize=15, fontweight="bold", y=0.98)
+        plt.suptitle(f"Agni Drishti Training Curves ({run_name})", fontsize=15, fontweight="bold", y=0.98)
         plt.tight_layout()
         plt.savefig(REPORTS_FIGURES / f"{run_name}_curves.png", dpi=300)
         plt.savefig(REPORTS_FIGURES / "training_curves.png", dpi=300)

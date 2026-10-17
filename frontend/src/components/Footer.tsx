@@ -2,6 +2,8 @@ import React from 'react';
 import { DATASET_CREDIT, DISTRICT_INFO } from '../config/constants';
 import { ShieldCheck, Database, Award } from 'lucide-react';
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 export const Footer: React.FC = () => {
   return (
     <footer className="bg-slate-900 border-t border-slate-800 text-slate-400 text-xs py-8 mt-auto">
@@ -42,7 +44,7 @@ export const Footer: React.FC = () => {
 
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 gap-2">
           <div>
-            Chimney Census &copy; {new Date().getFullYear()} &bull; State Pollution Control Board &bull; Non-Commercial Research
+            Agni Drishti &copy; {CURRENT_YEAR} &bull; State Pollution Control Board &bull; Non-Commercial Research
           </div>
           <div>
             Basemap: &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" className="underline hover:text-slate-300">OpenStreetMap</a> contributors

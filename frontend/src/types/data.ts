@@ -1,5 +1,5 @@
 /**
- * TypeScript Data Models for Chimney Census
+ * TypeScript Data Models for Agni Drishti
  * All properties strictly conform to project schemas.
  */
 

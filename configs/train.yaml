@@ -1,4 +1,4 @@
-# Chimney Census Baseline Training Configuration
+# Agni Drishti Baseline Training Configuration
 model:
   architecture: "yolo11s-obb.pt"  # Ultralytics pretrained OBB backbone (fallback: yolov8s-obb.pt)
   task: "obb"

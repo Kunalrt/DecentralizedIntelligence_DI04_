@@ -8,8 +8,10 @@ import { ErrorState } from './components/ErrorState';
 import { OverviewPage } from './pages/OverviewPage';
 import { MapPage } from './pages/MapPage';
 import { FieldListPage } from './pages/FieldListPage';
+import { MapAreaPage } from './pages/MapAreaPage';
 import { MethodPage } from './pages/MethodPage';
 import { DownloadsPage } from './pages/DownloadsPage';
+import { StyleguidePage } from './pages/StyleguidePage';
 
 const AppContent: React.FC = () => {
   const { data, loading, error, reload } = useData();
@@ -19,7 +21,7 @@ const AppContent: React.FC = () => {
   useEffect(() => {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (['overview', 'map', 'field', 'method', 'downloads'].includes(hash)) {
+      if (['overview', 'map', 'field', 'map-area', 'method', 'downloads', 'styleguide'].includes(hash)) {
         setActiveTab(hash as TabKey);
       }
     };
@@ -35,18 +37,18 @@ const AppContent: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 selection:bg-brand-primary selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#F5F3EE] text-[#1F2328] selection:bg-[#1F4E5F] selection:text-white font-sans">
       <Header activeTab={activeTab} onSelectTab={handleSelectTab} />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5">
         {data?.dataWarning && (
           <div
             id="data-repair-warning"
             role="alert"
-            className="mb-4 p-3 bg-amber-50 border border-amber-300 text-amber-900 rounded-lg flex items-center justify-between text-xs font-semibold shadow-xs animate-in fade-in"
+            className="mb-4 p-2.5 bg-[#FEF3C7] border border-[#FCD34D] text-[#92400E] rounded-[4px] flex items-center justify-between text-xs font-mono shadow-xs"
           >
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse flex-shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#D97706] animate-pulse flex-shrink-0" />
               <span>{data.dataWarning}</span>
             </div>
           </div>
@@ -59,8 +61,10 @@ const AppContent: React.FC = () => {
             {activeTab === 'overview' && <OverviewPage onNavigateTab={handleSelectTab} />}
             {activeTab === 'map' && <MapPage />}
             {activeTab === 'field' && <FieldListPage />}
+            {activeTab === 'map-area' && <MapAreaPage />}
             {activeTab === 'method' && <MethodPage />}
             {activeTab === 'downloads' && <DownloadsPage />}
+            {activeTab === 'styleguide' && <StyleguidePage />}
           </>
         )}
       </main>

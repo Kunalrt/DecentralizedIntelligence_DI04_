@@ -1,6 +1,6 @@
-# Chimney Census: Brick Kiln Detection & Compliance Monitoring via Sentinel-2
+# Agni Drishti: Brick Kiln Detection & Compliance Monitoring via Sentinel-2
 
-Oriented Bounding Box (OBB) detection and 3-class classification of brick kilns in Sentinel-2 RGB satellite imagery ($128 \times 128$ px, $10\text{ m/pixel}$), developed for the 24-hour **Chimney Census** hackathon.
+Oriented Bounding Box (OBB) detection and 3-class classification of brick kilns in Sentinel-2 RGB satellite imagery ($128 \times 128$ px, $10\text{ m/pixel}$), developed for the **Agni Drishti** project.
 
 ---
 

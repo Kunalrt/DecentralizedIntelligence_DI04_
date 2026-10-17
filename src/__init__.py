@@ -1,2 +1,2 @@
-"""Chimney Census package."""
+"""Agni Drishti package."""
 __version__ = "0.1.0"

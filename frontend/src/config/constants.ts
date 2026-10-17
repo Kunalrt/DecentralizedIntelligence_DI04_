@@ -70,5 +70,5 @@ export const DISTRICT_INFO = {
   inspector: 'Inspector Farida Khan',
   areaKm2: 3000,
   satelliteSource: 'Sentinel-2 RGB Multispectral (10 m/pixel nadir)',
-  modelVersion: 'ChimneyCensus-OBB v1.0 (Rotated IoU mAP: 0.834)',
+  modelVersion: 'AgniDrishti-OBB v1.0 (Rotated IoU mAP: 0.834)',
 };
