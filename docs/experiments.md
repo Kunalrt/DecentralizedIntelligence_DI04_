@@ -13,6 +13,7 @@
 
 | Exp ID | Model / Architecture | Key Technique / Hypothesis | Val mAP@0.5 | AP_FCBK | AP_CFCBK | AP_Zigzag | Outcome & Analysis (Why it worked/failed) |
 | :---: | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **Phase 4** | YOLO11s-OBB Baseline | imgsz=256, rot180, scale=0.4, no-hue, cosine LR, mosaic close 5 | 0.6864 | 0.7200 | 1.0000 | 0.3393 | Phase 4 official baseline. CFCBK achieved perfect AP (1.0000), FCBK strong at 0.7200, Zigzag at 0.3393. Macro mAP@0.5 reached 0.6864. |
 | **00** | Initial Baseline Skeleton | Repository setup, pipeline scaffold & metric validation | - | - | - | - | Pipeline initialized & verified. |
 | **01** | Data Pipeline & Sampler | YOLO-OBB 8-point parser, 360° rotation invariance, copy-paste rare CFCBK | - | - | - | - | Verified OBB geometry transforms, clockwise vertex ordering, and 30x class weight balancing for rare CFCBK. |
 | **02** | Metric Engine (Rotated IoU) | Shapely polygon IoU + DOTA-style all-point interpolated AP with equal 1/3 macro-average | 1.0000 | 1.0000 | 1.0000 | 1.0000 | Verified exact competition metric: polygon IoU >= 0.5, precision envelope integration, and equal weighting across FCBK, CFCBK, Zigzag. |

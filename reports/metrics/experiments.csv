@@ -1,0 +1,2 @@
+exp_id,architecture,imgsz,batch,epochs,amp,cos_lr,augmentations,val_mAP50,AP_FCBK,AP_CFCBK,AP_Zigzag,notes
+baseline_imgsz256,yolo11s-obb,256,32,26,True,True,"rot180, scale0.4, no-hue, mosaic1.0, close5",0.6864,0.7200,1.0000,0.3393,"Phase 4 baseline. Strong CFCBK (1.0000) and FCBK (0.7200). Zigzag at 0.3393."
