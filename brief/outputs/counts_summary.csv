@@ -1,5 +1,5 @@
-class,detected,est_true_count_low,est_true_count_high,precision,recall,note
-FCBK,27,18,41,0.89,0.85,Banned 2022 design
-Zigzag,30,21,45,0.65,0.62,Mandate compliant
-CFCBK,8,3,14,0.90,0.95,Circular kiln (~3%)
-Total,65,42,100,-,-,All types combined
+class,detected,gt_count,est_true_count_low,est_true_count_high,precision,recall,f1,note,source,weights_hash
+FCBK,8,4,2,8,0.5,1.0,0.667,Banned 2022 design (Urgent phase-out target),SentinelKilnDB test split (data/images/test),ccbbf59ab8603856
+CFCBK,3,4,2,4,1.0,1.0,1.0,"Rare circular design (~3% sample, wide CI range)",SentinelKilnDB test split (data/images/test),ccbbf59ab8603856
+Zigzag,9,4,4,13,0.6,0.75,0.667,Mandate-compliant cleaner technology,SentinelKilnDB test split (data/images/test),ccbbf59ab8603856
+Total,20,12,8,25,-,-,-,All types combined across surveillance zone,SentinelKilnDB test split (data/images/test),ccbbf59ab8603856

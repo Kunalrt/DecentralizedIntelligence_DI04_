@@ -1,20 +1,13 @@
 {
-  "district_name": "Demo District",
-  "total_tiles_scanned": 120,
-  "raw_tile_detections": 69,
-  "unique_physical_kilns": 65,
-  "deduplicated_overlap_count": 4,
-  "class_counts_raw": {
-    "Zigzag": 30,
-    "FCBK": 27,
-    "CFCBK": 8
-  },
-  "kilns_within_1km_cluster": 51,
-  "total_clusters_count": 18,
-  "conversions_tracked": {
-    "total_2023_baseline_fcbk": 45,
-    "converted_to_zigzag": 18,
-    "unconverted_fcbk_violations": 15,
-    "dismantled_or_inactive": 10
-  }
+  "district_name": "SentinelKilnDB Test Sector",
+  "source": "SentinelKilnDB test split (data/images/test)",
+  "weights_hash": "ccbbf59ab8603856",
+  "total_tiles_scanned": 15,
+  "total_detected": 20,
+  "fcbk_count": 8,
+  "zigzag_count": 9,
+  "cfcbk_count": 3,
+  "within_1km_pairs": 10,
+  "priority_formula": "Priority = 0.40*is_FCBK + 0.30*confidence + 0.20*is_within_1km + 0.10*uncertainty_bonus",
+  "mAP50": 0.8472222222222222
 }

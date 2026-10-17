@@ -1,19 +1,11 @@
 cluster,kilns,types,centre_lat_lon,max_gap_m
-Cluster 1,5,"3 FCBK, 1 Zigzag, 1 CFCBK","28.61431, 77.20135",958
-Cluster 2,5,"3 Zigzag, 1 CFCBK, 1 FCBK","28.64119, 77.19892",1187
-Cluster 3,4,"2 FCBK, 2 Zigzag","28.61151, 77.13852",1140
-Cluster 4,4,"3 FCBK, 1 Zigzag","28.61951, 77.15996",866
-Cluster 5,3,3 FCBK,"28.60046, 77.12191",634
-Cluster 6,3,"2 Zigzag, 1 FCBK","28.60796, 77.18348",820
-Cluster 7,3,"2 Zigzag, 1 FCBK","28.63301, 77.12292",916
-Cluster 8,3,3 Zigzag,"28.61811, 77.14753",1128
-Cluster 9,3,"2 CFCBK, 1 Zigzag","28.60347, 77.16476",1063
-Cluster 10,2,2 Zigzag,"28.61791, 77.18101",783
-Cluster 11,2,"1 Zigzag, 1 FCBK","28.61059, 77.12974",523
-Cluster 12,2,"1 Zigzag, 1 FCBK","28.56036, 77.18446",331
-Cluster 13,2,2 Zigzag,"28.59186, 77.12053",306
-Cluster 14,2,2 Zigzag,"28.59500, 77.17510",568
-Cluster 15,2,"1 CFCBK, 1 FCBK","28.59544, 77.19849",583
-Cluster 16,2,"1 Zigzag, 1 FCBK","28.59957, 77.14332",933
-Cluster 17,2,"1 Zigzag, 1 FCBK","28.60720, 77.10480",959
-Cluster 18,2,"1 FCBK, 1 Zigzag","28.63133, 77.15578",803
+Cluster 1 (test_tile_0000),2,FCBK,"x:59.7, y:51.7",186
+Cluster 2 (test_tile_0001),2,"FCBK, Zigzag","x:51.9, y:71.0",10
+Cluster 3 (test_tile_0004),2,"FCBK, Zigzag","x:65.6, y:42.3",24
+Cluster 4 (test_tile_0005),2,"FCBK, Zigzag","x:79.1, y:58.8",13
+Cluster 5 (test_tile_0006),2,"CFCBK, Zigzag","x:56.7, y:80.4",12
+Cluster 6 (test_tile_0009),2,"FCBK, Zigzag","x:74.0, y:51.6",7
+Cluster 7 (test_tile_0010),2,"CFCBK, Zigzag","x:44.2, y:74.4",9
+Cluster 8 (test_tile_0012),2,"FCBK, Zigzag","x:63.5, y:51.6",232
+Cluster 9 (test_tile_0013),2,"FCBK, Zigzag","x:51.0, y:65.4",5
+Cluster 10 (test_tile_0014),2,"CFCBK, Zigzag","x:79.6, y:65.8",14

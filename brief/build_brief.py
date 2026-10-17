@@ -438,8 +438,8 @@ def generate_inspector_brief_pdf(out_pdf_path: Path):
     story.append(Spacer(1, 1.5 * mm))
 
     # Table C: Kilns within 1 km (Top clusters)
-    # Columns (in mm): Cluster (20), Kilns (18), Types (50), Centre lat/lon (54), Max gap in m (40) -> Sum = 182 mm
-    col_w_c = [20 * mm, 18 * mm, 50 * mm, 54 * mm, 40 * mm]
+    # Columns (in mm): Cluster (42), Kilns (16), Types (44), Centre lat/lon (50), Max gap in m (30) -> Sum = 182 mm
+    col_w_c = [42 * mm, 16 * mm, 44 * mm, 50 * mm, 30 * mm]
     cluster_summary_text = (
         f"<b>Table C: Priority Proximity Clusters (Within 1 km of Neighbor)</b> &nbsp;—&nbsp; "
         f"<i>Total: {total_clustered_kilns} kilns in {total_clusters} clusters. Full registry in <code>brief/outputs/within_1km.csv</code>.</i>"
