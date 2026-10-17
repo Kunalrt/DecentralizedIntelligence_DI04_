@@ -1,2 +1,4 @@
-exp_id,architecture,imgsz,batch,epochs,amp,cos_lr,augmentations,val_mAP50,AP_FCBK,AP_CFCBK,AP_Zigzag,notes
-baseline_imgsz256,yolo11s-obb,256,32,26,True,True,"rot180, scale0.4, no-hue, mosaic1.0, close5",0.6864,0.7200,1.0000,0.3393,"Phase 4 baseline. Strong CFCBK (1.0000) and FCBK (0.7200). Zigzag at 0.3393."
+exp_id,architecture,imgsz,batch,epochs,amp,cos_lr,augmentations,val_mAP50,AP_FCBK,AP_CFCBK,AP_Zigzag,inference_ms,notes
+baseline_imgsz256,yolo11s-obb,256,32,26,True,True,"rot180, scale0.4, no-hue, mosaic1.0, close5",0.6864,0.7200,1.0000,0.3393,1.3,"Phase 4 baseline. Strong CFCBK (1.0000) and FCBK (0.7200). Zigzag at 0.3393."
+exp5a_imgsz384,yolo11s-obb,384,16,28,True,True,"rot180, scale0.4, no-hue, mosaic1.0, close5",0.9333,0.8500,1.0000,0.9500,2.4,"CHAMPION. Huge +0.2469 mAP jump. Zigzag AP surged to 0.9500, FCBK to 0.8500. Fast 2.4ms latency."
+exp5a_imgsz512,yolo11s-obb,512,8,30,True,True,"rot180, scale0.4, no-hue, mosaic1.0, close5",0.8591,0.7917,1.0000,0.7857,6.6,"Higher resolution increases latency nearly 3x with diminishing returns (0.8591 mAP). Rejected."

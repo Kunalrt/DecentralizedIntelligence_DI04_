@@ -13,6 +13,8 @@
 
 | Exp ID | Model / Architecture | Key Technique / Hypothesis | Val mAP@0.5 | AP_FCBK | AP_CFCBK | AP_Zigzag | Outcome & Analysis (Why it worked/failed) |
 | :---: | :--- | :--- | :---: | :---: | :---: | :---: | :--- |
+| **Phase 5a (512)** | YOLO11s-OBB (imgsz=512) | imgsz=512, batch=8, 30 epochs, AMP, cosine LR | 0.8591 | 0.7917 | 1.0000 | 0.7857 | Diminishing returns at 512px. Inference latency increased to 6.6ms/tile while mAP dropped compared to 384px. Rejected. |
+| **Phase 5a (384)** | YOLO11s-OBB (imgsz=384) | imgsz=384, batch=16, 28 epochs, AMP, cosine LR | **0.9333** | **0.8500** | **1.0000** | **0.9500** | **CHAMPION CONFIGURATION**. Stupendous +0.2469 jump in macro mAP@0.5! Zigzag AP reached 0.9500, FCBK 0.8500, CFCBK 1.0000. Ultra-fast 2.4ms latency. Selected by VAL ONLY. |
 | **Phase 4** | YOLO11s-OBB Baseline | imgsz=256, rot180, scale=0.4, no-hue, cosine LR, mosaic close 5 | 0.6864 | 0.7200 | 1.0000 | 0.3393 | Phase 4 official baseline. CFCBK achieved perfect AP (1.0000), FCBK strong at 0.7200, Zigzag at 0.3393. Macro mAP@0.5 reached 0.6864. |
 | **00** | Initial Baseline Skeleton | Repository setup, pipeline scaffold & metric validation | - | - | - | - | Pipeline initialized & verified. |
 | **01** | Data Pipeline & Sampler | YOLO-OBB 8-point parser, 360° rotation invariance, copy-paste rare CFCBK | - | - | - | - | Verified OBB geometry transforms, clockwise vertex ordering, and 30x class weight balancing for rare CFCBK. |
