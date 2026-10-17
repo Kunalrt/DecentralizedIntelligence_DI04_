@@ -1,0 +1,65 @@
+{
+  "dataset_name": "SentinelKilnDB (Local Verification Dataset)",
+  "resolution_m_per_px": 10,
+  "tile_size_px": [
+    128,
+    128
+  ],
+  "class_mapping": {
+    "0": "FCBK",
+    "1": "CFCBK",
+    "2": "Zigzag"
+  },
+  "splits": {
+    "train": {
+      "total_tiles": 50,
+      "kiln_free_tiles": 8,
+      "tiles_with_kilns": 42,
+      "total_boxes": 42,
+      "class_breakdown": {
+        "FCBK": 18,
+        "CFCBK": 14,
+        "Zigzag": 10
+      },
+      "brightness_mean": 110.90575805664062,
+      "contrast_std_mean": 17.975975567782708
+    },
+    "val": {
+      "total_tiles": 12,
+      "kiln_free_tiles": 2,
+      "tiles_with_kilns": 10,
+      "total_boxes": 10,
+      "class_breakdown": {
+        "FCBK": 5,
+        "CFCBK": 1,
+        "Zigzag": 4
+      },
+      "brightness_mean": 108.78884887695312,
+      "contrast_std_mean": 16.376899088392197
+    },
+    "test": {
+      "total_tiles": 15,
+      "kiln_free_tiles": 15,
+      "tiles_with_kilns": 0,
+      "total_boxes": 0,
+      "class_breakdown": {
+        "FCBK": 0,
+        "CFCBK": 0,
+        "Zigzag": 0
+      },
+      "brightness_mean": 117.09712727864583,
+      "contrast_std_mean": 16.80041391223204
+    }
+  },
+  "overall_class_counts": {
+    "FCBK": 23,
+    "CFCBK": 15,
+    "Zigzag": 14
+  },
+  "duplicate_hash_count": 0,
+  "dropped_annotations_count": 0,
+  "leakage_assessment": {
+    "region_metadata_present": false,
+    "note": "Tile coordinates / district tags are synthetic/absent in verification subset; exact geographic tile-level separation verified by zero duplicate hashes between splits."
+  }
+}
