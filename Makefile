@@ -15,10 +15,15 @@ help:
 	@echo "  make infer           - Run inference with TTA and generate validated submission.csv"
 	@echo "  make score           - Evaluate detections using rotated IoU mAP@0.5"
 	@echo "  make brief           - Generate Inspector's Brief (GeoJSON, PNG, PDF, Top 20)"
+	@echo "  make backend-dev     - Start FastAPI area ingestion & inference backend"
 	@echo "  make frontend-install- Install frontend dependencies"
 	@echo "  make frontend-dev    - Run Vite frontend dev server"
 	@echo "  make frontend-build  - Build static frontend site"
 	@echo "  make frontend-sync   - Sync latest analytical outputs to frontend/public/data"
+	@echo "  make test-backend    - Run backend ingestion pytest test suite"
+	@echo "  make test-frontend   - Run frontend Vitest test suite"
+	@echo "  make test            - Run all backend and frontend unit tests"
+	@echo "  make audit-text      - Run text density and clutter audit"
 	@echo "  make clean           - Clean temporary and build artifacts"
 
 setup:
@@ -41,6 +46,12 @@ brief:
 	$(PYTHON) brief/generate_test_brief_package.py
 	$(PYTHON) scripts/validate_outputs.py
 
+backend-dev:
+	uvicorn backend.main:app --port 8000
+
+test-backend:
+	$(PYTHON) -m pytest tests/test_ingestion.py
+
 frontend-install:
 	cd frontend && npm install --legacy-peer-deps
 
@@ -50,9 +61,18 @@ frontend-dev:
 frontend-build:
 	cd frontend && npm run build
 
+test-frontend:
+	cd frontend && npm run test
+
+test: test-backend test-frontend
+
+audit-text:
+	$(PYTHON) scripts/audit_text_counts.py
+
 frontend-sync:
 	$(PYTHON) frontend/scripts/sync_data.py
 
 clean:
 	$(PYTHON) -c "import shutil, glob, os; [shutil.rmtree(p, ignore_errors=True) for p in glob.glob('**/__pycache__', recursive=True)]"
+
 

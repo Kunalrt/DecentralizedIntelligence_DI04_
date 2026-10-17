@@ -178,11 +178,84 @@ npm run dev
 # 4. Build production static bundle
 npm run build
 
-# 5. (Optional) Run FastAPI inference backend
+# 5. Start FastAPI Ingestion & Inference Backend
 python -m uvicorn backend.main:app --port 8000
 ```
 
 ---
+
+## 🗺️ Map Your Area: Ingestion & Spatial Pipeline
+
+Agni Drishti includes an end-to-end area ingestion and custom survey pipeline (`/#/map-area`) enabling enforcement teams to ingest regional imagery, district boundaries, or external detections to generate official compliance reports.
+
+```
++----------------------------------------------------------------------------------------------------+
+|                                    DATA INGESTION PIPELINE                                         |
++----------------------------------------------------------------------------------------------------+
+|  [ Boundary ]        [ Sentinel-2 GeoTIFF ]       [ Detections ]                                   |
+|  .geojson/.kml/.zip      RGB 10 m/px COG            .csv / .geojson                                |
+|        |                       |                          |                                        |
+|        v                       v                          v                                        |
+|  EPSG:4326 Reproject     CRS & GSD Check           Class Normalization                             |
+|  buffer(0) Repair        16-bit -> 8-bit Stretch   (FCBK, Zigzag, CFCBK)                           |
+|        |                       |                          |                                        |
+|        +-----------+-----------+--------------------------+                                        |
+|                    v                                                                               |
+|             Boundary & Footprint Check (derive convex hull + 500m if omitted)                      |
+|                    v                                                                               |
+|             128x128 Tiling with 30 px Overlap -> YOLO11s-OBB Ingestion                             |
+|                    v                                                                               |
+|             Affine Pixel-to-WGS84 -> Spatial Deduplication (15 m / IoU >= 0.50)                   |
+|                    v                                                                               |
+|             OSM Overpass Query (Highways, Waterways) [Capped & Cached by bbox]                     |
+|                    v                                                                               |
+|             Spatial Metrics: Area, Perimeter, Haversine 1km Clusters, Road Distances               |
+|                    v                                                                               |
+|   +----------------+----------------+----------------+----------------+------------------------+   |
+|   | boundary.geojson| kilns.geojson | roads.geojson  | summary.json   | preview.png            |   |
+|   | KML Export      | GPX Waypoints | 1-Page PDF     | GeoJSON Bundle | Shareable Studio State |   |
+|   +-----------------+---------------+----------------+----------------+------------------------+   |
++----------------------------------------------------------------------------------------------------+
+```
+
+### Accepted Formats
+1. **Boundary**:
+   - `.geojson`, `.json`, `.kml`, `.zip` (shapefile containing `.shp`, `.shx`, `.dbf`, `.prj`).
+   - Reprojected to `EPSG:4326` using GeoPandas; dissolved into a single geometry; self-intersections repaired via `buffer(0)`.
+2. **Imagery**:
+   - GeoTIFF / Cloud-Optimized GeoTIFF (`.tif`, `.tiff`) with embedded Coordinate Reference System (CRS).
+   - Extracts RGB bands (1–3); stretches 16-bit or float data to 8-bit using 2nd–98th percentile contrast stretching.
+   - Rejects unreferenced rasters with a clear validation error.
+3. **Detections**:
+   - `.csv` (columns: `class,lat,lon,score` or bounding box coordinates) or `.geojson`.
+   - Validates class labels to `FCBK`, `Zigzag`, `CFCBK`.
+
+### Footprint & Boundary Derivation
+- If no boundary file is supplied, the pipeline derives it automatically from:
+  - The GeoTIFF bounding footprint, or
+  - The detection points' convex hull buffered by $500\text{ m}$.
+- Derived boundaries are marked with a `"derived": true` chip in UI and exports.
+
+### Ground Sample Distance (GSD) Handling
+- The model is calibrated for $\sim 10\text{ m/pixel}$ Sentinel-2 imagery.
+- **Moderate Resampling**: If imagery GSD differs from 10 m, it is resampled to 10 m/px with an advisory notice: *"Imagery was resampled from X m/px; accuracy may drop."*
+- **Drone Imagery Protection**: If GSD is $< 2.0\text{ m/pixel}$ (high-resolution drone orthomosaics), model inference is safely halted with the notice: *"Imagery resolution is drone-scale; kiln model is not suited."* Boundary, OSM roads, waterways, and spatial context layers are still generated.
+
+### OpenStreetMap Overpass Integration
+- Overpass API queries retrieve:
+  - **Highways**: Class-separated (primary, secondary, residential, unclassified).
+  - **Waterways**: Canals, streams, rivers for environmental setbacks.
+- Cached by coordinate bounding box to prevent redundant upstream requests.
+- **Offline / Server Fallback**: If Overpass is unreachable or times out, the pipeline proceeds safely without roads, setting `roads_available: false` with an advisory status chip.
+
+### Privacy, Retention & Quotas
+- **Upload Quotas**: $100\text{ MB}$ per file, $300\text{ MB}$ per session maximum (HTTP 413 enforced).
+- **Time-to-Live**: 1-hour session lifetime with automated background cleanup.
+- **Field Privacy**: Files processed in-memory or temporary directories; uploaded imagery is never logged or retained.
+- **Clear Data**: User-initiated `"Clear Data"` action purges all session artifacts from the server immediately.
+
+---
+
 
 ## 📚 Dataset Citation & License
 

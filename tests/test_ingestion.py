@@ -271,3 +271,139 @@ def test_full_session_api_lifecycle():
     # Verify session is gone
     r_after = client.get(f"/ingest/{sid}/status")
     assert r_after.status_code == 404
+
+
+def test_boundary_kml_format(tmp_path: Path):
+    """Checks that a boundary supplied in .kml format is parsed and reprojected to EPSG:4326."""
+    kml_file = tmp_path / "district.kml"
+    kml_text = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<kml xmlns="http://www.opengis.net/kml/2.2">\n'
+        '  <Document>\n'
+        '    <Placemark>\n'
+        '      <name>KML Area</name>\n'
+        '      <Polygon>\n'
+        '        <outerBoundaryIs>\n'
+        '          <LinearRing>\n'
+        '            <coordinates>\n'
+        '              77.10,28.50,0 77.25,28.50,0 77.25,28.65,0 77.10,28.65,0 77.10,28.50,0\n'
+        '            </coordinates>\n'
+        '          </LinearRing>\n'
+        '        </outerBoundaryIs>\n'
+        '      </Polygon>\n'
+        '    </Placemark>\n'
+        '  </Document>\n'
+        '</kml>'
+    )
+    kml_file.write_text(kml_text, encoding="utf-8")
+    geom, meta = read_boundary(kml_file)
+    assert geom.is_valid
+    assert meta["crs"] == "EPSG:4326"
+    assert math.isclose(geom.bounds[0], 77.10, abs_tol=1e-3)
+    assert math.isclose(geom.bounds[1], 28.50, abs_tol=1e-3)
+
+
+def test_boundary_zipped_shapefile(tmp_path: Path):
+    """Checks that a zipped shapefile archive (.zip with .shp, .shx, .dbf) is unpacked and dissolved."""
+    import zipfile
+    shp_dir = tmp_path / "shp_raw"
+    shp_dir.mkdir()
+    poly = Polygon([(77.1, 28.5), (77.3, 28.5), (77.3, 28.7), (77.1, 28.7), (77.1, 28.5)])
+    gdf = gpd.GeoDataFrame([{"id": 1, "name": "Zone A", "geometry": poly}], crs="EPSG:4326")
+    shp_file = shp_dir / "boundary.shp"
+    gdf.to_file(shp_file)
+
+    zip_path = tmp_path / "boundary.zip"
+    with zipfile.ZipFile(zip_path, "w") as zf:
+        for ext in [".shp", ".shx", ".dbf", ".prj", ".cpg"]:
+            f = shp_dir / f"boundary{ext}"
+            if f.exists():
+                zf.write(f, arcname=f.name)
+
+    geom, meta = read_boundary(zip_path)
+    assert geom.is_valid
+    assert meta["crs"] == "EPSG:4326"
+    assert math.isclose(geom.bounds[0], 77.1, abs_tol=1e-3)
+
+
+def test_detections_only_csv_derives_boundary():
+    """Checks that a detections-only upload derives boundary from convex hull + 500m buffer and marks it derived."""
+    sid = session_manager.create_session()
+    session = session_manager.get_session(sid)
+
+    csv_path = session.session_dir / "detections.csv"
+    with open(csv_path, "w", encoding="utf-8") as f:
+        f.write("class,lat,lon,score\n")
+        f.write("FCBK,28.50,77.20,0.92\n")
+        f.write("Zigzag,28.52,77.24,0.88\n")
+        f.write("CFCBK,28.55,77.22,0.95\n")
+    session.files["detections"] = csv_path
+
+    run_pipeline(session)
+    assert session.results_ready is True
+
+    summary_path = session.session_dir / "outputs" / "summary.json"
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    assert summary["boundary"]["derived"] is True
+    assert summary["kilns"]["total"] == 3
+    assert summary["kilns"]["by_class"]["FCBK"] == 1
+    assert summary["kilns"]["by_class"]["Zigzag"] == 1
+    assert summary["kilns"]["by_class"]["CFCBK"] == 1
+
+
+def test_drone_scale_geotiff_warning(tmp_path: Path):
+    """Checks that a high-resolution GeoTIFF (< 2.0 m/px) flags is_drone=True with clear advisory warning."""
+    file_path = tmp_path / "drone.tif"
+    # 0.000001 deg is approx 0.11 meters
+    res = 0.000001
+    transform = from_origin(77.1000, 28.6000, res, res)
+    data = (np.random.rand(3, 64, 64) * 255).astype(np.uint8)
+    with rasterio.open(
+        file_path, "w", driver="GTiff", height=64, width=64, count=3,
+        dtype=np.uint8, crs="EPSG:4326", transform=transform
+    ) as dst:
+        dst.write(data)
+
+    info = read_imagery(file_path)
+    assert info["is_drone"] is True
+    assert info["gsd_m"] < 2.0
+    assert any("drone-scale" in w for w in info["warnings"])
+
+
+def test_oversized_file_rejected():
+    """Checks that uploading a file larger than 100 MB returns 413 Payload Too Large."""
+    sid = session_manager.create_session()
+    from backend.main import MAX_FILE_BYTES
+    oversized_bytes = b"0" * (MAX_FILE_BYTES + 1024)
+    resp = client.post(
+        f"/ingest/{sid}/files",
+        files={"boundary": ("oversized.geojson", oversized_bytes, "application/geo+json")}
+    )
+    assert resp.status_code == 413
+    assert "exceeds 100 MB limit" in resp.json()["detail"]
+
+
+def test_overpass_offline_graceful_fallback(monkeypatch):
+    """Checks that when Overpass OSM service is offline/unreachable, pipeline finishes and notes roads unavailable."""
+    import requests
+    def mock_post(*args, **kwargs):
+        raise requests.exceptions.ConnectTimeout("Overpass server down")
+
+    monkeypatch.setattr("requests.post", mock_post)
+
+    sid = session_manager.create_session()
+    session = session_manager.get_session(sid)
+
+    boundary_path = session.session_dir / "boundary.geojson"
+    b_poly = box(77.1, 28.1, 77.2, 28.2)
+    with open(boundary_path, "w", encoding="utf-8") as f:
+        json.dump({"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {}, "geometry": shapely.geometry.mapping(b_poly)}]}, f)
+    session.files["boundary"] = boundary_path
+
+    run_pipeline(session)
+    assert session.results_ready is True
+    summary_path = session.session_dir / "outputs" / "summary.json"
+    summary = json.loads(summary_path.read_text(encoding="utf-8"))
+    assert summary["infrastructure"]["roads_available"] is False
+    assert any("Overpass" in w for w in summary.get("warnings", []))
+

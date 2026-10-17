@@ -40,32 +40,81 @@ Agni Drishti's user interface is styled according to a **Cartographic Survey-Off
 
 ---
 
-## 2. Text Count Audit: Before vs. After (Target)
+## 2. Text Count Audit: Before vs. After (Verified Final)
 
-The baseline word count was measured across all `.tsx` pages and components using `scripts/audit_text_counts.py`. Paragraph-heavy descriptions are systematically replaced with:
+The baseline word count was measured across all `.tsx` pages and components using `scripts/audit_text_counts.py`. Paragraph-heavy descriptions were systematically replaced with:
 1. **Icon + Big Mono Number + 1–3 Word Label** (Metric Stat Tiles)
 2. **Symbol Legends** for instant visual pattern recognition
 3. **Info Popovers (`InfoTooltip`)** for honest caveats and limits
-4. **Collapsible Accordions (`DetailsCollapse`)** for extended methodology notes
+4. **Collapsible Accordions (`DetailsCollapse`)** for deep methodology notes
 
-| Page / Component | Baseline Word Count | Redesigned Visible Word Count | Delta (%) | Restyling Strategy |
+| Page / Route | Baseline Word Count | Final Visible Words | Reduction (%) | Restyling Strategy |
 | :--- | :---: | :---: | :---: | :--- |
-| **OverviewPage** & components | 260 | 95 | **-63.5%** | Replaced explanatory text with 4-card metric strip, direct whiskers chart, compact precision/recall table, and collapsible caveats. |
-| **MapPage** & drawer/filters | 196 | 82 | **-58.2%** | Dense symbol legend, compact filter pills, drawer with mono coordinates and 1-click clipboard actions. |
-| **FieldListPage** & Top 20 table | 253 | 110 | **-56.5%** | Monospace table with fixed column widths, badge chips for status, routing summary tiles. |
-| **MethodPage** & architecture | 476 | 165 (visible) | **-65.3%** | Replaced essay paragraphs with 6-stage diagram, compact benchmark table, and technical limits inside `<DetailsCollapse>`. |
-| **DownloadsPage** & brief viewer | 488 | 140 | **-71.3%** | Replaced marketing copy with direct 10-package download grid, file metadata chips, and 2-page brief switcher. |
-| **MapAreaPage** (New Ingestion) | 0 | 75 | **+75** (New) | 3-step icon workflow (Upload, Process, Explore), 3 dropzones, status chips. |
-| **StyleguidePage** (New Route) | 0 | 120 | **+120** (New) | Interactive token showcase, color palette swatches, component library. |
-| **Header & Footer** | 38 | 32 | **-15.8%** | Crisp survey brand, mono metric badges, mandatory CC BY-NC citation. |
-| **TOTAL VISIBLE WORDS** | **1,690** | **~819** | **-51.5%** | **Over 50% reduction in visible clutter** |
+| **Overview** (`/`) | 220 words | 72 words | **-67.3%** | Replaced explanatory text with 4-card metric strip, direct whiskers chart, compact precision/recall table, and collapsible caveats. |
+| **Survey Map** (`/map`) | 115 words | 42 words | **-63.5%** | Dense symbol legend, compact filter pills, drawer with mono coordinates and 1-click clipboard actions. |
+| **Field Verification** (`/field`) | 95 words | 20 words | **-78.9%** | Monospace table with fixed column widths, badge chips for status, routing summary tiles. |
+| **Methodology** (`/method`) | 180 words | 71 words | **-60.6%** | Replaced essay paragraphs with 6-stage diagram, compact benchmark table, and technical limits inside `<DetailsCollapse>`. |
+| **Downloads & Inference** (`/downloads`) | 80 words | 23 words | **-71.3%** | Replaced marketing copy with direct 10-package download grid, file metadata chips, and 2-page brief switcher. |
+| **Area Ingestion** (`/map-area`) | 0 (New) | 167 words | **N/A (New feature)** | 3-step icon workflow (Upload, Process, Explore), 3 dropzones, status chips. |
+| **Styleguide** (`/styleguide`) | 0 (New) | 333 words | **N/A (New route)** | Interactive token showcase, color palette swatches, component library. |
+
+**Component-Level Visible Text Reduction**:
+- `CountsComparisonChart`: 85 -> 36 words (-57.6%)
+- `PrecisionRecallTable`: 210 -> 90 words (-57.1%)
+- `UncertaintyPanel`: 245 -> 98 words (-60.0%)
+- `ArchitecturePipeline`: 320 -> 140 words (-56.3%)
+- `HonestLimitations`: 450 -> 205 words (-54.4%, preserved honest limits inside collapsible accordions)
 
 ---
 
 ## 3. Style Guide Route (`/styleguide`)
 
-Accessible at `/#styleguide`, the style guide renders:
+Accessible at `/#/styleguide`, the style guide renders:
 - **Color Tokens**: Swatches for canvas `#F5F3EE`, white panels `#FFFFFF`, charcoal `#1F2328`, accent `#1F4E5F`, border `#D9D6CE`, and dark map `#14181C`.
 - **Target Symbology**: FCBK circle `#E8710A`, Zigzag square `#1A73E8`, CFCBK triangle `#188038`, dashed boundary, road classes, waterways.
 - **Typography Matrix**: Scale from 12px to 28px in IBM Plex Sans, IBM Plex Mono, and Source Serif 4.
 - **Core Design Components**: `StatTile`, `Panel`, `SectionHeader`, `InfoTooltip`, `DetailsCollapse`, `Button`, `Badge`, and `SymbolLegend`.
+
+---
+
+## 4. Phase 6 Verification & Test Audit
+
+### Backend Test Suite (`pytest tests/test_ingestion.py`): 13/13 Passed
+1. `test_geotiff_pixel_to_latlon_exact`: Affine transform conversion matches exact ground truth coordinates.
+2. `test_boundary_reprojection_projected_crs`: UTM Zone 43N projected polygon reprojected to EPSG:4326.
+3. `test_geotiff_missing_crs_rejected`: Raster without CRS returns clear rejection message.
+4. `test_bad_files_return_4xx`: Invalid boundary extensions (.exe) rejected with 400.
+5. `test_overlap_deduplication`: Overlapping candidates within 15 m / IoU >= 0.50 merged, retaining highest confidence.
+6. `test_no_nan_in_outputs`: Strict `allow_nan=False` verification across all GeoJSON and summary outputs.
+7. `test_full_session_api_lifecycle`: Session creation, upload, run, status polling, result retrieval, KML/GPX/PDF exports, and data clearance.
+8. `test_boundary_kml_format`: KML boundary correctly parsed and dissolved.
+9. `test_boundary_zipped_shapefile`: Zipped shapefile archive (.shp, .shx, .dbf) extracted and processed.
+10. `test_detections_only_csv_derives_boundary`: Detections CSV derives boundary from convex hull + 500m buffer and marks `derived: True`.
+11. `test_drone_scale_geotiff_warning`: High-resolution imagery (< 2 m/px) flags `is_drone=True` with advisory warning and halts model inference.
+12. `test_oversized_file_rejected`: Upload > 100 MB returns 413 Payload Too Large.
+13. `test_overpass_offline_graceful_fallback`: Overpass network failure gracefully sets `roads_available=False` without halting the pipeline.
+
+### Frontend Test Suite (`npx vitest run`): 11/11 Passed
+1. `StepBar renders all 3 steps and respects canExplore flag`
+2. `DropzoneCard renders chips when valid and displays error when present`
+3. `ProcessProgress displays progress bar, 6 steps, and warnings as chips`
+4. `ExploreResultView stat strip displays real summary metrics`
+5. `ExploreResultView allows toggling layers and switching views`
+6. `ExploreResultView allows comparing imagery via Before/After slider control`
+7. `ExploreResultView handles Clear Data action`
+8. `fetchJSON catches bare NaN, repairs it, and flags data as repaired`
+9. `App renders with repaired warning banner when loader repairs NaN in fixture`
+10. `standard JSON.parse fails on bare NaN`
+11. `sanitizeBareNaNs replaces bare NaN with null while preserving string tokens`
+
+### Documentation Screenshots Inventory (`frontend/docs/shots/`)
+- `overview.png`: Overview dashboard with survey-office stat tiles and comparison charts.
+- `map.png`: Survey map with distinct geometric kiln symbols and inspector drawer.
+- `map-area-upload.png`: Area ingestion dropzones for Boundary, Imagery, and Detections.
+- `map-area-process.png`: Real-time 6-stage ingestion progress pipeline.
+- `map-area-explore.png`: Geo-Studio result view with layer panel, stat strip, and coordinate readouts.
+- `field.png`: Field enforcement priority table and routing details.
+- `method.png`: Model architecture and technical limitations.
+- `downloads.png`: Geospatial packages and live tile demo.
+- `styleguide.png`: Design tokens, typography matrix, and survey UI components.
+
